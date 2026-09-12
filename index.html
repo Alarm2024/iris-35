@@ -10,15 +10,17 @@
 :root{--bg:#05010c;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
 body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55}
-[dir=rtl] body{font-family:ui-sans-serif,system-ui,"Segoe UI",Tahoma,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:16px 16px 88px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-.signs{letter-spacing:.14em;font-size:18px;color:var(--dim)}
-.langs{display:flex;gap:6px}
-.langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:6px 10px;font:700 11px inherit;letter-spacing:.12em;cursor:pointer}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px}
+.mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#9945ff,#14f195);display:grid;place-items:center;font-weight:800}
+.word{font-size:11px;letter-spacing:.32em;color:var(--dim)}
+.langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
+.langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:6px 10px;font:700 11px inherit;letter-spacing:.08em;cursor:pointer}
 .langs button.on{color:#04110a;background:var(--g);border-color:var(--g)}
-.hero{margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid var(--l);background:#05010c}
+.hero{margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid var(--l)}
 .hero img{width:100%;height:auto;display:block}
+.signs{margin:0 0 10px;letter-spacing:.14em;font-size:18px;color:var(--dim)}
 .lede,.hint,.love{color:var(--dim);font-size:15px}
 .love{margin-top:28px;font-size:16px;line-height:1.7;color:#e8e6f6}
 h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin:22px 2px 8px}
@@ -59,25 +61,30 @@ a{color:var(--c)}
 <body>
 <div class="wrap">
   <div class="top">
-    <p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
-    <div class="langs">
-      <button type="button" id="lang-en" class="on">EN</button>
-      <button type="button" id="lang-ar">AR</button>
+    <div class="brand"><div class="mark">35</div><span class="word">IRIS</span></div>
+    <div class="langs" id="langs">
+      <button type="button" data-lang="en" class="on">EN</button>
+      <button type="button" data-lang="ar">AR</button>
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="zh">中文</button>
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="es">ES</button>
     </div>
   </div>
   <div class="hero"><img src="https://35.elghaly.dev/IMG_5183.jpeg" alt="35 ELGHALY"/></div>
-  <p class="lede" data-en="Not a normal site. First pass free. No account. Nothing sent to us." data-ar="ليس موقعاً عادياً. المرور الأول مجاني. بلا حساب. لا شيء يُرسل إلينا."></p>
+  <p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
+  <p class="lede" data-en="Not a normal site. First pass free. No account. Nothing sent to us." data-ar="ليس موقعاً عادياً. المرور الأول مجاني. بلا حساب. لا شيء يُرسل إلينا." data-ru="Это не обычный сайт. Первый проход бесплатный. Без аккаунта. Ничего нам не отправляется." data-zh="这不是普通网站。首次免费。无账号。不向我们发送任何数据。" data-de="Keine normale Seite. Erster Durchgang kostenlos. Kein Konto. Nichts wird an uns gesendet." data-es="No es un sitio normal. Primer paso gratis. Sin cuenta. Nada se nos envía."></p>
   <div class="pics">
-    <div class="pic"><b data-en="Look" data-ar="انظر"></b><span data-en="Open the path on YOUR glass." data-ar="افتح المسار على زجاجك."></span></div>
-    <div class="pic"><b data-en="Tap" data-ar="اضغط"></b><span data-en="The page answers." data-ar="الصفحة تجيب."></span></div>
-    <div class="pic"><b data-en="Earn" data-ar="اكسب"></b><span data-en="Help people you trust after you can do this." data-ar="ساعد من تثق بهم بعد أن تتعلم."></span></div>
+    <div class="pic"><b data-en="Look" data-ar="انظر" data-ru="Смотри" data-zh="看" data-de="Sehen" data-es="Mira"></b><span data-en="Open the path on YOUR glass." data-ar="افتح المسار على زجاجك." data-ru="Открой путь на СВОём экране." data-zh="在你的屏幕上打开路径。" data-de="Öffne den Pfad auf DEINEM Glas." data-es="Abre la ruta en TU pantalla."></span></div>
+    <div class="pic"><b data-en="Tap" data-ar="اضغط" data-ru="Нажми" data-zh="点" data-de="Tippen" data-es="Toca"></b><span data-en="The page answers." data-ar="الصفحة تجيب." data-ru="Страница отвечает." data-zh="页面会回答。" data-de="Die Seite antwortet." data-es="La página responde."></span></div>
+    <div class="pic"><b data-en="Earn" data-ar="اكسب" data-ru="Заработай" data-zh="赚" data-de="Verdienen" data-es="Gana"></b><span data-en="Help people you trust after you can do this." data-ar="ساعد من تثق بهم بعد أن تتعلم." data-ru="Помоги тем, кому доверяешь, когда сам умеешь." data-zh="学会之后，帮你信任的人。" data-de="Hilf Menschen, denen du vertraust, wenn du das kannst." data-es="Ayuda a quien confías cuando ya sepas hacerlo."></span></div>
   </div>
-  <p class="hint" id="ai-line" data-en="What happened?" data-ar="ماذا حدث؟"></p>
+  <p class="hint" id="ai-line" data-en="What happened?" data-ar="ماذا حدث؟" data-ru="Что случилось?" data-zh="发生了什么？" data-de="Was ist passiert?" data-es="¿Qué pasó?"></p>
   <div class="askgrid">
-    <button type="button" data-go="iphone"><span data-en="Someone wants an app on my phone" data-ar="شخص يريد تطبيقاً على هاتفي"></span><small data-en="iPhone / Android settings" data-ar="إعدادات الآيفون / أندرويد"></small></button>
-    <button type="button" data-go="iphone"><span data-en="Unknown device on my account" data-ar="جهاز مجهول على حسابي"></span><small data-en="Apple ID or Google devices" data-ar="أجهزة Apple أو Google"></small></button>
-    <button type="button" data-go="sig"><span data-en="I signed or sent crypto" data-ar="وقَّعت أو أرسلت عملة"></span><small data-en="SOL / BTC / ETH public hash" data-ar="توقيع عام SOL / BTC / ETH"></small></button>
-    <button type="button" data-go="sig"><span data-en="They said connect wallet" data-ar="قالوا اربط المحفظة"></span><small data-en="Do not connect. Paste the hash" data-ar="لا تربط. الصق التوقيع فقط"></small></button>
+    <button type="button" data-go="iphone"><span data-en="Someone wants an app on my phone" data-ar="شخص يريد تطبيقاً على هاتفي" data-ru="Хотят приложение на телефон" data-zh="有人要在手机上装应用" data-de="Jemand will eine App auf mein Telefon" data-es="Alguien quiere una app en mi teléfono"></span><small>iPhone / Android</small></button>
+    <button type="button" data-go="iphone"><span data-en="Unknown device on my account" data-ar="جهاز مجهول على حسابي" data-ru="Чужое устройство в аккаунте" data-zh="账户上有陌生设备" data-de="Unbekanntes Gerät am Konto" data-es="Dispositivo desconocido en mi cuenta"></span><small>Apple / Google</small></button>
+    <button type="button" data-go="sig"><span data-en="I signed or sent crypto" data-ar="وقَّعت أو أرسلت عملة" data-ru="Подписал или отправил крипто" data-zh="我签了名或转了币" data-de="Ich habe signiert oder gesendet" data-es="Firmé o envié cripto"></span><small>SOL / BTC / ETH</small></button>
+    <button type="button" data-go="sig"><span data-en="They said connect wallet" data-ar="قالوا اربط المحفظة" data-ru="Сказали подключить кошелёк" data-zh="他们让我连接钱包" data-de="Sie sagten: Wallet verbinden" data-es="Dijeron conectar la cartera"></span><small data-en="Do not connect. Paste the hash" data-ar="لا تربط. الصق التوقيع" data-ru="Не подключать. Вставь хеш" data-zh="不要连接。只粘贴哈希" data-de="Nicht verbinden. Hash einfügen" data-es="No conectes. Pega el hash"></small></button>
   </div>
   <div class="tabs">
     <button type="button" id="tab-iphone" class="on">iPhone</button>
@@ -88,7 +95,7 @@ a{color:var(--c)}
   <div id="android" class="panel"></div>
   <div id="sig" class="panel">
     <div class="card">
-      <label for="q" data-en="Public hash only" data-ar="توقيع عام فقط"></label>
+      <label for="q" data-en="Public hash only" data-ar="توقيع عام فقط" data-ru="Только публичный хеш" data-zh="仅公开哈希" data-de="Nur öffentlicher Hash" data-es="Solo hash público"></label>
       <textarea id="q" spellcheck="false" autocomplete="off" placeholder="SOL / BTC / ETH"></textarea>
       <div class="row">
         <button class="go" id="run" type="button">Classify</button>
@@ -97,14 +104,14 @@ a{color:var(--c)}
       <div class="out" id="out"><p><span class="badge A" id="badge">-</span></p><p class="rule" id="report"></p></div>
     </div>
   </div>
-  <h2 data-en="Ask IRIS" data-ar="اسأل IRIS"></h2>
+  <h2 data-en="Ask IRIS" data-ar="اسأل IRIS" data-ru="Спроси IRIS" data-zh="问 IRIS" data-de="Frag IRIS" data-es="Pregunta a IRIS"></h2>
   <div class="card">
-    <p class="hint" data-en="After you looked. Instant answer. Nothing stored on a server." data-ar="بعد أن ترى. إجابة فورية. لا شيء على خادم."></p>
+    <p class="hint" data-en="After you looked. Instant answer. Nothing stored on a server." data-ar="بعد أن ترى. إجابة فورية. لا شيء على خادم." data-ru="После просмотра. Мгновенный ответ. Ничего на сервере." data-zh="看完再问。即时回答。不存服务器。" data-de="Nachdem du gesehen hast. Sofortantwort. Nichts auf einem Server." data-es="Después de mirar. Respuesta al instante. Nada en un servidor."></p>
     <textarea id="askq" placeholder="Ask IRIS"></textarea>
     <div class="row"><button class="go" type="button" id="askgo">Answer</button></div>
     <div class="out" id="askout"><p class="rule" id="askrep"></p></div>
   </div>
-  <p class="love" data-en="See first. Protect the people you love. Teach them to see, without taking their phone." data-ar="أبصر أولاً. احمِ من تحب. علِّمهم أن يروا، من غير أن تأخذ هاتفهم."></p>
+  <p class="love" data-en="See first. Protect the people you love. Teach them to see, without taking their phone." data-ar="أبصر أولاً. احمِ من تحب. علِّمهم أن يروا، من غير أن تأخذ هاتفهم." data-ru="Сначала увидь. Защити тех, кого любишь. Научи их видеть, не забирая телефон." data-zh="先看清楚。保护你爱的人。教他们看，不要拿走他们的手机。" data-de="Zuerst sehen. Schütze die, die du liebst. Lehre sie zu sehen, ohne ihr Telefon zu nehmen." data-es="Mira primero. Protege a quien amas. Enséñales a ver, sin quitarles el teléfono."></p>
   <footer><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
 </div>
 <script src="app.js"></script>
@@ -112,26 +119,22 @@ a{color:var(--c)}
 var LANG=localStorage.getItem("35-iris-lang")||"en";
 function applyLang(l){
   LANG=l; localStorage.setItem("35-iris-lang",l);
-  document.getElementById("root").lang=l;
+  document.getElementById("root").lang=l==="zh"?"zh-Hans":l;
   document.getElementById("root").dir=l==="ar"?"rtl":"ltr";
-  document.getElementById("lang-en").classList.toggle("on",l==="en");
-  document.getElementById("lang-ar").classList.toggle("on",l==="ar");
+  document.querySelectorAll("#langs button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lang")===l);});
   document.querySelectorAll("[data-en]").forEach(function(n){n.textContent=n.getAttribute("data-"+l)||n.getAttribute("data-en");});
 }
-document.getElementById("lang-en").onclick=function(){applyLang("en");};
-document.getElementById("lang-ar").onclick=function(){applyLang("ar");};
+document.querySelectorAll("#langs button").forEach(function(b){b.onclick=function(){applyLang(b.getAttribute("data-lang"));};});
 applyLang(LANG);
 function replyAsk(t){
   t=(t||"").toLowerCase();
-  var ar=LANG==="ar";
-  if(!t.trim())return ar?"اكتب ما قالوه أو ما تراه.":"Write what they said or what you see.";
-  if(/seed|mnemonic|private key|بذرة|مفتاح/.test(t))return ar?"لا تلصقها هنا. امح. غيّرها من جهازك.":"Do not paste that here. Wipe the box. Change it on YOUR device.";
-  if(/install|apk|cleaner|ثبّت|نظّف/.test(t))return ar?"لا تثبّت. افتح تبويب الهاتف.":"Do not install. Open the phone tab.";
-  if(/connect|wallet|اربط|محفظة/.test(t))return ar?"لا تربط. الصق توقيعاً عاماً فقط.":"Do not connect. Paste a public hash only.";
-  if(/2fa|otp|كود/.test(t))return ar?"لا ترسل الكود. أغلق. غيّر كلمة السر من هذا الهاتف.":"Do not send the code. Hang up. Change the password on this phone.";
-  if(/screen|remote|شاشة/.test(t))return ar?"لا تحكم عن بعد. أنت تضغط.":"No remote control. You tap.";
-  if(/price|pay|سعر|ادفع/.test(t))return ar?"الأول مجاني. الزيادة بعد العمل إن طلبت.":"First pass is free. Extra only after work you asked for.";
-  return ar?"اختر الهاتف أو الصق توقيعاً عاماً. تطبيق أو كود أو ربط من غريب = قف.":"Pick a phone tab or paste a public hash. App / code / connect from a stranger = stop.";
+  if(!t.trim())return "Write what they said or what you see.";
+  if(/seed|mnemonic|private key|بذرة/.test(t))return "Do not paste that here. Wipe the box. Change it on YOUR device.";
+  if(/install|apk|cleaner|ثبّت/.test(t))return "Do not install. Open the phone tab.";
+  if(/connect|wallet|اربط/.test(t))return "Do not connect. Paste a public hash only.";
+  if(/2fa|otp|كود/.test(t))return "Do not send the code. Hang up. Change the password on this phone.";
+  if(/price|pay|سعر/.test(t))return "First pass is free. Extra only after work you asked for.";
+  return "Pick a phone tab or paste a public hash. App / code / connect from a stranger = stop.";
 }
 document.getElementById("askgo").onclick=function(){
   document.getElementById("askout").classList.add("on");
