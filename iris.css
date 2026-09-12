@@ -1,0 +1,3 @@
+.hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(153,69,255,.28);background:#05010c}
+.hero img{width:100%;height:auto;display:block}
+.hero .in{position:absolute;left:8%;width:48%;bottom:6.8%;text-align:center;letter-spacing:.52em;font-size:clamp(10px,2.7vw,16px);font-weight:500;color:#eceee8;text-transform:uppercase;pointer-events:none}
