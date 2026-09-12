@@ -21,7 +21,10 @@ jobs:
       - name: Build public site artifact
         run: |
           mkdir -p _site
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-dejavu-core python3-pil
           cp index.html app.js favicon.svg CNAME iris.css _site/
+          python3 make_logo.py
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
