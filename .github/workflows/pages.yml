@@ -24,8 +24,6 @@ jobs:
           cp index.html app.js favicon.svg CNAME _site/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
