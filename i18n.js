@@ -37,9 +37,8 @@ notif_q:"وصول للإشعارات لتطبيق لا تعرفه؟",notif_p:"ا
 fwd_q:"تحويل Gmail أو فلتر لم تضعه؟",fwd_p:"Gmail → الإعدادات → التحويل والفلاتر"
 }
 };
-I18N.ru=I18N.en;I18N.zh=I18N.en;I18N.de=I18N.en;I18N.es=I18N.en;
-I18N.ru.no="нет";I18N.ru.yes="да";I18N.ru.idk="не уверен";
-I18N.de.no="nein";I18N.de.yes="ja";I18N.de.idk="unsicher";
-I18N.es.no="no";I18N.es.yes="sí";I18N.es.idk="no sé";
-I18N.zh.no="否";I18N.zh.yes="是";I18N.zh.idk="不确定";
+I18N.ru=Object.assign({},I18N.en,{no:"нет",yes:"да",idk:"не уверен"});
+I18N.de=Object.assign({},I18N.en,{no:"nein",yes:"ja",idk:"unsicher"});
+I18N.es=Object.assign({},I18N.en,{no:"no",yes:"sí",idk:"no sé"});
+I18N.zh=Object.assign({},I18N.en,{no:"否",yes:"是",idk:"不确定"});
 function t(id){var L=curLang();return (I18N[L]&&I18N[L][id])||I18N.en[id]||id;}
