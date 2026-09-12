@@ -23,12 +23,12 @@ jobs:
           mkdir -p _site
           sudo apt-get update -qq
           sudo apt-get install -y -qq fonts-dejavu-core python3-pil
-          cp index.html app.js favicon.svg CNAME iris.css gate.js lock.js _site/
+          cp index.html app.js favicon.svg CNAME iris.css gate.js lock.js i18n.js _site/
           python3 make_logo.py || true
           python3 - <<'PY'
           p="_site/index.html"
           t=open(p,encoding="utf-8").read()
-          t=t.replace('<script src="app.js"></script>','<script src="app.js"></script>\n<script src="lock.js"></script>')
+          t=t.replace('<script src="app.js"></script>','<script src="i18n.js"></script>\n<script src="app.js"></script>\n<script src="lock.js"></script>')
           if "548 Market" not in t:
             t=t.replace("</footer>","<br/>548 Market Street, San Francisco, California 94104</footer>")
           open(p,"w",encoding="utf-8").write(t)
