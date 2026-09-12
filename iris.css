@@ -2,3 +2,5 @@
 .hero img{width:100%;height:auto;display:block}
 .hero .in{position:absolute;left:8%;width:48%;bottom:6.8%;text-align:center;letter-spacing:.52em;font-size:clamp(10px,2.7vw,16px);font-weight:500;color:#eceee8;text-transform:uppercase;pointer-events:none}
 .addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;color:#b9b6d3;font-size:13px}
+#gate{display:none!important}
+body.gated{overflow:auto!important}

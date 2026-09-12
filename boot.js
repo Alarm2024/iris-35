@@ -9,12 +9,12 @@
       +'<p class="addr" dir="ltr">35 Zamalek, Cairo, Egypt</p>';
   }
 })();
-var OPEN_HASH={"776f73d0828bcbc1b000e23d7c98cd8124aa1089f8bdeb2ccc0a9afe7adcddc9":1,"0d2242d08fbb6a46f5eef8f8958ebab6295c483de07379e59da4c69135e73bdd":1,"68a686d61efda2141bbfa030b22b6d9d6f4e5b8c9f529f41d26f984ad4d3528d":1};
-function isOpen(){try{return localStorage.getItem("35-iris-open")==="1";}catch(e){return false;}}
-function setOpen(){try{localStorage.setItem("35-iris-open","1");}catch(e){}}
+function gotMail(){try{return !!(localStorage.getItem("35-iris-member")||"").trim();}catch(e){return false;}}
+function saveMail(v){try{localStorage.setItem("35-iris-member",v);}catch(e){}}
 function qq(item){return (typeof t==="function"&&t(item.id+"_q")!==item.id+"_q")?t(item.id+"_q"):item.q;}
 function pp(item){return (typeof t==="function"&&t(item.id+"_p")!==item.id+"_p")?t(item.id+"_p"):item.path;}
 function bb(v){return typeof t==="function"?t(v):v;}
+function ar(){return typeof curLang==="function"&&curLang()==="ar";}
 renderTrack=function(name){
   var track=TRACKS[name],root=document.getElementById(name);if(!root||!track)return;
   var answers=(loadState(track.key).answers)||{},html="";
@@ -26,15 +26,16 @@ renderTrack=function(name){
     });
     html+="</div></div>";
   });
-  if(isOpen()){
+  if(gotMail()){
     var r=rank(track,answers);
     html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class='rule'>"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+bb("reset")+"</button></div></div>";
     html+=afterDesk(r.cls).replace("<div class='card'","<div class='card' dir='ltr'");
   } else {
-    var ar=typeof curLang==="function"&&curLang()==="ar";
-    html+="<div class='card'><p class='path'>RESULT</p><p class='q'>"+(ar?"اقرأ أولاً. بعدها نرسل الرقم إلى بريدك.":"Read the paths first. Then we mail the number.")+"</p>";
-    html+="<form id='open-form' action='https://formsubmit.co/support@elghaly.dev' method='POST'><input type='hidden' name='_subject' value='IRIS open number'/><input type='hidden' name='_captcha' value='false'/><input type='hidden' name='_next' value='https://iris-35.elghaly.dev/?sent=1'/><input type='hidden' name='_autoresponse' value='IRIS open number: 35IRIS7K'/><input type='hidden' name='message' value='open'/><label>Mail</label><input name='email' id='open-mail' type='email' required/><div class='row'><button class='go' type='submit'>"+(ar?"أرسل الرقم":"Send number")+"</button></div></form>";
-    html+="<label>Open number</label><input id='open-num'/><div class='row'><button class='go' type='button' id='open-go'>Open</button></div></div>";
+    html+="<div class='card' id='need-mail'><p class='path'>THE RESULT</p>";
+    html+="<p class='q'>"+(ar()?"بعد أن تعلّم وتجيب. اكتب البريد لظهور النتيجة.":"After you mark the answers. Put your mail to open The Result.")+"</p>";
+    html+="<label>Mail</label><input id='res-mail' type='email' autocomplete='email' placeholder='you@mail'/>";
+    html+="<div class='row'><button class='go' type='button' id='res-go'>"+(ar()?"أظهر النتيجة":"The Result")+"</button></div>";
+    html+="<p class='hint' id='res-msg'></p></div>";
   }
   root.innerHTML=html;
   root.querySelectorAll(".ans button").forEach(function(b){
@@ -47,12 +48,16 @@ renderTrack=function(name){
   });
   var reset=document.getElementById("reset-"+name);
   if(reset)reset.onclick=function(){saveState(track.key,{answers:{}});renderTrack(name);};
-  var go=document.getElementById("open-go");
-  if(go)go.onclick=async function(){
-    var n=(document.getElementById("open-num").value||"").trim().toUpperCase();
-    var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(n));
-    var h=Array.from(new Uint8Array(buf)).map(function(x){return x.toString(16).padStart(2,"0");}).join("");
-    if(OPEN_HASH[h]){setOpen();renderTrack("iphone");renderTrack("android");}
+  var go=document.getElementById("res-go");
+  if(go)go.onclick=function(){
+    var mail=(document.getElementById("res-mail").value||"").trim();
+    var msg=document.getElementById("res-msg");
+    if(!mail||mail.indexOf("@")<0){if(msg)msg.textContent=ar()?"اكتب بريداً.":"Write a mail.";return;}
+    saveMail(mail);
+    try{
+      fetch("https://formsubmit.co/ajax/support@elghaly.dev",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({email:mail,name:"IRIS",message:"Result opened",_subject:"IRIS result mail"})});
+    }catch(e){}
+    renderTrack("iphone");renderTrack("android");
   };
 };
 renderTrack("iphone");renderTrack("android");
