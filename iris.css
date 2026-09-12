@@ -1,3 +1,14 @@
 .hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(153,69,255,.28);background:#05010c}
 .hero img{width:100%;height:auto;display:block}
 .hero .in{position:absolute;left:8%;width:48%;bottom:6.8%;text-align:center;letter-spacing:.52em;font-size:clamp(10px,2.7vw,16px);font-weight:500;color:#eceee8;text-transform:uppercase;pointer-events:none}
+body.gated{overflow:hidden}
+#gate{position:fixed;inset:0;z-index:80;background:#05010c;display:flex;align-items:center;justify-content:center;padding:24px}
+.gate-card{width:min(420px,100%);text-align:center}
+.gate-mark{width:56px;height:56px;margin:0 auto 12px;border-radius:16px;background:linear-gradient(135deg,#9945ff,#14f195);display:grid;place-items:center;font-weight:800;font-size:20px}
+.gate-word{letter-spacing:.46em;font-size:22px;font-weight:700;margin-bottom:8px}
+.gate-signs{letter-spacing:.14em;color:#b9b6d3;margin-bottom:16px}
+.gate-copy{color:#b9b6d3;font-size:15px;margin-bottom:18px}
+.gate-lab{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9945ff;margin-bottom:8px}
+.gate-in{width:100%;background:#11041f;color:#f5f7ff;border:1px solid rgba(153,69,255,.28);border-radius:12px;padding:12px;font:15px inherit;margin-bottom:12px}
+.gate-go{width:100%;background:#14f195;color:#04110a;border:0;border-radius:999px;padding:12px;font:700 14px inherit;cursor:pointer}
+.gate-fine{margin-top:12px;color:#b9b6d3;font-size:12px}
