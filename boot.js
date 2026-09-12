@@ -9,8 +9,8 @@
       +'<p class="addr" dir="ltr">35 Zamalek, Cairo, Egypt</p>';
   }
 })();
-function gotMail(){try{return !!(localStorage.getItem("35-iris-member")||"").trim();}catch(e){return false;}}
-function saveMail(v){try{localStorage.setItem("35-iris-member",v);}catch(e){}}
+function gotMail(){try{return !!(localStorage.getItem("35-iris-result-mail")||"").trim();}catch(e){return false;}}
+function saveMail(v){try{localStorage.setItem("35-iris-result-mail",v);}catch(e){}}
 function qq(item){return (typeof t==="function"&&t(item.id+"_q")!==item.id+"_q")?t(item.id+"_q"):item.q;}
 function pp(item){return (typeof t==="function"&&t(item.id+"_p")!==item.id+"_p")?t(item.id+"_p"):item.path;}
 function bb(v){return typeof t==="function"?t(v):v;}
@@ -32,9 +32,9 @@ renderTrack=function(name){
     html+=afterDesk(r.cls).replace("<div class='card'","<div class='card' dir='ltr'");
   } else {
     html+="<div class='card' id='need-mail'><p class='path'>THE RESULT</p>";
-    html+="<p class='q'>"+(ar()?"بعد أن تعلّم وتجيب. اكتب البريد لظهور النتيجة.":"After you mark the answers. Put your mail to open The Result.")+"</p>";
+    html+="<p class='q'>"+(ar()?"بعد الإجابات. اكتب البريد ثم اضغط The Result.":"Mark the answers first. Then put your mail and tap The Result.")+"</p>";
     html+="<label>Mail</label><input id='res-mail' type='email' autocomplete='email' placeholder='you@mail'/>";
-    html+="<div class='row'><button class='go' type='button' id='res-go'>"+(ar()?"أظهر النتيجة":"The Result")+"</button></div>";
+    html+="<div class='row'><button class='go' type='button' id='res-go'>The Result</button></div>";
     html+="<p class='hint' id='res-msg'></p></div>";
   }
   root.innerHTML=html;
@@ -54,9 +54,6 @@ renderTrack=function(name){
     var msg=document.getElementById("res-msg");
     if(!mail||mail.indexOf("@")<0){if(msg)msg.textContent=ar()?"اكتب بريداً.":"Write a mail.";return;}
     saveMail(mail);
-    try{
-      fetch("https://formsubmit.co/ajax/support@elghaly.dev",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({email:mail,name:"IRIS",message:"Result opened",_subject:"IRIS result mail"})});
-    }catch(e){}
     renderTrack("iphone");renderTrack("android");
   };
 };
