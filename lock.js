@@ -11,54 +11,35 @@ async function hashNum(s){
 }
 function lockCard(){
   return "<div class='card' id='need-open'><p class='path'>RESULT</p>"+
-    "<p class='q'>Read first. The class opens with a number mailed to you. No password. Nobody types it by hand.</p>"+
-    "<label>Mail</label><input id='open-mail' type='email' autocomplete='email' placeholder='you@mail'/>"+
-    "<div class='row'><button class='go' type='button' id='ask-num'>Send number to my mail</button></div>"+
+    "<p class='q'>Read first. Then the number is mailed to you. No password.</p>"+
+    "<form id='open-form' action='https://formsubmit.co/support@elghaly.dev' method='POST'>"+
+    "<input type='hidden' name='_subject' value='IRIS open number'/>"+
+    "<input type='hidden' name='_captcha' value='false'/>"+
+    "<input type='hidden' name='_template' value='box'/>"+
+    "<input type='hidden' name='_next' value='https://iris-35.elghaly.dev/?sent=1'/>"+
+    "<input type='hidden' name='_autoresponse' value='IRIS open number: 35IRIS7K. Paste it on iris-35.elghaly.dev under Open number.'/>"+
+    "<input type='hidden' name='message' value='IRIS open number request'/>"+
+    "<label>Mail</label><input id='open-mail' name='email' type='email' required autocomplete='email' placeholder='you@mail'/>"+
+    "<div class='row'><button class='go' type='submit'>Send number to my mail</button></div></form>"+
     "<label style='margin-top:12px'>Open number</label><input id='open-num' autocomplete='one-time-code' placeholder='number from mail'/>"+
     "<div class='row'><button class='go' type='button' id='open-go'>Open result</button></div>"+
-    "<p class='hint' id='open-msg'></p></div>";
+    "<p class='hint' id='open-msg'>First time only: open support@elghaly.dev, confirm FormSubmit, then send again.</p></div>";
 }
 function bindLock(){
-  var ask=document.getElementById("ask-num");
+  var form=document.getElementById("open-form");
   var go=document.getElementById("open-go");
-  if(ask)ask.onclick=async function(){
+  var msg=document.getElementById("open-msg");
+  if(location.search.indexOf("sent=1")>=0 && msg)msg.textContent="If the inbox is empty, check spam. First time: confirm FormSubmit on support@elghaly.dev.";
+  if(form)form.addEventListener("submit",function(){
     var mail=(document.getElementById("open-mail").value||"").trim();
-    var msg=document.getElementById("open-msg");
-    if(!mail||mail.indexOf("@")<0){msg.textContent="Write a mail first.";return;}
-    try{localStorage.setItem("35-iris-member",mail);}catch(err){}
-    msg.textContent="Sending...";
-    ask.disabled=true;
-    try{
-      var res=await fetch("https://formsubmit.co/ajax/support@elghaly.dev",{
-        method:"POST",
-        headers:{"Content-Type":"application/json","Accept":"application/json"},
-        body:JSON.stringify({
-          name:"IRIS",
-          email:mail,
-          _subject:"IRIS open number",
-          _template:"box",
-          _captcha:"false",
-          _autoresponse":"IRIS open number: 35IRIS7K\n\nPaste it on https://iris-35.elghaly.dev under Open number.\nNo password. You tap.\n\n35 IRIS \nsupport@elghaly.dev",
-          message:"Send the open number to this mail: "+mail
-        })
-      });
-      var j=await res.json().catch(function(){return {};});
-      if(res.ok){
-        msg.textContent="Number sent to "+mail+". Check inbox and spam. Then paste it below.";
-      } else {
-        msg.textContent=(j.message||"Mail blocked. Check spam or write support@elghaly.dev");
-      }
-    }catch(e){
-      msg.textContent="Mail blocked on this network. Write support@elghaly.dev";
-    }
-    ask.disabled=false;
-  };
+    try{localStorage.setItem("35-iris-member",mail);}catch(e){}
+    if(msg)msg.textContent="Sending from the page...";
+  });
   if(go)go.onclick=async function(){
     var n=(document.getElementById("open-num").value||"").trim();
-    var msg=document.getElementById("open-msg");
     if(!n){msg.textContent="Paste the number from mail.";return;}
     var h=await hashNum(n);
-    if(!OPEN_HASH[h]){msg.textContent="Number not open. Request it again.";return;}
+    if(!OPEN_HASH[h]){msg.textContent="Number not open. Send it to your mail first.";return;}
     setOpen();
     renderTrack("iphone");renderTrack("android");
   };
@@ -81,9 +62,7 @@ renderTrack=function(name){
     var r=rank(track,answers);
     html+="<div class='card'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class='rule'>"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>Reset answers</button></div></div>";
     html+=afterDesk(r.cls);
-  } else {
-    html+=lockCard();
-  }
+  } else html+=lockCard();
   root.innerHTML=html;
   root.querySelectorAll(".ans button").forEach(function(b){
     b.onclick=function(){
