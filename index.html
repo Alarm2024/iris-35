@@ -7,16 +7,25 @@
 <meta name="theme-color" content="#0b0418"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <style>
-:root{--bg:#07010f;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
-*{box-sizing:border-box;margin:0;padding:0}html,body{background:#05010c;color:var(--ink)}
-body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:16px 16px 80px}
-.hero{position:relative;margin:0 0 18px;border-radius:22px;overflow:hidden;border:1px solid var(--l)}
-.hero img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover}
-.hero .stamp{position:absolute;left:7%;bottom:9%;letter-spacing:.42em;font-size:clamp(14px,4vw,22px);font-weight:600;color:#f5f7ff;text-transform:uppercase;text-shadow:0 2px 16px #000}
-.lede{color:var(--dim);font-size:16px}
-.tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}
-.tabs button{flex:1;min-width:28%;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px;font:600 13px inherit;cursor:pointer}
+:root{--bg:#05010c;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
+*{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
+body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 88px}
+.hero{margin:0 0 10px;border-radius:22px;overflow:hidden;border:1px solid var(--l)}
+.hero img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:center}
+.markline{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:8px 2px 14px}
+.iris{letter-spacing:.46em;font-size:22px;font-weight:700}
+.sub{color:var(--dim);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.lede,.hint{color:var(--dim);font-size:15px}
+.ask{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.ask button{text-align:left;border:1px solid var(--l);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:600 13px inherit;cursor:pointer}
+.ask button small{display:block;color:var(--dim);font-weight:500;margin-top:4px}
+.pics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 6px}
+.pic{border:1px solid var(--l);border-radius:14px;padding:12px 8px;min-height:92px;background:linear-gradient(180deg,rgba(153,69,255,.16),transparent)}
+.pic b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:6px}
+.pic span{color:var(--dim);font-size:12px}
+.tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
+.tabs button{flex:1;min-width:22%;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px 8px;font:600 13px inherit;cursor:pointer}
 .tabs button.on{background:var(--g);color:#04110a;border-color:var(--g)}
 .panel{display:none}.panel.on{display:block}
 .card{background:var(--card);border:1px solid var(--l);border-radius:16px;padding:16px;margin-top:12px}
@@ -27,46 +36,55 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:
 .ans button.on-yes{border-color:#ff6b8a;color:#ff6b8a}
 .ans button.on-idk{border-color:#f5d76e;color:#f5d76e}
 .badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
-.A{color:#14f195}.B{color:#f5d76e}.C{color:#ff6b8a}
-.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;white-space:pre-wrap;color:var(--ink)}
+.A{color:#14f195}.B{color:#f5d76e}.C{color:#ff6b8a}.X{color:var(--dim)}
+.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;white-space:pre-wrap}
 label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
 textarea{width:100%;min-height:88px;background:#11041f;color:var(--ink);border:1px solid var(--l);border-radius:12px;padding:12px;font:13px ui-monospace,Menlo,Consolas,monospace}
-.row{display:flex;gap:8px;margin-top:10px}
+.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
-.ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
 .out{display:none;margin-top:12px}.out.on{display:block}
 footer{margin-top:36px;color:var(--dim);font-size:13px}
-a{color:var(--c)}
-.path{color:var(--g);font-size:12px;letter-spacing:.04em;margin-bottom:6px}
+.path{color:var(--g);font-size:12px;margin-bottom:6px}
+@media(max-width:560px){.ask,.pics{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="hero">
-    <img src="https://35.elghaly.dev/IMG_5183.jpeg" alt="35 ELGHALY IRIS"/>
-    <span class="stamp">IRIS</span>
+  <div class="hero"><img src="https://35.elghaly.dev/IMG_5183.jpeg" alt="35 ELGHALY"/></div>
+  <div class="markline"><span class="iris">IRIS</span><span class="sub">learn desk</span></div>
+  <p class="lede">This is not a normal site. It teaches you to see. First pass is free. No account. No data sent to us. Extra only after work you asked for.</p>
+  <div class="pics">
+    <div class="pic"><b>Look</b><span>Open the path on YOUR glass.</span></div>
+    <div class="pic"><b>Tap</b><span>no / yes / not sure. The page answers.</span></div>
+    <div class="pic"><b>Earn</b><span>Help people you trust after you can do this.</span></div>
   </div>
-  <p class="lede">The page answers. You tap. Nothing is downloaded. A site that asks to sit on the phone is the attack.</p>
+  <p class="hint" id="ai-line">IRIS asks first: what happened?</p>
+  <div class="ask">
+    <button type="button" data-go="iphone">Someone wants an app on my phone<small>iPhone / Android settings</small></button>
+    <button type="button" data-go="iphone">Unknown device on my account<small>Apple ID or Google devices</small></button>
+    <button type="button" data-go="sig">I signed or sent crypto<small>SOL / BTC / ETH public hash</small></button>
+    <button type="button" data-go="sig">They said connect wallet to check<small>Do not connect. Paste the hash only</small></button>
+  </div>
   <div class="tabs">
     <button type="button" id="tab-iphone" class="on">iPhone</button>
     <button type="button" id="tab-android">Android</button>
-    <button type="button" id="tab-sig">Signature</button>
+    <button type="button" id="tab-sig">SOL / BTC / ETH</button>
   </div>
   <div id="iphone" class="panel on"></div>
   <div id="android" class="panel"></div>
   <div id="sig" class="panel">
     <div class="card">
-      <label for="q">Public signature only</label>
-      <textarea id="q" spellcheck="false" autocomplete="off" placeholder="base58 signature"></textarea>
+      <label for="q">Public hash only — Solana signature, Bitcoin txid, or Ethereum 0x hash</label>
+      <textarea id="q" spellcheck="false" autocomplete="off" placeholder="no seed. no key. public hash only"></textarea>
       <div class="row">
         <button class="go" id="run" type="button">Classify</button>
         <button class="ghost" id="clr" type="button">Clear</button>
       </div>
-      <div class="out" id="out"><p><span class="badge A" id="badge">—</span></p><p class="rule" id="report"></p></div>
+      <div class="out" id="out"><p><span class="badge A" id="badge">-</span></p><p class="rule" id="report"></p></div>
     </div>
   </div>
-  <p style="margin-top:22px;color:var(--dim);font-size:14px"><a href="mailto:support@elghaly.dev?subject=IRIS%20PRIVATE">IRIS PRIVATE</a> · <a href="mailto:support@elghaly.dev?subject=HUMAN%20IRIS">HUMAN</a></p>
-  <footer>35 IRIS · extra after the work · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
+  <footer>35 IRIS · nothing stored on our servers · answers stay on this browser</footer>
 </div>
 <script src="app.js"></script>
 </body>
