@@ -9,7 +9,7 @@ permissions:
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,13 +21,13 @@ jobs:
       - name: Build public site artifact
         run: |
           mkdir -p _site
-          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js _site/
+          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js iris-eye.svg health.json _site/
+          cp health.json _site/health
           python3 - <<'PY'
           p="_site/index.html"
           t=open(p,encoding="utf-8").read()
-          t=t.replace("</style>","#gate{display:none!important}body.gated{overflow:auto!important}.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px}</style>")
-          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=12"></script>\n<script src="app.js?v=12"></script>\n<script src="boot.js?v=12"></script>')
-          t=t.replace('<footer><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>','<footer><a href="mailto:support@elghaly.dev">support@elghaly.dev</a><p class="addr" dir="ltr">548 Market Street, San Francisco, California 94104</p><p class="addr" dir="ltr">35 Zamalek, Cairo, Egypt</p></footer>')
+          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=14"></script>\n<script src="app.js?v=14"></script>\n<script src="boot.js?v=14"></script>')
+          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=14"/>')
           open(p,"w",encoding="utf-8").write(t)
           PY
           touch _site/.nojekyll
