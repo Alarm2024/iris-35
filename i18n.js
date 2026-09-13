@@ -1,7 +1,13 @@
 function curLang(){return localStorage.getItem("35-iris-lang")||"en";}
-var I18N={
-en:{
+function t(id){var L=curLang();return (I18N[L]&&I18N[L][id])||I18N.en[id]||id;}
+var EN={
 no:"no",yes:"yes",idk:"not sure",reset:"Reset answers",
+result:"The Result",enter:"Enter",login:"LOGIN",mailq:"Put your mail to open the result.",
+priv_h:"PRIVATE SESSION",priv_p:"MAIL ONLY",priv_q:"After the first pass. A human next to the glass. Nobody takes the phone.",
+priv_r:"Write support@elghaly.dev with PRIVATE.\nHUMAN if you cannot pay.\nExtra only AFTER the work.",
+alarm_h:"FAMILY ALARM",alarm_p:"SHOW THIS TO ONE PERSON YOU LOVE",
+alarm_q:"If someone says this in the house, on the phone, or in chat — stop. Do not hand the phone.",
+alarm_r:"\"Install this cleaner / fixer\"\n→ Do not install. Open IRIS on THIS phone.\n\n\"Share your screen so I can help\"\n→ Hang up. Screen share is the intermediary.\n\n\"Send me the code I just sent you\"\n→ Do not send the code. Change the password on THIS device.\n\n\"Connect the wallet to verify\"\n→ Do not connect. Paste a public hash only.\n\n\"Photo of the 12 words / seed\"\n→ Wipe the chat. Those words never leave the house.\n\n\"I am Apple / the bank / support — move the money now\"\n→ Hang up. Open the real app yourself.\n\n\"That unknown device is yours, ignore it\"\n→ Treat as CLASS C. Remove it yourself.",
 devices_q:"Apple ID -> Devices: a phone, iPad, or Mac you do not own?",devices_p:"Settings -> [your name] -> Devices",
 mdm_q:"A configuration profile or MDM you did not install?",mdm_p:"Settings -> General -> VPN & Device Management",
 ext_q:"A Safari extension you do not remember installing?",ext_p:"Settings -> Apps -> Safari -> Extensions",
@@ -17,28 +23,120 @@ special_q:"Display-over-apps or install-unknown-apps you did not allow?",special
 apk_q:"Did someone send an APK or a cleaner to check the phone?",apk_p:"Do not install. That is the intermediary.",
 notif_q:"Notification access for an app you do not know?",notif_p:"Settings -> Apps -> Special app access -> Notification access",
 fwd_q:"Gmail forwarding or a filter you did not set?",fwd_p:"Gmail -> Settings -> Forwarding and filters"
-},
-ar:{
-no:"لا",yes:"نعم",idk:"غير متأكد",reset:"إعادة الإجابات",
+};
+var I18N={en:EN};
+I18N.ar=Object.assign({},EN,{
+no:"لا",yes:"نعم",idk:"غير متأكد",reset:"إعادة الإجابات",result:"النتيجة",enter:"دخول",login:"دخول",mailq:"اكتب البريد لفتح النتيجة.",
+priv_h:"جلسة خاصة",priv_p:"البريد فقط",priv_q:"بعد المرور الأول. إنسان بجانب الزجاج. لا أحد يأخذ الهاتف.",
+priv_r:"اكتب إلى support@elghaly.dev كلمة PRIVATE.\nHUMAN إن لم تستطع الدفع.\nالزيادة بعد العمل فقط.",
+alarm_h:"إنذار العائلة",alarm_p:"أرهها لشخص تحبه",
+alarm_q:"إذا قال أحد هذا في البيت أو على الهاتف — قف. لا تعطه الهاتف.",
+alarm_r:"«ثبّت هذا المنظف»\n→ لا تثبّت. افتح IRIS على هذا الهاتف.\n\n«شارك الشاشة لأساعدك»\n→ أغلق. مشاركة الشاشة هي الوسيط.\n\n«أرسل الكود الذي وصلك»\n→ لا ترسل الكود. غيّر كلمة السر على هذا الجهاز.\n\n«اربط المحفظة للتحقق»\n→ لا تربط. الصق توقيعاً عاماً فقط.\n\n«صورة الكلمات الاثنتي عشر»\n→ امسح الدردشة. هذه الكلمات لا تخرج من البيت.\n\n«أنا آبل / البنك — حرّك المال الآن»\n→ أغلق. افتح التطبيق الرسمي بنفسك.\n\n«هذا الجهاز المجهول لك»\n→ CLASS C. احذفه بنفسك.",
 devices_q:"Apple ID → الأجهزة: هاتف أو آيباد أو ماك ليس لك؟",devices_p:"الإعدادات → [اسمك] → الأجهزة",
 mdm_q:"ملف إعداد أو MDM لم تثبّته؟",mdm_p:"الإعدادات → عام → VPN وإدارة الجهاز",
 ext_q:"إضافة سفاري لا تذكر تثبيتها؟",ext_p:"الإعدادات → التطبيقات → Safari → الإضافات",
 chat_q:"هاتف أو متصفح ثانٍ مربوط بواتساب / آيمسج / تيليجرام؟",chat_p:"واتساب → الإعدادات → الأجهزة المربوطة",
 mail_q:"تحويل بريد أو فلتر لم تضعه؟",mail_p:"فلاتر Gmail / iCloud. انظر فقط.",
-screen_q:"مشاركة شاشة أو تطبيق رؤية عن بعد لم تشغّله؟",screen_p:"الإعدادات → وقت الشاشة → تطبيقات مجهولة",
-shareplay_q:"هل طلب أحد مشاركة الشاشة لإصلاح المحفظة؟",shareplay_p:"مركز التحكم → عكس الشاشة. ارفض المساعد.",
-profile_q:"هل أرسل أحد ملف إعدادات (.mobileconfig)؟",profile_p:"البريد / الملفات / تحميلات سفاري. لا تثبّت.",
-gdev_q:"حساب Google → الأجهزة: هاتف أو متصفح ليس لك؟",gdev_p:"الإعدادات → Google → إدارة الحساب → الأمان → أجهزتك",
-admin_q:"تطبيق مشرف جهاز لم تمنحه؟",admin_p:"الإعدادات → الأمان → تطبيقات مشرف الجهاز",
+screen_q:"مشاركة شاشة أو تطبيق رؤية عن بعد لم تشغّله؟",screen_p:"الإعدادات → وقت الشاشة",
+shareplay_q:"هل طلب أحد مشاركة الشاشة لإصلاح المحفظة؟",shareplay_p:"مركز التحكم → عكس الشاشة",
+profile_q:"هل أرسل أحد ملف إعدادات (.mobileconfig)؟",profile_p:"البريد / الملفات. لا تثبّت.",
+gdev_q:"Google → أجهزة ليست لك؟",gdev_p:"الإعدادات → Google → الأمان → أجهزتك",
+admin_q:"تطبيق مشرف جهاز لم تمنحه؟",admin_p:"الإعدادات → الأمان → مشرف الجهاز",
 acc_q:"خدمة إمكانية لم تثبّتها؟",acc_p:"الإعدادات → الإمكانية",
-special_q:"الظهور فوق التطبيقات أو تثبيت مجهول لم تسمح به؟",special_p:"الإعدادات → التطبيقات → وصول خاص",
-apk_q:"هل أرسل أحد ملف APK أو برنامج تنظيف؟",apk_p:"لا تثبّت. هذا هو الوسيط.",
-notif_q:"وصول للإشعارات لتطبيق لا تعرفه؟",notif_p:"الإعدادات → التطبيقات → وصول خاص → الإشعارات",
-fwd_q:"تحويل Gmail أو فلتر لم تضعه؟",fwd_p:"Gmail → الإعدادات → التحويل والفلاتر"
-}
-};
-I18N.ru=Object.assign({},I18N.en,{no:"нет",yes:"да",idk:"не уверен"});
-I18N.de=Object.assign({},I18N.en,{no:"nein",yes:"ja",idk:"unsicher"});
-I18N.es=Object.assign({},I18N.en,{no:"no",yes:"sí",idk:"no sé"});
-I18N.zh=Object.assign({},I18N.en,{no:"否",yes:"是",idk:"不确定"});
-function t(id){var L=curLang();return (I18N[L]&&I18N[L][id])||I18N.en[id]||id;}
+special_q:"الظهور فوق التطبيقات لم تسمح به؟",special_p:"الإعدادات → التطبيقات → وصول خاص",
+apk_q:"هل أرسل أحد ملف APK أو منظفاً؟",apk_p:"لا تثبّت. هذا هو الوسيط.",
+notif_q:"وصول إشعارات لتطبيق مجهول؟",notif_p:"الإعدادات → التطبيقات → الإشعارات",
+fwd_q:"تحويل Gmail لم تضعه؟",fwd_p:"Gmail → الإعدادات → التحويل"
+});
+I18N.ru=Object.assign({},EN,{
+no:"нет",yes:"да",idk:"не уверен",reset:"Сброс",result:"Результат",enter:"Войти",login:"ВХОД",mailq:"Напиши почту, чтобы открыть результат.",
+priv_h:"ЧАСТНАЯ СЕССИЯ",priv_p:"ТОЛЬКО ПОЧТА",priv_q:"После первого прохода. Человек рядом со стеклом. Телефон не забирают.",
+priv_r:"Напиши на support@elghaly.dev слово PRIVATE.\nHUMAN если не можешь оплатить.\nДоплата только ПОСЛЕ работы.",
+alarm_h:"СЕМЕЙНАЯ ТРЕВОГА",alarm_p:"ПОКАЖИ ТОМУ, КОГО ЛЮБИШЬ",
+alarm_q:"Если это говорят дома, по телефону или в чате — стоп. Не отдавай телефон.",
+alarm_r:"«Поставь чистилщик»\n→ Не ставь. Открой IRIS на ЭТОМ телефоне.\n\n«Поделись экраном, я помогу»\n→ Повесь. Это посредник.\n\n«Пришли код, который я выслал»\n→ Не шли код. Смени пароль на ЭТОМ устройстве.\n\n«Подключи кошелёк»\n→ Не подключай. Только публичный хеш.\n\n«Фото 12 слов»\n→ Стри чат. Эти слова не выходят из дома.\n\n«Я Apple / банк — переводи сейчас»\n→ Повесь. Открой настоящее приложение сам.\n\n«Это устройство твоё, не обращай внимания»\n→ CLASS C. Удали сам.",
+devices_q:"Apple ID → Устройства: телефон, iPad или Mac не твой?",devices_p:"Настройки → [имя] → Устройства",
+mdm_q:"Профиль или MDM, который ты не ставил?",mdm_p:"Настройки → Основные → VPN и управление",
+ext_q:"Расширение Safari, которое не помнишь?",ext_p:"Настройки → Приложения → Safari → Расширения",
+chat_q:"Второй телефон или браузер в WhatsApp / iMessage / Telegram?",chat_p:"WhatsApp → Настройки → Связанные устройства",
+mail_q:"Пересылка почты или фильтр не твой?",mail_p:"Фильтры Gmail / iCloud. Только смотри.",
+screen_q:"Демонстрация экрана, которую ты не включал?",screen_p:"Настройки → Экранное время",
+shareplay_q:"Просили показать экран, чтобы «починить кошелёк»?",shareplay_p:"Пункт управления → Повтор экрана",
+profile_q:"Прислали файл профиля (.mobileconfig)?",profile_p:"Почта / Файлы. Не устанавливай.",
+gdev_q:"Google → устройство не твоё?",gdev_p:"Настройки → Google → Безопасность → Устройства",
+admin_q:"Приложение-админ, которое ты не давал?",admin_p:"Настройки → Безопасность → Админы",
+acc_q:"Служба специальных возможностей не твоя?",acc_p:"Настройки → Спец. возможности",
+special_q:"Наложение на экран или установка извне, которые ты не разрешал?",special_p:"Настройки → Приложения → Особый доступ",
+apk_q:"Прислали APK или «чистилщик»?",apk_p:"Не ставь. Это посредник.",
+notif_q:"Доступ к уведомлениям у неизвестного приложения?",notif_p:"Настройки → Приложения → Уведомления",
+fwd_q:"Пересылка Gmail не твоя?",fwd_p:"Gmail → Настройки → Пересылка"
+});
+I18N.de=Object.assign({},EN,{
+no:"nein",yes:"ja",idk:"unsicher",reset:"Zurücksetzen",result:"Das Ergebnis",enter:"Weiter",login:"ANMELDUNG",mailq:"Mail eintragen, um das Ergebnis zu öffnen.",
+priv_h:"PRIVATE SITZUNG",priv_p:"NUR MAIL",priv_q:"Nach dem ersten Durchgang. Ein Mensch neben dem Glas. Niemand nimmt das Telefon.",
+priv_r:"Schreib an support@elghaly.dev das Wort PRIVATE.\nHUMAN wenn du nicht zahlen kannst.\nExtra erst NACH der Arbeit.",
+alarm_h:"FAMILIEN-ALARM",alarm_p:"ZEIG ES EINEM MENSCHEN, DEN DU LIEBST",
+alarm_q:"Wenn das jemand im Haus, am Telefon oder im Chat sagt — stopp. Gib das Telefon nicht ab.",
+alarm_r:"„Installiere diesen Cleaner“\n→ Nicht installieren. IRIS auf DIESEM Telefon öffnen.\n\n„Teile den Bildschirm, ich helfe“\n→ Auflegen. Bildschirmteilen ist der Mittler.\n\n„Schick den Code, den ich dir geschickt habe“\n→ Code nicht senden. Passwort auf DIESEM Gerät ändern.\n\n„Wallet verbinden zum Prüfen“\n→ Nicht verbinden. Nur öffentlichen Hash einfügen.\n\n„Foto der 12 Wörter“\n→ Chat löschen. Die Wörter verlassen das Haus nicht.\n\n„Ich bin Apple / die Bank — Geld jetzt bewegen“\n→ Auflegen. Echte App selbst öffnen.\n\n„Das unbekannte Gerät ist deins“\n→ CLASS C. Selbst entfernen.",
+devices_q:"Apple-ID → Geräte: ein Telefon, iPad oder Mac, das nicht dir gehört?",devices_p:"Einstellungen → [dein Name] → Geräte",
+mdm_q:"Ein Profil oder MDM, das du nicht installiert hast?",mdm_p:"Einstellungen → Allgemein → VPN & Geräteverwaltung",
+ext_q:"Eine Safari-Erweiterung, an die du dich nicht erinnerst?",ext_p:"Einstellungen → Apps → Safari → Erweiterungen",
+chat_q:"Ein zweites Gerät an WhatsApp / iMessage / Telegram?",chat_p:"WhatsApp → Einstellungen → Verbundene Geräte",
+mail_q:"Mail-Weiterleitung oder Filter, den du nicht gesetzt hast?",mail_p:"Gmail / iCloud Filter. Nur schauen.",
+screen_q:"Bildschirmfreigabe, die du nicht eingeschaltet hast?",screen_p:"Einstellungen → Bildschirmzeit",
+shareplay_q:"Hat jemand Bildschirmfreigabe verlangt, um die Wallet zu «reparieren»?",shareplay_p:"Kontrollzentrum → Bildschirmspiegelung",
+profile_q:"Hat jemand eine Profildatei (.mobileconfig) geschickt?",profile_p:"Mail / Dateien. Nicht installieren.",
+gdev_q:"Google → ein Gerät, das nicht deins ist?",gdev_p:"Einstellungen → Google → Sicherheit → Geräte",
+admin_q:"Eine Geräteadmin-App, die du nicht erlaubt hast?",admin_p:"Einstellungen → Sicherheit → Geräteadmins",
+acc_q:"Ein Bedienungshilfen-Dienst, den du nicht installiert hast?",acc_p:"Einstellungen → Bedienungshilfen",
+special_q:"Über anderen Apps anzeigen oder unbekannte Apps, ohne deine Erlaubnis?",special_p:"Einstellungen → Apps → Spezieller Zugriff",
+apk_q:"Hat jemand eine APK oder einen «Cleaner» geschickt?",apk_p:"Nicht installieren. Das ist der Mittler.",
+notif_q:"Benachrichtigungszugriff für eine unbekannte App?",notif_p:"Einstellungen → Apps → Benachrichtigungen",
+fwd_q:"Gmail-Weiterleitung, die du nicht gesetzt hast?",fwd_p:"Gmail → Einstellungen → Weiterleitung"
+});
+I18N.es=Object.assign({},EN,{
+no:"no",yes:"sí",idk:"no sé",reset:"Reiniciar",result:"El resultado",enter:"Entrar",login:"ENTRAR",mailq:"Escribe el correo para abrir el resultado.",
+priv_h:"SESIÓN PRIVADA",priv_p:"SOLO CORREO",priv_q:"Después del primer paso. Una persona junto al cristal. Nadie quita el teléfono.",
+priv_r:"Escribe a support@elghaly.dev la palabra PRIVATE.\nHUMAN si no puedes pagar.\nExtra solo DESPUÉS del trabajo.",
+alarm_h:"ALARMA FAMILIAR",alarm_p:"MUÉSTRALO A QUIEN AMAS",
+alarm_q:"Si alguien dice esto en casa, por teléfono o en el chat — para. No entregues el teléfono.",
+alarm_r:"«Instala este limpiador»\n→ No instales. Abre IRIS en ESTE teléfono.\n\n«Comparte la pantalla, te ayudo»\n→ Cuelga. Compartir pantalla es el intermediario.\n\n«Envíame el código que te mandé»\n→ No envíes el código. Cambia la contraseña en ESTE aparato.\n\n«Conecta la cartera para verificar»\n→ No conectes. Solo pega un hash público.\n\n«Foto de las 12 palabras»\n→ Borra el chat. Esas palabras no salen de casa.\n\n«Soy Apple / el banco — mueve el dinero ahora»\n→ Cuelga. Abre tú la app real.\n\n«Ese dispositivo desconocido es tuyo»\n→ CLASS C. Quítalo tú.",
+devices_q:"Apple ID → Dispositivos: ¿un teléfono, iPad o Mac que no es tuyo?",devices_p:"Ajustes → [tu nombre] → Dispositivos",
+mdm_q:"¿Un perfil o MDM que tú no instalaste?",mdm_p:"Ajustes → General → VPN y dispositivos",
+ext_q:"¿Una extensión de Safari que no recuerdas?",ext_p:"Ajustes → Apps → Safari → Extensiones",
+chat_q:"¿Otro teléfono o navegador en WhatsApp / iMessage / Telegram?",chat_p:"WhatsApp → Ajustes → Dispositivos vinculados",
+mail_q:"¿Reenvío o filtro de correo que tú no pusiste?",mail_p:"Filtros de Gmail / iCloud. Solo mira.",
+screen_q:"¿Compartir pantalla que tú no activaste?",screen_p:"Ajustes → Tiempo de uso",
+shareplay_q:"¿Pidieron compartir pantalla para «arreglar» la cartera?",shareplay_p:"Centro de control → Repetir pantalla",
+profile_q:"¿Alguien envió un archivo de perfil (.mobileconfig)?",profile_p:"Mail / Archivos. No instales.",
+gdev_q:"¿Google → un dispositivo que no es tuyo?",gdev_p:"Ajustes → Google → Seguridad → Dispositivos",
+admin_q:"¿Una app de administrador que tú no diste?",admin_p:"Ajustes → Seguridad → Administradores",
+acc_q:"¿Un servicio de accesibilidad que tú no instalaste?",acc_p:"Ajustes → Accesibilidad",
+special_q:"¿Mostrar sobre otras apps o instalar desconocidas sin tu permiso?",special_p:"Ajustes → Apps → Acceso especial",
+apk_q:"¿Alguien envió un APK o un «limpiador»?",apk_p:"No instales. Ese es el intermediario.",
+notif_q:"¿Acceso a notificaciones de una app desconocida?",notif_p:"Ajustes → Apps → Notificaciones",
+fwd_q:"¿Reenvío de Gmail que tú no pusiste?",fwd_p:"Gmail → Ajustes → Reenvío"
+});
+I18N.zh=Object.assign({},EN,{
+no:"否",yes:"是",idk:"不确定",reset:"重置",result:"结果",enter:"进入",login:"登录",mailq:"填写邮箱以打开结果。",
+priv_h:"私密会话",priv_p:"仅邮件",priv_q:"第一次通过之后。人在屏幕旁。不拿走手机。",
+priv_r:"给 support@elghaly.dev 写 PRIVATE。\n不能付费写 HUMAN。\n加收只在事后。",
+alarm_h:"家庭警报",alarm_p:"拿给你爱的人看",
+alarm_q:"如果有人在家里、电话里或聊天里这么说 — 停。不要交出手机。",
+alarm_r:"「装这个清理软件」\n→ 不要装。在这部手机打开 IRIS。\n\n「共享屏幕，我来帮」\n→ 挂断。共享屏幕就是中间人。\n\n「把我刚发的验证码发我」\n→ 不要发码。在这台设备改密码。\n\n「连接钱包以验证」\n→ 不要连。只粘贴公开哈希。\n\n「12个词的照片」\n→ 删聊天。这些词不离家。\n\n「我是苹果/银行—现在转钱」\n→ 挂断。自己打开正式应用。\n\n「那台陌生设备是你的」\n→ CLASS C。自己删掉。",
+devices_q:"Apple ID → 设备：有不是你的手机、iPad 或 Mac？",devices_p:"设置 → [你的名字] → 设备",
+mdm_q:"有你没装过的配置描述文件或 MDM 吗？",mdm_p:"设置 → 通用 → VPN与设备管理",
+ext_q:"有你记不清的 Safari 扩展吗？",ext_p:"设置 → App → Safari → 扩展",
+chat_q:"WhatsApp / iMessage / Telegram 绑了第二台设备？",chat_p:"WhatsApp → 设置 → 已链接设备",
+mail_q:"有你没设的邮件转发或过滤器吗？",mail_p:"Gmail / iCloud 过滤器。只看。",
+screen_q:"有你没开的屏幕共享吗？",screen_p:"设置 → 屏幕使用时间",
+shareplay_q:"有人要求共享屏幕来「修钱包」吗？",shareplay_p:"控制中心 → 屏幕映射",
+profile_q:"有人发来 .mobileconfig 吗？",profile_p:"邮件 / 文件。不要安装。",
+gdev_q:"Google → 有不是你的设备？",gdev_p:"设置 → Google → 安全 → 设备",
+admin_q:"有你没授权的设备管理应用吗？",admin_p:"设置 → 安全 → 设备管理应用",
+acc_q:"有你没装的无障碍服务吗？",acc_p:"设置 → 无障碍",
+special_q:"有未允许的悬浮窗或未知来源安装吗？",special_p:"设置 → 应用 → 特殊访问",
+apk_q:"有人发来 APK 或「清理软件」吗？",apk_p:"不要装。那是中间人。",
+notif_q:"陌生应用能读通知吗？",notif_p:"设置 → 应用 → 通知",
+fwd_q:"有你没设的 Gmail 转发吗？",fwd_p:"Gmail → 设置 → 转发"
+});
