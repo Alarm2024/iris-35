@@ -1,7 +1,7 @@
 .hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(153,69,255,.28);background:#05010c}
 .hero img{width:100%;height:auto;display:block}
 .lock{position:relative;max-width:560px;margin:0 auto}
-.lock-mask{position:absolute;left:4%;width:56%;top:78%;height:18%;background:linear-gradient(180deg,rgba(8,3,20,0),#080314 35%,#080314);pointer-events:none}
+.lock-mask{position:absolute;left:5%;width:54%;top:62%;height:15%;background:#0a0614;pointer-events:none}
 .lock-words{position:absolute;left:6%;width:54%;top:80%;text-align:center;pointer-events:none}
 .lock-words .iris-word,
 .lock-words .elg-word,
