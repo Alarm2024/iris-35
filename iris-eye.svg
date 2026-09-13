@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630"><rect width="1200" height="630" fill="#05010c"/><ellipse cx="600" cy="268" rx="236" ry="96" fill="none" stroke="#19fbff" stroke-width="10"/><circle cx="600" cy="268" r="54" fill="#19fbff"/><circle cx="600" cy="268" r="22" fill="#05010c"/><text x="600" y="430" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="42" font-weight="700" letter-spacing="14" fill="#f5f7ff">IRIS 35</text><text x="600" y="478" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" fill="#19fbff">free server to think and ship</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="pg" cx="12%" cy="8%" r="55%"><stop offset="0" stop-color="#6b21a8" stop-opacity=".55"/><stop offset="1" stop-color="#05010c" stop-opacity="0"/></radialGradient>
+    <radialGradient id="tg" cx="88%" cy="92%" r="50%"><stop offset="0" stop-color="#0f766e" stop-opacity=".42"/><stop offset="1" stop-color="#05010c" stop-opacity="0"/></radialGradient>
+    <radialGradient id="iris" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e8ffff"/><stop offset=".35" stop-color="#19fbff"/><stop offset=".7" stop-color="#6366f1"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#05010c"/>
+  <rect width="1200" height="630" fill="url(#pg)"/>
+  <rect width="1200" height="630" fill="url(#tg)"/>
+  <g transform="translate(600 86)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linecap="round">
+    <path d="M0 0 V22"/><path d="M-9 11 H9"/>
+  </g>
+  <g transform="translate(600 214)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linecap="round">
+    <g stroke-width="1.6">
+      <path d="M0 -92 V-78"/><path d="M0 78 V92"/>
+      <path d="M-118 0 H-104"/><path d="M104 0 H118"/>
+      <path d="M-84 -48 L-74 -42"/><path d="M84 -48 L74 -42"/>
+      <path d="M-84 48 L-74 42"/><path d="M84 48 L74 42"/>
+      <path d="M-48 -84 L-42 -74"/><path d="M48 -84 L42 -74"/>
+      <path d="M-48 84 L-42 74"/><path d="M48 84 L42 74"/>
+    </g>
+    <path d="M-108 0 C-70 -52 -28 -64 0 -64 C28 -64 70 -52 108 0 C70 52 28 64 0 64 C-28 64 -70 52 -108 0 Z"/>
+    <path d="M-86 0 C-54 -34 -22 -42 0 -42 C22 -42 54 -34 86 0 C54 34 22 42 0 42 C-22 42 -54 34 -86 0 Z"/>
+    <circle cx="0" cy="0" r="26" fill="url(#iris)" stroke="#c4b5fd" stroke-width="2"/>
+    <circle cx="0" cy="0" r="11" fill="#05010c" stroke="none"/>
+    <circle cx="6" cy="-5" r="3.2" fill="#e8ffff" stroke="none"/>
+  </g>
+  <g transform="translate(600 392)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-42 8 V-28 C-42 -40 -32 -48 -22 -48 C-16 -48 -12 -44 -10 -38"/>
+    <path d="M-14 8 V-40 C-14 -50 -6 -56 2 -56 C10 -56 16 -50 16 -40 V8"/>
+    <path d="M22 8 V-38 C22 -48 30 -54 38 -54 C46 -54 52 -48 52 -38 V10"/>
+    <path d="M-50 10 C-50 44 -28 70 0 78 C28 70 50 44 50 10"/>
+    <path d="M-22 28 C-10 48 10 48 22 28"/>
+    <circle cx="0" cy="36" r="3.4" fill="#19fbff" stroke="none"/>
+  </g>
+  <text x="600" y="548" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="36" letter-spacing="16" fill="#f5f7ff">IRIS</text>
+  <path d="M548 564 H652" stroke="#9ca3af" stroke-width="1"/>
+  <text x="600" y="592" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="16" letter-spacing="10" fill="#9ca3af">35</text>
+</svg>
