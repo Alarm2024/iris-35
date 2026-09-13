@@ -3,33 +3,50 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>35 IRIS</title>
-<meta name="theme-color" content="#0b0418"/>
+<title>Iris 35 — free server to think and ship</title>
+<meta name="theme-color" content="#05010c"/>
+<meta name="description" content="Iris 35 is a free open server. Look on your glass, tap the path, ship the next step. Live now."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://iris-35.elghaly.dev/"/>
+<meta property="og:title" content="Iris 35 — free server to think and ship"/>
+<meta property="og:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
+<meta property="og:image" content="https://iris-35.elghaly.dev/iris-eye.svg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Iris 35 — free server to think and ship"/>
+<meta name="twitter:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
+<meta name="twitter:image" content="https://iris-35.elghaly.dev/iris-eye.svg"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <link rel="stylesheet" href="iris.css"/>
 <style>
-:root{--bg:#05010c;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
+:root{--bg:#05010c;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(25,251,255,.28);--card:rgba(20,6,39,.72)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
 body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55}
 .wrap{max-width:760px;margin:0 auto;padding:16px 16px 88px}
-.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:8px}
-.mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#9945ff,#14f195);display:grid;place-items:center;font-weight:800}
 .word{font-size:11px;letter-spacing:.32em;color:var(--dim)}
 .langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
 .langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:6px 10px;font:700 11px inherit;letter-spacing:.08em;cursor:pointer}
 .langs button.on{color:#04110a;background:var(--g);border-color:var(--g)}
-.signs{margin:0 0 10px;letter-spacing:.14em;font-size:18px;color:var(--dim)}
+.owner{margin:0 0 8px;letter-spacing:.16em;font-size:18px;color:var(--dim)}
+.hero{text-align:center;margin:8px 0 16px}
+.hero img,.hero-eye{width:min(100%,420px);height:auto;margin:0 auto;display:block}
+.h1{font-size:22px;line-height:1.3;margin:14px 0 8px}
 .lede,.hint,.love{color:var(--dim);font-size:15px}
+.status{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--l);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--c);margin:8px 0}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block}
+.cta{display:inline-block;background:var(--g);color:#04110a;border-radius:999px;padding:12px 22px;font:700 15px inherit;text-decoration:none;margin:12px 0 4px}
+.bullets{margin:14px 0;padding-left:18px;color:var(--dim)}
+.bullets li{margin:6px 0}
+.how{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+.how div{border:1px solid var(--l);border-radius:14px;padding:12px 10px;background:var(--card)}
+.how b{display:block;color:var(--c);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.how span{color:var(--dim);font-size:13px}
 .love{margin-top:28px;font-size:16px;line-height:1.7;color:#e8e6f6}
 h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin:22px 2px 8px}
 .askgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .askgrid button{text-align:start;border:1px solid var(--l);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:600 13px inherit;cursor:pointer}
 .askgrid button small{display:block;color:var(--dim);font-weight:500;margin-top:4px}
-.pics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
-.pic{border:1px solid var(--l);border-radius:14px;padding:10px 8px;background:linear-gradient(180deg,rgba(153,69,255,.16),transparent)}
-.pic b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:4px}
-.pic span{color:var(--dim);font-size:12px}
 .tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
 .tabs button{flex:1;min-width:22%;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px 8px;font:600 13px inherit;cursor:pointer}
 .tabs button.on{background:var(--g);color:#04110a;border-color:var(--g)}
@@ -51,16 +68,19 @@ textarea{width:100%;min-height:72px;background:#11041f;color:var(--ink);border:1
 .go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
 .ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
 .out{display:none;margin-top:12px}.out.on{display:block}
-footer{margin-top:16px;color:var(--dim);font-size:14px}
+footer{margin-top:22px;color:var(--dim);font-size:14px}
+footer .marks{letter-spacing:.12em;margin:8px 0}
+.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px}
 a{color:var(--c)}
 .path{color:var(--g);font-size:12px;margin-bottom:6px}
-@media(max-width:560px){.pics{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.how{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <p class="owner">✝️ 🧿 🪬</p>
   <div class="top">
-    <div class="brand"><div class="mark">35</div><span class="word">IRIS</span></div>
+    <div class="brand"><span class="word">IRIS 💡🦅</span></div>
     <div class="langs" id="langs">
       <button type="button" data-lang="en" class="on">EN</button>
       <button type="button" data-lang="ar">AR</button>
@@ -70,22 +90,31 @@ a{color:var(--c)}
       <button type="button" data-lang="es">ES</button>
     </div>
   </div>
-  <div class="hero"><img src="https://35.elghaly.dev/IMG_5183.jpeg" alt="35 ELGHALY IRIS"/><span class="in">IRIS</span></div>
-  <p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
-  <p class="lede" data-en="Not a normal site. First pass free. No account. Nothing sent to us." data-ar="ليس موقعاً عادياً. المرور الأول مجاني. بلا حساب. لا شيء يُرسل إلينا." data-ru="Это не обычный сайт. Первый проход бесплатный. Без аккаунта. Ничего нам не отправляется." data-zh="这不是普通网站。首次免费。无账号。不向我们发送任何数据。" data-de="Keine normale Seite. Erster Durchgang kostenlos. Kein Konto. Nichts wird an uns gesendet." data-es="No es un sitio normal. Primer paso gratis. Sin cuenta. Nada se nos envía."></p>
-  <div class="pics">
-    <div class="pic"><b data-en="Look" data-ar="انظر" data-ru="Смотри" data-zh="看" data-de="Sehen" data-es="Mira"></b><span data-en="Open the path on YOUR glass." data-ar="افتح المسار على زجاجك." data-ru="Открой путь на СВОём экране." data-zh="在你的屏幕上打开路径。" data-de="Öffne den Pfad auf DEINEM Glas." data-es="Abre la ruta en TU pantalla."></span></div>
-    <div class="pic"><b data-en="Tap" data-ar="اضغط" data-ru="Нажми" data-zh="点" data-de="Tippen" data-es="Toca"></b><span data-en="The page answers." data-ar="الصفحة تجيب." data-ru="Страница отвечает." data-zh="页面会回答。" data-de="Die Seite antwortet." data-es="La página responde."></span></div>
-    <div class="pic"><b data-en="Earn" data-ar="اكسب" data-ru="Заработай" data-zh="赚" data-de="Verdienen" data-es="Gana"></b><span data-en="Help people you trust after you can do this." data-ar="ساعد من تثق بهم بعد أن تتعلم." data-ru="Помоги тем, кому доверяешь, когда сам умеешь." data-zh="学会之后，帮你信任的人。" data-de="Hilf Menschen, denen du vertraust, wenn du das kannst." data-es="Ayuda a quien confías cuando ya sepas hacerlo."></span></div>
+  <div class="hero">
+    <img class="hero-eye" src="iris-eye.svg" width="1200" height="630" alt="IRIS eye — free open server"/>
+    <p class="status"><i></i> server up</p>
+    <h1 class="h1">Iris 35 — free server to think and ship</h1>
+    <p class="lede">Open. Free. Live now. You stay on your glass.</p>
+    <a class="cta" href="#desk">Start free</a>
   </div>
-  <p class="hint" id="ai-line" data-en="What happened?" data-ar="ماذا حدث؟" data-ru="Что случилось?" data-zh="发生了什么？" data-de="Was ist passiert?" data-es="¿Qué pasó?"></p>
+  <ul class="bullets">
+    <li>What it is: a free open server. Look, tap, get the next path.</li>
+    <li>Who it is for: you, on your iPhone or Android. Nobody holds the phone.</li>
+    <li>Free to start. Extra only if you ask after the work.</li>
+  </ul>
+  <div class="how">
+    <div><b>1 Look</b><span>Open the path on YOUR glass.</span></div>
+    <div><b>2 Tap</b><span>Mark what you see. The page answers.</span></div>
+    <div><b>3 Ship</b><span>Remove a YES yourself. Teach one person you love.</span></div>
+  </div>
+  <p class="hint" id="ai-line">What happened?</p>
   <div class="askgrid">
-    <button type="button" data-go="iphone"><span data-en="Someone wants an app on my phone" data-ar="شخص يريد تطبيقاً على هاتفي" data-ru="Хотят приложение на телефон" data-zh="有人要在手机上装应用" data-de="Jemand will eine App auf mein Telefon" data-es="Alguien quiere una app en mi teléfono"></span><small>iPhone / Android</small></button>
-    <button type="button" data-go="iphone"><span data-en="Unknown device on my account" data-ar="جهاز مجهول على حسابي" data-ru="Чужое устройство в аккаунте" data-zh="账户上有陌生设备" data-de="Unbekanntes Gerät am Konto" data-es="Dispositivo desconocido en mi cuenta"></span><small>Apple / Google</small></button>
-    <button type="button" data-go="sig"><span data-en="I signed or sent crypto" data-ar="وقَّعت أو أرسلت عملة" data-ru="Подписал или отправил крипто" data-zh="我签了名或转了币" data-de="Ich habe signiert oder gesendet" data-es="Firmé o envié cripto"></span><small>SOL / BTC / ETH</small></button>
-    <button type="button" data-go="sig"><span data-en="They said connect wallet" data-ar="قالوا اربط المحفظة" data-ru="Сказали подключить кошелёк" data-zh="他们让我连接钱包" data-de="Sie sagten: Wallet verbinden" data-es="Dijeron conectar la cartera"></span><small data-en="Do not connect. Paste the hash" data-ar="لا تربط. الصق التوقيع" data-ru="Не подключать. Вставь хеш" data-zh="不要连接。只粘贴哈希" data-de="Nicht verbinden. Hash einfügen" data-es="No conectes. Pega el hash"></small></button>
+    <button type="button" data-go="iphone">Someone wants an app on my phone<small>iPhone / Android</small></button>
+    <button type="button" data-go="iphone">Unknown device on my account<small>Apple / Google</small></button>
+    <button type="button" data-go="sig">I signed or sent crypto<small>SOL / BTC / ETH</small></button>
+    <button type="button" data-go="sig">They said connect wallet<small>Do not connect. Paste the hash</small></button>
   </div>
-  <div class="tabs">
+  <div id="desk" class="tabs">
     <button type="button" id="tab-iphone" class="on">iPhone</button>
     <button type="button" id="tab-android">Android</button>
     <button type="button" id="tab-sig">SOL / BTC / ETH</button>
@@ -94,7 +123,7 @@ a{color:var(--c)}
   <div id="android" class="panel"></div>
   <div id="sig" class="panel">
     <div class="card">
-      <label for="q" data-en="Public hash only" data-ar="توقيع عام فقط" data-ru="Только публичный хеш" data-zh="仅公开哈希" data-de="Nur öffentlicher Hash" data-es="Solo hash público"></label>
+      <label for="q">Public hash only</label>
       <textarea id="q" spellcheck="false" autocomplete="off" placeholder="SOL / BTC / ETH"></textarea>
       <div class="row">
         <button class="go" id="run" type="button">Classify</button>
@@ -103,15 +132,23 @@ a{color:var(--c)}
       <div class="out" id="out"><p><span class="badge A" id="badge">-</span></p><p class="rule" id="report"></p></div>
     </div>
   </div>
-  <h2 data-en="Ask IRIS" data-ar="اسأل IRIS" data-ru="Спроси IRIS" data-zh="问 IRIS" data-de="Frag IRIS" data-es="Pregunta a IRIS"></h2>
+  <h2>Ask IRIS</h2>
   <div class="card">
-    <p class="hint" data-en="After you looked. Instant answer. Nothing stored on a server." data-ar="بعد أن ترى. إجابة فورية. لا شيء على خادم." data-ru="После просмотра. Мгновенный ответ. Ничего на сервере." data-zh="看完再问。即时回答。不存服务器。" data-de="Nachdem du gesehen hast. Sofortantwort. Nichts auf einem Server." data-es="Después de mirar. Respuesta al instante. Nada en un servidor."></p>
+    <p class="hint">After you looked. Instant answer. Nothing stored on a server.</p>
     <textarea id="askq" placeholder="Ask IRIS"></textarea>
     <div class="row"><button class="go" type="button" id="askgo">Answer</button></div>
     <div class="out" id="askout"><p class="rule" id="askrep"></p></div>
   </div>
-  <p class="love" data-en="See first. Protect the people you love. Teach them to see, without taking their phone." data-ar="أبصر أولاً. احمِ من تحب. علِّمهم أن يروا، من غير أن تأخذ هاتفهم." data-ru="Сначала увидь. Защити тех, кого любишь. Научи их видеть, не забирая телефон." data-zh="先看清楚。保护你爱的人。教他们看，不要拿走他们的手机。" data-de="Zuerst sehen. Schütze die, die du liebst. Lehre sie zu sehen, ohne ihr Telefon zu nehmen." data-es="Mira primero. Protege a quien amas. Enséñales a ver, sin quitarles el teléfono."></p>
-  <footer><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
+  <p class="love">See first. Protect the people you love. Teach them to see, without taking their phone.</p>
+  <footer>
+    <p class="marks">✝️ 🧿 🪬</p>
+    <p>IRIS 💡🦅 · by ElGhaly</p>
+    <p><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
+    <p class="addr">548 Market Street, San Francisco, California 94104</p>
+    <p class="addr">35 Zamalek, Cairo, Egypt</p>
+    <p><a href="https://35.elghaly.dev/">35 closed desk</a> is separate.</p>
+    <p class="marks">3️⃣🧿5️⃣</p>
+  </footer>
 </div>
 <script src="app.js"></script>
 <script>
@@ -121,24 +158,30 @@ function applyLang(l){
   document.getElementById("root").lang=l==="zh"?"zh-Hans":l;
   document.getElementById("root").dir=l==="ar"?"rtl":"ltr";
   document.querySelectorAll("#langs button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lang")===l);});
-  document.querySelectorAll("[data-en]").forEach(function(n){n.textContent=n.getAttribute("data-"+l)||n.getAttribute("data-en");});
 }
 document.querySelectorAll("#langs button").forEach(function(b){b.onclick=function(){applyLang(b.getAttribute("data-lang"));};});
 applyLang(LANG);
 function replyAsk(t){
   t=(t||"").toLowerCase();
   if(!t.trim())return "Write what they said or what you see.";
-  if(/seed|mnemonic|private key|بذرة/.test(t))return "Do not paste that here. Wipe the box. Change it on YOUR device.";
-  if(/install|apk|cleaner|ثبّت/.test(t))return "Do not install. Open the phone tab.";
-  if(/connect|wallet|اربط/.test(t))return "Do not connect. Paste a public hash only.";
-  if(/2fa|otp|كود/.test(t))return "Do not send the code. Hang up. Change the password on this phone.";
-  if(/price|pay|سعر/.test(t))return "First pass is free. Extra only after work you asked for.";
+  if(/seed|mnemonic|private key/.test(t))return "Do not paste that here. Wipe the box. Change it on YOUR device.";
+  if(/install|apk|cleaner/.test(t))return "Do not install. Open the phone tab.";
+  if(/connect|wallet/.test(t))return "Do not connect. Paste a public hash only.";
+  if(/2fa|otp|code/.test(t))return "Do not send the code. Hang up. Change the password on this phone.";
+  if(/price|pay/.test(t))return "First pass is free. Extra only after work you asked for.";
   return "Pick a phone tab or paste a public hash. App / code / connect from a stranger = stop.";
 }
 document.getElementById("askgo").onclick=function(){
   document.getElementById("askout").classList.add("on");
   document.getElementById("askrep").textContent=replyAsk(document.getElementById("askq").value);
 };
+document.querySelectorAll("[data-go]").forEach(function(b){
+  b.onclick=function(){
+    var id=b.getAttribute("data-go");
+    document.getElementById("tab-"+(id==="sig"?"sig":"iphone")).click();
+    document.getElementById("desk").scrollIntoView({behavior:"smooth"});
+  };
+});
 </script>
 </body>
 </html>
