@@ -1,6 +1,8 @@
 .hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(153,69,255,.28);background:#05010c}
 .hero img{width:100%;height:auto;display:block}
-.hero .in{position:absolute;left:8%;width:48%;bottom:6.8%;text-align:center;letter-spacing:.52em;font-size:clamp(10px,2.7vw,16px);font-weight:500;color:#eceee8;text-transform:uppercase;pointer-events:none}
+.lock{position:relative;max-width:560px;margin:0 auto}
+.lock .iris-word{position:absolute;left:9%;width:52%;top:72%;text-align:center;letter-spacing:.34em;font:700 clamp(14px,4.6vw,24px)/1 ui-sans-serif,system-ui,sans-serif;color:#f7f8ff;text-indent:.34em;pointer-events:none}
 .addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;color:#b9b6d3;font-size:13px}
+.addr-eg{font-size:11px;opacity:.88}
 #gate{display:none!important}
 body.gated{overflow:auto!important}
