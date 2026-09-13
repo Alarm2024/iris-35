@@ -1,3 +1,16 @@
+(function(){
+  var w=document.querySelector(".iris-word");
+  if(w){w.style.top="72%";w.style.fontSize="clamp(14px,4.6vw,24px)";}
+  var f=document.querySelector("footer");
+  if(f){
+    var addrs=[].slice.call(f.querySelectorAll(".addr"));
+    if(addrs.length>=2){
+      var eg=addrs[1], sf=addrs[0];
+      eg.className="addr addr-eg";
+      sf.parentNode.insertBefore(eg,sf);
+    }
+  }
+})();
 function drawStatic(){
   var love=document.querySelector(".love");
   function put(id,html){
@@ -32,7 +45,7 @@ renderTrack=function(name){
   });
   if(gotMail()){
     var r=rank(track,answers);
-    html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class='rule'>"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+t("reset")+"</button></div></div>";
+    html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class="rule">"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+t("reset")+"</button></div></div>";
     html+=afterDesk(r.cls).replace("<div class='card'","<div class='card' dir='ltr'");
   } else if(wantLogin()){
     html+="<div class='card'><p class='path'>"+t("login")+"</p><p class='q'>"+t("mailq")+"</p><label>Mail</label><input id='res-mail' type='email'/><div class='row'><button class='go' type='button' id='res-go'>"+t("enter")+"</button></div></div>";
