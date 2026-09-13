@@ -21,13 +21,16 @@ jobs:
       - name: Build public site artifact
         run: |
           mkdir -p _site
-          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js iris-eye.svg health.json _site/
+          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js iris-eye.svg health.json lockup.py _site/
           cp health.json _site/health
+          python3 -m pip install --quiet pillow
+          python3 lockup.py
           python3 - <<'PY'
           p="_site/index.html"
           t=open(p,encoding="utf-8").read()
-          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=20"></script>\n<script src="app.js?v=20"></script>\n<script src="boot.js?v=20"></script>')
-          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=20"/>')
+          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=21"></script>\n<script src="app.js?v=21"></script>\n<script src="boot.js?v=21"></script>')
+          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=21"/>')
+          t=t.replace('https://35.elghaly.dev/IMG_5183.jpeg','lockup.jpg?v=21')
           open(p,"w",encoding="utf-8").write(t)
           PY
           touch _site/.nojekyll
