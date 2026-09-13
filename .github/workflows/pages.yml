@@ -26,8 +26,8 @@ jobs:
           python3 - <<'PY'
           p="_site/index.html"
           t=open(p,encoding="utf-8").read()
-          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=14"></script>\n<script src="app.js?v=14"></script>\n<script src="boot.js?v=14"></script>')
-          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=14"/>')
+          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=16"></script>\n<script src="app.js?v=16"></script>\n<script src="boot.js?v=16"></script>')
+          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=16"/>')
           open(p,"w",encoding="utf-8").write(t)
           PY
           touch _site/.nojekyll
