@@ -45,7 +45,7 @@ renderTrack=function(name){
   });
   if(gotMail()){
     var r=rank(track,answers);
-    html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class="rule">"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+t("reset")+"</button></div></div>";
+    html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class='rule'>"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+t("reset")+"</button></div></div>";
     html+=afterDesk(r.cls).replace("<div class='card'","<div class='card' dir='ltr'");
   } else if(wantLogin()){
     html+="<div class='card'><p class='path'>"+t("login")+"</p><p class='q'>"+t("mailq")+"</p><label>Mail</label><input id='res-mail' type='email'/><div class='row'><button class='go' type='button' id='res-go'>"+t("enter")+"</button></div></div>";
