@@ -1,6 +1,16 @@
 (function(){
-  var w=document.querySelector(".iris-word");
-  if(w){w.style.top="72%";w.style.fontSize="clamp(14px,4.6vw,24px)";}
+  var lock=document.querySelector(".lock");
+  if(lock){
+    var img=lock.querySelector("img");
+    var old=lock.querySelector(".iris-word");
+    if(old&&old.parentNode===lock)old.parentNode.removeChild(old);
+    if(!lock.querySelector(".lock-mask")){
+      var m=document.createElement("div");m.className="lock-mask";lock.appendChild(m);
+    }
+    var box=lock.querySelector(".lock-words");
+    if(!box){box=document.createElement("div");box.className="lock-words";lock.appendChild(box);}
+    box.innerHTML='<span class="iris-word">IRIS</span><span class="elg-word">— ELGHALY —</span>';
+  }
   var f=document.querySelector("footer");
   if(f){
     var addrs=[].slice.call(f.querySelectorAll(".addr"));
