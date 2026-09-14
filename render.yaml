@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: iris-35-voice
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: ASSEMBLYAI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://iris-35.elghaly.dev,http://localhost:8080

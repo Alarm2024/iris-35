@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Iris 35 Voice Door — Morning Light desk</title>
+  <meta name="description" content="Talk to Iris at the Morning Light desk. AssemblyAI Voice Agent demo by Wyndham Heaven. Official door: iris-35.elghaly.dev"/>
+  <meta name="theme-color" content="#05010c"/>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="voice.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <span class="brand">IRIS 💡🦅 · VOICE DOOR</span>
+      <a class="back" href="../">← Desk</a>
+    </div>
+
+    <section class="hero-card">
+      <img class="eye" src="../iris-eye.svg" width="72" height="72" alt="Iris eye"/>
+      <h1>Morning Light voice door</h1>
+      <p class="sub">
+        Wyndham Heaven's desk voice for Iris 35. You stay on your glass — Iris listens, answers, and guides the next safe step. Built on AssemblyAI Voice Agent API.
+      </p>
+      <div id="voice-pulse" class="pulse" data-tone="idle" aria-hidden="true"></div>
+      <p id="voice-status">Tap start, allow the microphone, then speak.</p>
+      <div class="controls">
+        <button type="button" id="start-call">Start voice call</button>
+        <button type="button" id="end-call">End call</button>
+      </div>
+      <p class="note">Headphones optional — browser echo cancellation is on. English only. Nothing stored on our server except the live session.</p>
+    </section>
+
+    <div class="card">
+      <h2>What Iris covers</h2>
+      <ul>
+        <li>Official door: only <a href="https://iris-35.elghaly.dev/">iris-35.elghaly.dev</a></li>
+        <li>Phone security — unknown devices, profiles, linked chats</li>
+        <li>Scam patterns — no wallet connect, no seed phrases, no screen share</li>
+        <li>Human line: <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Live transcript</h2>
+      <div id="voice-log" aria-live="polite"></div>
+    </div>
+
+    <footer>
+      <p>Iris 35 · Wyndham Heaven / ElGhaly · MIT</p>
+      <p><a href="https://github.com/Alarm2024/iris-35">Source on GitHub</a> · AssemblyAI Voice Agent Hackathon</p>
+    </footer>
+  </div>
+  <script src="config.js"></script>
+  <script src="voice-agent.js"></script>
+</body>
+</html>

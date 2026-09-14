@@ -22,6 +22,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js iris-eye.svg health.json lockup.py _site/
+          cp -r voice _site/
           cp health.json _site/health
           python3 -m pip install --quiet pillow
           python3 lockup.py
