@@ -18,22 +18,57 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
+
+      - name: Syntax check the scripts
+        run: |
+          for f in i18n.js app.js boot.js ui.js sw.js; do node --check "$f"; done
+          python3 -c "import json;json.load(open('manifest.webmanifest'))"
+
       - name: Build public site artifact
         run: |
+          set -euo pipefail
           mkdir -p _site
-          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js iris-eye.svg health.json lockup.py _site/
+          cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js ui.js sw.js \
+             manifest.webmanifest robots.txt sitemap.xml iris-eye.svg health.json _site/
           cp health.json _site/health
           python3 -m pip install --quiet pillow
           python3 lockup.py
+          python3 icons.py
           python3 - <<'PY'
-          p="_site/index.html"
-          t=open(p,encoding="utf-8").read()
-          t=t.replace('<script src="app.js"></script>','<script src="i18n.js?v=21"></script>\n<script src="app.js?v=21"></script>\n<script src="boot.js?v=21"></script>')
-          t=t.replace('<link rel="stylesheet" href="iris.css"/>','<link rel="stylesheet" href="iris.css?v=21"/>')
-          t=t.replace('https://35.elghaly.dev/IMG_5183.jpeg','lockup.jpg?v=21')
-          open(p,"w",encoding="utf-8").write(t)
+          import hashlib, pathlib, re
+
+          site = pathlib.Path("_site")
+          build = "${{ github.sha }}"[:8] or "dev"
+
+          def digest(name):
+              """Cache-bust on content, so a deploy that changes nothing changes no URL."""
+              f = site / name
+              return hashlib.sha256(f.read_bytes()).hexdigest()[:8] if f.is_file() else build
+
+          page = site / "index.html"
+          html = page.read_text(encoding="utf-8")
+
+          # Version every local script and stylesheet by its own content hash.
+          def bust(m):
+              attr, name = m.group(1), m.group(2)
+              return '%s="%s?v=%s"' % (attr, name, digest(name))
+
+          html = re.sub(r'\b(src|href)="([\w.-]+\.(?:js|css))"', bust, html)
+
+          # The hero is baked locally at build time; never ship the cross-site URL.
+          html = html.replace("https://35.elghaly.dev/IMG_5183.jpeg",
+                              "lockup.jpg?v=%s" % digest("lockup.jpg"))
+          page.write_text(html, encoding="utf-8")
+
+          # The service worker keys its cache on the build, so a deploy invalidates it.
+          sw = site / "sw.js"
+          sw.write_text(sw.read_text(encoding="utf-8").replace("__BUILD__", build),
+                        encoding="utf-8")
+          print("build", build)
           PY
+          rm -f _site/src-5183.jpg
           touch _site/.nojekyll
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

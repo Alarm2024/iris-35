@@ -8,3 +8,43 @@
 .addr-eg{font-size:11px;opacity:.88}
 #gate{display:none!important}
 body.gated{overflow:auto!important}
+
+/* ---- keyboard and screen-reader affordances ---- */
+/* Clipped, not pushed off-canvas: a negative offset would give RTL a
+   10,000px horizontal scroll and open the page on empty space. */
+.skip{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+  background:#14f195;color:#04110a;font:700 13px ui-sans-serif,system-ui,sans-serif;text-decoration:none}
+.skip:focus{position:fixed;top:0;inset-inline-start:0;z-index:20;
+  width:auto;height:auto;padding:10px 16px;overflow:visible;clip:auto;clip-path:none;
+  border-end-end-radius:12px}
+:focus-visible{outline:2px solid #19fbff;outline-offset:2px;border-radius:8px}
+.langs button:focus-visible,.tabs button:focus-visible,.ans button:focus-visible{outline-offset:3px}
+
+/* ---- offline banner ---- */
+.offline-bar{background:#f5d76e;color:#1a1400;margin:0;padding:10px 16px;
+  font:600 13px ui-sans-serif,system-ui,sans-serif;text-align:center}
+
+/* ---- how far through the list you are ---- */
+.progress{color:#b9b6d3;font-size:12px;margin:2px 0 6px}
+.bar{height:4px;border-radius:999px;background:rgba(25,251,255,.18);overflow:hidden;margin-bottom:8px}
+.bar span{display:block;height:100%;background:#14f195;transition:width .25s ease}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ---- printing: the family alarm and the verdict are meant to be handed over ---- */
+@media print{
+  html,body{background:#fff!important;color:#000!important}
+  .wrap{max-width:none;padding:0}
+  .langs,.tabs,.askgrid,.cta,.skip,.offline-bar,.status,.row,.bar,#install-row,.hero .lock{display:none!important}
+  .panel{display:block!important;break-inside:avoid}
+  .card{background:#fff!important;border:1px solid #999!important;color:#000!important;break-inside:avoid}
+  .q,.rule,.lede,.hint,.love,.bullets,.how span,footer{color:#000!important}
+  .path,h2{color:#444!important}
+  .badge{border:1px solid #000!important;color:#000!important}
+  a{color:#000!important;text-decoration:underline}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:11px}
+}

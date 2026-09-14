@@ -1,0 +1,25 @@
+{
+  "name": "Iris 35 — free server to think and ship",
+  "short_name": "IRIS 35",
+  "id": "/",
+  "start_url": "./?src=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05010c",
+  "theme_color": "#05010c",
+  "description": "Free open server. Look on your glass, tap the path, ship the next step. Works offline.",
+  "lang": "en",
+  "dir": "auto",
+  "categories": ["security", "utilities", "education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "iPhone desk", "url": "./#desk", "description": "Run the iPhone list" },
+    { "name": "Chain read", "url": "./#desk", "description": "Paste a public hash" }
+  ]
+}
