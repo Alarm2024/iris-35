@@ -48,3 +48,9 @@ body.gated{overflow:auto!important}
   a{color:#000!important;text-decoration:underline}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:11px}
 }
+
+/* ---- the eye, low on the page. 35 stays the logo at the top. ---- */
+.eye{margin:24px auto 8px;max-width:560px}
+.eye img{width:100%;height:auto;display:block;border-radius:18px;
+  border:1px solid rgba(153,69,255,.28);background:#05010c}
+@media print{.eye{display:none}}

@@ -4,7 +4,7 @@
 var VERSION="__BUILD__";
 var SHELL="iris-shell-"+VERSION;
 var FILES=["./","index.html","iris.css","i18n.js","app.js","boot.js","ui.js",
-  "favicon.svg","lockup.jpg","icon-192.png","icon-512.png","manifest.webmanifest"];
+  "favicon.svg","iris-eye.svg","lockup.jpg","icon-192.png","icon-512.png","manifest.webmanifest"];
 
 self.addEventListener("install",function(e){
   e.waitUntil(caches.open(SHELL).then(function(c){

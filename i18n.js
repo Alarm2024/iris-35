@@ -144,6 +144,7 @@ fwd_q:"有你没设的 Gmail 转发吗？",fwd_p:"Gmail → 设置 → 转发"
 /* ---------- UI chrome, verdicts and answers: one entry per language ---------- */
 var UI={};
 UI.en={
+eye_alt:"The IRIS eye, under a cross, above an open hand",
 skip:"Skip to the desk",
 status_wait:"checking server",status_up:"server up",status_down:"server unreachable — the page still works offline",
 h1:"Iris 35 — free server to think and ship",
@@ -206,6 +207,7 @@ c_timeout:"The chain lookup timed out. This is not a verdict — try again.",
 c_working:"WORKING",c_error:"NO READ"
 };
 UI.ar={
+eye_alt:"عين إيريس، تحت الصليب، فوق كفّ مفتوحة",
 skip:"تخطى إلى المكتب",
 status_wait:"جارٍ الفحص",status_up:"الخادم يعمل",status_down:"الخادم غير متاح — الصفحة تعمل بدون إنترنت",
 h1:"إيريس 35 — خادم مجاني للتفكير والإنجاز",
@@ -269,6 +271,7 @@ c_timeout:"انتهت مهلة القراءة. هذا ليس حكماً — أع
 c_working:"جارٍ",c_error:"لا قراءة"
 };
 UI.ru={
+eye_alt:"Глаз IRIS — под крестом, над открытой ладонью",
 skip:"Перейти к столу",
 status_wait:"проверяем сервер",status_up:"сервер работает",status_down:"сервер недоступен — страница всё равно работает офлайн",
 h1:"Iris 35 — бесплатный сервер: думать и отправлять",
@@ -331,6 +334,7 @@ c_timeout:"Чтение цепи не уложилось во время. Это
 c_working:"ЧИТАЮ",c_error:"НЕТ ЧТЕНИЯ"
 };
 UI.de={
+eye_alt:"Das IRIS-Auge, unter einem Kreuz, über einer offenen Hand",
 skip:"Zum Schreibtisch springen",
 status_wait:"Server wird geprüft",status_up:"Server läuft",status_down:"Server nicht erreichbar — die Seite läuft trotzdem offline",
 h1:"Iris 35 — freier Server zum Denken und Ausliefern",
@@ -393,6 +397,7 @@ c_timeout:"Zeitüberschreitung bei der Chain-Abfrage. Das ist kein Urteil — ve
 c_working:"LÄUFT",c_error:"KEIN LESEN"
 };
 UI.es={
+eye_alt:"El ojo de IRIS, bajo una cruz, sobre una mano abierta",
 skip:"Ir al escritorio",
 status_wait:"comprobando servidor",status_up:"servidor activo",status_down:"servidor inalcanzable — la página sigue funcionando sin conexión",
 h1:"Iris 35 — servidor libre para pensar y publicar",
@@ -455,6 +460,7 @@ c_timeout:"La lectura de la cadena agotó el tiempo. Esto no es un veredicto —
 c_working:"LEYENDO",c_error:"SIN LECTURA"
 };
 UI.zh={
+eye_alt:"IRIS 之眼：十字之下，张开的手之上",
 skip:"跳到工作台",
 status_wait:"正在检查服务器",status_up:"服务器正常",status_down:"服务器不可达 — 本页离线仍可使用",
 h1:"Iris 35 — 免费服务器，想清楚再发出去",
@@ -538,5 +544,8 @@ function applyI18n(root){
   });
   (root||document).querySelectorAll("[data-i18n-label]").forEach(function(el){
     el.setAttribute("aria-label",t(el.getAttribute("data-i18n-label")));
+  });
+  (root||document).querySelectorAll("[data-i18n-alt]").forEach(function(el){
+    el.setAttribute("alt",t(el.getAttribute("data-i18n-alt")));
   });
 }

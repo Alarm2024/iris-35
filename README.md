@@ -32,9 +32,13 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | `ui.js` | language switch, ask box, live status, offline banner, install prompt |
 | `sw.js` | service worker — the desk opens on a dead line |
 | `iris.css` | accessibility, print and progress styles on top of the inline sheet |
+| `iris-eye.svg` | the eye mark, shown low on the page above the footer |
 | `lockup.py` | bakes `lockup.jpg` (the hero) at build time |
 | `icons.py` | draws the PWA / iOS icons at build time |
 | `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only |
+
+The 35 photo is the logo. It stays the hero at the top of the page and the
+social-card image; `iris-eye.svg` sits further down, above the footer.
 
 ## Build
 
