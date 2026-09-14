@@ -1,0 +1,18 @@
+{
+  "name": "iris-35-voice-server",
+  "version": "1.0.0",
+  "description": "AssemblyAI Voice Agent token server for Iris 35 Morning Light desk",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
