@@ -94,12 +94,9 @@ function drawCards(){
   }
   var f=document.querySelector("footer");
   if(f){
-    var addrs=[].slice.call(f.querySelectorAll(".addr"));
-    if(addrs.length>=2){
-      var eg=addrs[1], sf=addrs[0];
-      eg.className="addr addr-eg";
-      sf.parentNode.insertBefore(eg,sf);
-    }
+    /* The footer order lives in index.html now. This used to grab .addr[1]
+       and shove it above .addr[0], which only worked while the two street
+       addresses were the only .addr nodes — the chain addresses broke it. */
   }
 })();
 function drawStatic(){

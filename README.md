@@ -36,7 +36,11 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | `qr.svg` | QR for the official URL — dark on white, never tint or invert it |
 | `lockup.py` | bakes `lockup.jpg` (the hero) at build time |
 | `icons.py` | draws the PWA / iOS icons at build time |
-| `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only |
+| `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only. The deskSigner / Squads addresses `addr.js` held now live in the footer markup |
+
+Footer order (deskSigner, Squads, Cairo, San Francisco) is set in the markup.
+`boot.js` used to reorder it by index, which only held while the two street
+addresses were the only `.addr` nodes.
 
 The 35 photo is the logo. It stays the hero at the top of the page and the
 social-card image; `iris-eye.svg` sits further down, above the footer.

@@ -8,13 +8,13 @@
 <meta name="referrer" content="no-referrer"/>
 <meta name="theme-color" content="#05010c"/>
 <meta name="color-scheme" content="dark"/>
-<meta name="description" content="Iris 35 is a free open server. Look on your glass, tap the path, ship the next step. Works offline. Live now."/>
+<meta name="description" content="Iris 35 — you dream we build. Free open server on your glass. Look, tap, ship. Same house as Plumb. Works offline."/>
 <link rel="canonical" href="https://iris-35.elghaly.dev/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Iris 35"/>
 <meta property="og:url" content="https://iris-35.elghaly.dev/"/>
 <meta property="og:title" content="Iris 35 — free server to think and ship"/>
-<meta property="og:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
+<meta property="og:description" content="💭 you dream we build 🧠💡 — free open server on your glass. Same house as Plumb."/>
 <meta property="og:image" content="https://iris-35.elghaly.dev/lockup.jpg"/>
 <meta property="og:image:alt" content="35 IRIS ELGHALY — cross, hamsa, eye"/>
 <meta property="og:locale" content="en_US"/>
@@ -25,7 +25,7 @@
 <meta property="og:locale:alternate" content="es_ES"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Iris 35 — free server to think and ship"/>
-<meta name="twitter:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
+<meta name="twitter:description" content="💭 you dream we build 🧠💡 — free open server on your glass. Same house as Plumb."/>
 <meta name="twitter:image" content="https://iris-35.elghaly.dev/lockup.jpg"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
@@ -45,8 +45,10 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-tex
 .langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
 .langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:8px 12px;font:700 11px inherit;letter-spacing:.08em;cursor:pointer}
 .langs button.on{color:#04110a;background:var(--g);border-color:var(--g)}
-.owner{margin:0 0 8px;letter-spacing:.16em;font-size:18px;color:var(--dim)}
+.owner{margin:0 0 8px;letter-spacing:.2em;font-size:20px;color:var(--dim);text-align:center}
 .hero{text-align:center;margin:8px 0 16px}
+.tagline{font-size:clamp(17px,4.5vw,22px);line-height:1.45;margin:12px 0 6px;color:#e8e6f6;letter-spacing:.02em}
+.tagline-foot{margin-top:18px;font-size:clamp(16px,4vw,20px);color:#e8e6f6;text-align:center}
 .lock{position:relative;max-width:560px;margin:0 auto}
 .lock img{width:100%;height:auto;display:block;border-radius:18px}
 .lock .iris-word{position:absolute;left:8%;width:54%;top:61%;text-align:center;font:700 clamp(18px,6.2vw,34px)/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.34em;color:#f7f8ff;text-indent:.34em}
@@ -89,8 +91,13 @@ textarea{min-height:72px}
 .go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:12px 16px;font:600 13px inherit;cursor:pointer;min-height:44px}
 .ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:12px 16px;font:600 13px inherit;cursor:pointer;min-height:44px}
 .out{display:none;margin-top:12px}.out.on{display:block}
-footer{margin-top:22px;color:var(--dim);font-size:14px}
-footer .marks{letter-spacing:.12em;margin:8px 0}
+footer{margin-top:28px;color:var(--dim);font-size:14px;text-align:center;padding-top:8px;border-top:1px solid rgba(153,69,255,.18)}
+footer .marks{letter-spacing:.2em;margin:10px 0;font-size:18px}
+footer .marks-down{letter-spacing:.14em;margin-top:14px;font-size:17px}
+footer .we-are{margin:10px 0;font-size:15px;color:#e8e6f6}
+footer .made-by{margin-top:16px;font-size:15px;color:#f5d76e;letter-spacing:.04em}
+footer .plumb-door{margin:12px 0;font-size:14px;line-height:1.55;opacity:.92}
+footer .plumb-door a{font-weight:600}
 .addr{direction:ltr;unicode-bidi:isolate;margin-top:6px}
 a{color:var(--c)}
 .path{color:var(--g);font-size:12px;margin-bottom:6px}
@@ -101,7 +108,7 @@ a{color:var(--c)}
 <a class="skip" href="#desk" data-i18n="skip">Skip to the desk</a>
 <p id="offline-bar" class="offline-bar" role="status" hidden data-i18n="offline">Offline. Everything on this page still works — only the chain lookup needs a line.</p>
 <div class="wrap">
-  <p class="owner" aria-hidden="true">✝️ 🧿 🪬</p>
+  <p class="owner" aria-hidden="true">✝️🧿🪬</p>
   <div class="top">
     <div class="brand"><span class="word">IRIS 💡🦅</span></div>
     <div class="langs" id="langs" role="group" aria-label="Language">
@@ -118,6 +125,7 @@ a{color:var(--c)}
       <img src="https://35.elghaly.dev/IMG_5183.jpeg" width="1200" height="800" alt="35 IRIS ELGHALY — cross, hamsa, eye" fetchpriority="high" decoding="async"/>
       <span class="iris-word">IRIS</span>
     </div>
+    <p class="tagline" data-i18n="tagline">💭 you dream we build 🧠💡</p>
     <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
     <h1 class="h1" data-i18n="h1">Iris 35 — free server to think and ship</h1>
     <p class="lede" data-i18n="lede">Open. Free. Live now. You stay on your glass.</p>
@@ -184,13 +192,17 @@ a{color:var(--c)}
          data-i18n-alt="eye_alt" alt="The IRIS eye, under a cross, above an open hand"/>
   </div>
   <footer>
-    <p class="marks" aria-hidden="true">✝️ 🧿 🪬</p>
+    <p class="marks" aria-hidden="true">✝️🧿🪬</p>
+    <p class="tagline tagline-foot" data-i18n="tagline">💭 you dream we build 🧠💡</p>
     <p data-i18n="by">IRIS 💡🦅 · by ElGhaly</p>
-    <p><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
+    <p class="we-are"><span data-i18n="we_are">We are 24</span> · <span data-i18n="ask_mail">Ask us on mail</span> <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
+    <p class="plumb-door"><span data-i18n="plumb_note">Ready desk software lives on</span> <a href="https://plumb.elghaly.dev/" rel="noopener noreferrer">Plumb</a><span data-i18n="plumb_tail"> — same house, paid seats when you want a machine on the wire.</span></p>
+    <p class="addr addr-key" dir="ltr">deskSigner <a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo" rel="noopener noreferrer">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></p>
+    <p class="addr addr-key" dir="ltr">Squads <a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ" rel="noopener noreferrer">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></p>
+    <p class="addr addr-eg" dir="ltr">35 Zamalek, Cairo, Egypt</p>
     <p class="addr" dir="ltr">548 Market Street, San Francisco, California 94104</p>
-    <p class="addr" dir="ltr">35 Zamalek, Cairo, Egypt</p>
-    <p><a href="https://35.elghaly.dev/" rel="noopener noreferrer"><span data-i18n="closed_desk">35 closed desk</span></a> <span data-i18n="closed_desk_tail">is separate.</span></p>
-    <p class="marks" aria-hidden="true">3️⃣🧿5️⃣</p>
+    <p class="made-by" data-i18n="made_by">made by love ❤️</p>
+    <p class="marks marks-down" aria-hidden="true">3️⃣🧿5️⃣</p>
   </footer>
 </div>
 <script type="application/ld+json">
