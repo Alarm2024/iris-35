@@ -119,54 +119,11 @@ function drawStatic(){
   document.body.classList.remove("gated");
   drawStatic();
 })();
-function gotMail(){try{return !!(localStorage.getItem("35-iris-result-mail")||"").trim();}catch(e){return false;}}
-function wantLogin(){try{return sessionStorage.getItem("35-iris-login")==="1";}catch(e){return false;}}
-function saveMail(v){try{localStorage.setItem("35-iris-result-mail",v);}catch(e){}}
-function qq(item){return t(item.id+"_q");}
-function pp(item){return t(item.id+"_p");}
-renderTrack=function(name){
-  var track=TRACKS[name],root=document.getElementById(name);if(!root||!track)return;
-  var answers=(loadState(track.key).answers)||{},html="<p class='path'>"+ct("queue_h")+"</p>";
-  track.qs.forEach(function(item){
-    var cur=answers[item.id]||"";
-    html+="<div class='card'><p class='path'>"+pp(item)+"</p><p class='q'>"+qq(item)+"</p><div class='ans'>";
-    ["no","yes","idk"].forEach(function(v){
-      html+="<button type='button' data-track='"+name+"' data-id='"+item.id+"' data-v='"+v+"' class='"+(cur===v?("on-"+v):"")+"'>"+t(v)+"</button>";
-    });
-    html+="</div></div>";
-  });
-  if(gotMail()){
-    var r=rank(track,answers);
-    html+="<div class='card' dir='ltr'><span class='badge "+r.cls+"'>CLASS "+r.cls+"</span><p class='rule'>"+nextText(track,r.cls)+"\n"+r.notes.join("\n")+"</p><div class='row'><button class='ghost' type='button' id='reset-"+name+"'>"+t("reset")+"</button></div></div>";
-    html+=afterDesk(r.cls).replace("<div class='card'","<div class='card' dir='ltr'");
-  } else if(wantLogin()){
-    html+="<div class='card'><p class='path'>"+t("login")+"</p><p class='q'>"+t("mailq")+"</p><label>Mail</label><input id='res-mail' type='email'/><div class='row'><button class='go' type='button' id='res-go'>"+t("enter")+"</button></div></div>";
-  } else {
-    html+="<div class='card'><div class='row'><button class='go' type='button' id='res-open'>"+t("result")+"</button></div></div>";
-  }
-  root.innerHTML=html;
-  root.querySelectorAll(".ans button").forEach(function(b){
-    b.onclick=function(){
-      var tk=TRACKS[b.getAttribute("data-track")];
-      var s=loadState(tk.key);s.answers=s.answers||{};
-      s.answers[b.getAttribute("data-id")]=b.getAttribute("data-v");
-      saveState(tk.key,s);renderTrack(name);
-    };
-  });
-  var reset=document.getElementById("reset-"+name);
-  if(reset)reset.onclick=function(){saveState(track.key,{answers:{}});renderTrack(name);};
-  var open=document.getElementById("res-open");
-  if(open)open.onclick=function(){try{sessionStorage.setItem("35-iris-login","1");}catch(e){}renderTrack("iphone");renderTrack("android");};
-  var go=document.getElementById("res-go");
-  if(go)go.onclick=function(){
-    var mail=(document.getElementById("res-mail").value||"").trim();
-    if(!mail||mail.indexOf("@")<0)return;
-    saveMail(mail);renderTrack("iphone");renderTrack("android");
-  };
-};
-function refreshLang(){drawStatic();renderTrack("iphone");renderTrack("android");drawCards();}
-renderTrack("iphone");renderTrack("android");
+/* app.js owns renderTrack now. boot.js only draws the static cards and
+   re-draws everything when the language changes. */
+function refreshLang(){
+  if(typeof applyI18n==="function")applyI18n(document);
+  drawStatic();
+  if(typeof renderTrack==="function"){renderTrack("iphone");renderTrack("android");}
+}
 drawCards();
-document.querySelectorAll("#langs button").forEach(function(b){
-  b.addEventListener("click",function(){setTimeout(refreshLang,40);});
-});
