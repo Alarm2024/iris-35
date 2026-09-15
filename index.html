@@ -12,9 +12,6 @@
 <meta property="og:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
 <meta property="og:image" content="https://35.elghaly.dev/IMG_5183.jpeg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Iris 35 — free server to think and ship"/>
-<meta name="twitter:description" content="Free open server. Look on your glass. Tap. Ship. Live now."/>
-<meta name="twitter:image" content="https://35.elghaly.dev/IMG_5183.jpeg"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <link rel="stylesheet" href="iris.css"/>
 <style>
@@ -39,7 +36,6 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block}
 .cta{display:inline-block;background:var(--g);color:#04110a;border-radius:999px;padding:12px 22px;font:700 15px inherit;text-decoration:none;margin:12px 0 4px}
 .bullets{margin:14px 0;padding-left:18px;color:var(--dim)}
-.bullets li{margin:6px 0}
 .how{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
 .how div{border:1px solid var(--l);border-radius:14px;padding:12px 10px;background:var(--card)}
 .how b{display:block;color:var(--c);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
@@ -48,33 +44,14 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55}
 h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin:22px 2px 8px}
 .askgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .askgrid button{text-align:start;border:1px solid var(--l);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:600 13px inherit;cursor:pointer}
-.askgrid button small{display:block;color:var(--dim);font-weight:500;margin-top:4px}
 .tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
 .tabs button{flex:1;min-width:22%;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px 8px;font:600 13px inherit;cursor:pointer}
 .tabs button.on{background:var(--g);color:#04110a;border-color:var(--g)}
 .panel{display:none}.panel.on{display:block}
 .card{background:var(--card);border:1px solid var(--l);border-radius:16px;padding:16px;margin-top:12px}
-.q{font-size:16px;margin-bottom:10px}
-.ans{display:flex;flex-wrap:wrap;gap:8px}
-.ans button{border:1px solid var(--l);background:#11041f;color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px inherit;cursor:pointer}
-.ans button.on-no{border-color:var(--g);color:var(--g)}
-.ans button.on-yes{border-color:#ff6b8a;color:#ff6b8a}
-.ans button.on-idk{border-color:#f5d76e;color:#f5d76e}
-.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
-.A{color:#14f195}.B{color:#f5d76e}.C{color:#ff6b8a}
-.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;white-space:pre-wrap}
-label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
-textarea{width:100%;min-height:72px;background:#11041f;color:var(--ink);border:1px solid var(--l);border-radius:12px;padding:12px;font:14px inherit}
-#q{font:13px ui-monospace,Menlo,Consolas,monospace;min-height:88px}
-.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
-.ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
-.out{display:none;margin-top:12px}.out.on{display:block}
 footer{margin-top:22px;color:var(--dim);font-size:14px}
-footer .marks{letter-spacing:.12em;margin:8px 0}
-.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px}
+.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
 a{color:var(--c)}
-.path{color:var(--g);font-size:12px;margin-bottom:6px}
 @media(max-width:560px){.how{grid-template-columns:1fr}}
 </style>
 </head>
@@ -94,7 +71,7 @@ a{color:var(--c)}
   </div>
   <div class="hero">
     <div class="lock">
-      <img src="https://35.elghaly.dev/IMG_5183.jpeg" width="1200" height="800" alt="35 IRIS ELGHALY — cross, hamsa, eye"/>
+      <img src="https://35.elghaly.dev/IMG_5183.jpeg" width="1200" height="800" alt="35 IRIS ELGHALY"/>
       <span class="iris-word">IRIS</span>
     </div>
     <p class="status"><i></i> server up</p>
@@ -102,23 +79,11 @@ a{color:var(--c)}
     <p class="lede">Open. Free. Live now. You stay on your glass.</p>
     <a class="cta" href="#desk">Start free</a>
   </div>
-  <ul class="bullets">
-    <li>What it is: a free open server. Look, tap, get the next path.</li>
-    <li>Who it is for: you, on your iPhone or Android. Nobody holds the phone.</li>
-    <li>Free to start. Extra only if you ask after the work.</li>
-  </ul>
-  <div class="how">
-    <div><b>1 Look</b><span>Open the path on YOUR glass.</span></div>
-    <div><b>2 Tap</b><span>Mark what you see. The page answers.</span></div>
-    <div><b>3 Ship</b><span>Remove a YES yourself. Teach one person you love.</span></div>
+  <div class="card">
+    <p class="addr">deskSigner<br><a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></p>
+    <p class="addr">Squads<br><a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></p>
   </div>
   <p class="hint" id="ai-line">What happened?</p>
-  <div class="askgrid">
-    <button type="button" data-go="iphone">Someone wants an app on my phone<small>iPhone / Android</small></button>
-    <button type="button" data-go="iphone">Unknown device on my account<small>Apple / Google</small></button>
-    <button type="button" data-go="sig">I signed or sent crypto<small>SOL / BTC / ETH</small></button>
-    <button type="button" data-go="sig">They said connect wallet<small>Do not connect. Paste the hash</small></button>
-  </div>
   <div id="desk" class="tabs">
     <button type="button" id="tab-iphone" class="on">iPhone</button>
     <button type="button" id="tab-android">Android</button>
@@ -126,67 +91,16 @@ a{color:var(--c)}
   </div>
   <div id="iphone" class="panel on"></div>
   <div id="android" class="panel"></div>
-  <div id="sig" class="panel">
-    <div class="card">
-      <label for="q">Public hash only</label>
-      <textarea id="q" spellcheck="false" autocomplete="off" placeholder="SOL / BTC / ETH"></textarea>
-      <div class="row">
-        <button class="go" id="run" type="button">Classify</button>
-        <button class="ghost" id="clr" type="button">Clear</button>
-      </div>
-      <div class="out" id="out"><p><span class="badge A" id="badge">-</span></p><p class="rule" id="report"></p></div>
-    </div>
-  </div>
-  <h2>Ask IRIS</h2>
-  <div class="card">
-    <p class="hint">After you looked. Instant answer. Nothing stored on a server.</p>
-    <textarea id="askq" placeholder="Ask IRIS"></textarea>
-    <div class="row"><button class="go" type="button" id="askgo">Answer</button></div>
-    <div class="out" id="askout"><p class="rule" id="askrep"></p></div>
-  </div>
-  <p class="love">See first. Protect the people you love. Teach them to see, without taking their phone.</p>
+  <div id="sig" class="panel"></div>
   <footer>
-    <p class="marks">✝️ 🧿 🪬</p>
     <p>IRIS 💡🦅 · by ElGhaly</p>
+    <p class="addr">deskSigner 3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</p>
+    <p class="addr">Squads GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</p>
     <p><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
-    <p class="addr">548 Market Street, San Francisco, California 94104</p>
-    <p class="addr">35 Zamalek, Cairo, Egypt</p>
-    <p><a href="https://35.elghaly.dev/">35 closed desk</a> is separate.</p>
-    <p class="marks">3️⃣5️⃣</p>
+    <p><a href="https://35.elghaly.dev/">35 closed desk</a></p>
   </footer>
 </div>
 <script src="app.js"></script>
-<script>
-var LANG=localStorage.getItem("35-iris-lang")||"en";
-function applyLang(l){
-  LANG=l; localStorage.setItem("35-iris-lang",l);
-  document.getElementById("root").lang=l==="zh"?"zh-Hans":l;
-  document.getElementById("root").dir=l==="ar"?"rtl":"ltr";
-  document.querySelectorAll("#langs button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-lang")===l);});
-}
-document.querySelectorAll("#langs button").forEach(function(b){b.onclick=function(){applyLang(b.getAttribute("data-lang"));};});
-applyLang(LANG);
-function replyAsk(t){
-  t=(t||"").toLowerCase();
-  if(!t.trim())return "Write what they said or what you see.";
-  if(/seed|mnemonic|private key/.test(t))return "Do not paste that here. Wipe the box. Change it on YOUR device.";
-  if(/install|apk|cleaner/.test(t))return "Do not install. Open the phone tab.";
-  if(/connect|wallet/.test(t))return "Do not connect. Paste a public hash only.";
-  if(/2fa|otp|code/.test(t))return "Do not send the code. Hang up. Change the password on this phone.";
-  if(/price|pay/.test(t))return "First pass is free. Extra only after work you asked for.";
-  return "Pick a phone tab or paste a public hash. App / code / connect from a stranger = stop.";
-}
-document.getElementById("askgo").onclick=function(){
-  document.getElementById("askout").classList.add("on");
-  document.getElementById("askrep").textContent=replyAsk(document.getElementById("askq").value);
-};
-document.querySelectorAll("[data-go]").forEach(function(b){
-  b.onclick=function(){
-    var id=b.getAttribute("data-go");
-    document.getElementById("tab-"+(id==="sig"?"sig":"iphone")).click();
-    document.getElementById("desk").scrollIntoView({behavior:"smooth"});
-  };
-});
-</script>
+<script src="addr.js"></script>
 </body>
 </html>
