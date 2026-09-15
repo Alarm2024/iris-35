@@ -54,3 +54,12 @@ body.gated{overflow:auto!important}
 .eye img{width:100%;height:auto;display:block;border-radius:18px;
   border:1px solid rgba(153,69,255,.28);background:#05010c}
 @media print{.eye{display:none}}
+
+/* ---- the QR: shown in the room, never sent as a link ---- */
+.qr-card{text-align:center}
+/* White ground, dark modules, its own quiet zone baked into the SVG.
+   Never tint or invert it — a good share of readers refuse an inverted QR. */
+.qr{display:block;margin:12px auto;width:min(264px,70vw);height:auto;
+  border-radius:12px;background:#fff;border:1px solid rgba(25,251,255,.28)}
+.qr-card .rule{font-size:12px;color:#b9b6d3;word-break:break-all}
+@media print{.qr-card{display:block!important;break-inside:avoid}.qr{border:1px solid #000!important}}

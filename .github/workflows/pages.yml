@@ -29,7 +29,7 @@ jobs:
           set -euo pipefail
           mkdir -p _site
           cp index.html app.js favicon.svg CNAME iris.css i18n.js boot.js ui.js sw.js \
-             manifest.webmanifest robots.txt sitemap.xml iris-eye.svg health.json _site/
+             manifest.webmanifest robots.txt sitemap.xml iris-eye.svg qr.svg health.json _site/
           cp health.json _site/health
           python3 -m pip install --quiet pillow
           python3 lockup.py

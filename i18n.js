@@ -144,6 +144,7 @@ fwd_q:"有你没设的 Gmail 转发吗？",fwd_p:"Gmail → 设置 → 转发"
 /* ---------- UI chrome, verdicts and answers: one entry per language ---------- */
 var UI={};
 UI.en={
+qr_h:"Show, do not send",qr_q:"Hold this up. They scan it with their own camera.",qr_p:"Nothing to click, nothing in a chat for anyone to swap for a lookalike.",qr_alt:"QR code for https://iris-35.elghaly.dev/",
 eye_alt:"The IRIS eye, under a cross, above an open hand",
 skip:"Skip to the desk",
 status_wait:"checking server",status_up:"server up",status_down:"server unreachable — the page still works offline",
@@ -207,6 +208,7 @@ c_timeout:"The chain lookup timed out. This is not a verdict — try again.",
 c_working:"WORKING",c_error:"NO READ"
 };
 UI.ar={
+qr_h:"أرِ، لا ترسل",qr_q:"ارفع هذا. يمسحونه بكاميرتهم.",qr_p:"لا شيء يُضغط، ولا رابط في دردشة يمكن استبداله بنطاق مشابه.",qr_alt:"رمز QR لـ https://iris-35.elghaly.dev/",
 eye_alt:"عين إيريس، تحت الصليب، فوق كفّ مفتوحة",
 skip:"تخطى إلى المكتب",
 status_wait:"جارٍ الفحص",status_up:"الخادم يعمل",status_down:"الخادم غير متاح — الصفحة تعمل بدون إنترنت",
@@ -271,6 +273,7 @@ c_timeout:"انتهت مهلة القراءة. هذا ليس حكماً — أع
 c_working:"جارٍ",c_error:"لا قراءة"
 };
 UI.ru={
+qr_h:"Покажи, не присылай",qr_q:"Подними это. Они сканируют своей камерой.",qr_p:"Нечего нажимать, и в чате нет ссылки, которую можно подменить похожей.",qr_alt:"QR-код для https://iris-35.elghaly.dev/",
 eye_alt:"Глаз IRIS — под крестом, над открытой ладонью",
 skip:"Перейти к столу",
 status_wait:"проверяем сервер",status_up:"сервер работает",status_down:"сервер недоступен — страница всё равно работает офлайн",
@@ -334,6 +337,7 @@ c_timeout:"Чтение цепи не уложилось во время. Это
 c_working:"ЧИТАЮ",c_error:"НЕТ ЧТЕНИЯ"
 };
 UI.de={
+qr_h:"Zeigen, nicht senden",qr_q:"Halte das hoch. Sie scannen es mit ihrer eigenen Kamera.",qr_p:"Nichts zum Anklicken, kein Chat-Link, den jemand gegen eine ähnliche Domain tauschen kann.",qr_alt:"QR-Code für https://iris-35.elghaly.dev/",
 eye_alt:"Das IRIS-Auge, unter einem Kreuz, über einer offenen Hand",
 skip:"Zum Schreibtisch springen",
 status_wait:"Server wird geprüft",status_up:"Server läuft",status_down:"Server nicht erreichbar — die Seite läuft trotzdem offline",
@@ -397,6 +401,7 @@ c_timeout:"Zeitüberschreitung bei der Chain-Abfrage. Das ist kein Urteil — ve
 c_working:"LÄUFT",c_error:"KEIN LESEN"
 };
 UI.es={
+qr_h:"Enseña, no envíes",qr_q:"Levanta esto. Lo escanean con su propia cámara.",qr_p:"Nada que pulsar, ningún enlace en un chat que alguien pueda cambiar por uno parecido.",qr_alt:"Código QR de https://iris-35.elghaly.dev/",
 eye_alt:"El ojo de IRIS, bajo una cruz, sobre una mano abierta",
 skip:"Ir al escritorio",
 status_wait:"comprobando servidor",status_up:"servidor activo",status_down:"servidor inalcanzable — la página sigue funcionando sin conexión",
@@ -460,6 +465,7 @@ c_timeout:"La lectura de la cadena agotó el tiempo. Esto no es un veredicto —
 c_working:"LEYENDO",c_error:"SIN LECTURA"
 };
 UI.zh={
+qr_h:"给他看，别发给他",qr_q:"举起这个。让他们用自己的相机扫。",qr_p:"没有可点的东西，聊天里也没有能被换成相似域名的链接。",qr_alt:"https://iris-35.elghaly.dev/ 的二维码",
 eye_alt:"IRIS 之眼：十字之下，张开的手之上",
 skip:"跳到工作台",
 status_wait:"正在检查服务器",status_up:"服务器正常",status_down:"服务器不可达 — 本页离线仍可使用",

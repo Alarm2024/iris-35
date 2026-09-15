@@ -33,6 +33,7 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | `sw.js` | service worker — the desk opens on a dead line |
 | `iris.css` | accessibility, print and progress styles on top of the inline sheet |
 | `iris-eye.svg` | the eye mark, shown low on the page above the footer |
+| `qr.svg` | QR for the official URL — dark on white, never tint or invert it |
 | `lockup.py` | bakes `lockup.jpg` (the hero) at build time |
 | `icons.py` | draws the PWA / iOS icons at build time |
 | `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only |
