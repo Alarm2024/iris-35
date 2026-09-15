@@ -1,10 +1,11 @@
 /* IRIS 35 service worker.
    The desk must open on a bad line, in a taxi, in a bank lobby.
    Shell is cached; chain lookups are never cached and never touched. */
-var VERSION="__BUILD__";
+/* Bump this when you change any precached file. build.py rewrites it. */
+var VERSION="2026-09-15";
 var SHELL="iris-shell-"+VERSION;
 var FILES=["./","index.html","iris.css","i18n.js","app.js","boot.js","ui.js",
-  "favicon.svg","iris-eye.svg","qr.svg","lockup.jpg","icon-192.png","icon-512.png","manifest.webmanifest"];
+  "favicon.svg","iris-eye.svg","qr.svg","icon-192.png","icon-512.png","manifest.webmanifest"];
 
 self.addEventListener("install",function(e){
   e.waitUntil(caches.open(SHELL).then(function(c){

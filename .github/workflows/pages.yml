@@ -1,7 +1,11 @@
+# The site deploys straight from the branch (Settings -> Pages -> Deploy from a
+# branch), which costs no Actions minutes. This workflow is kept for the day
+# minutes are available again, but it no longer runs on push — on a private repo
+# every push was burning a failed run.
+#
+# Locally, `python3 build.py` does what this job did.
 name: pages
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
