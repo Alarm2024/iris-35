@@ -34,8 +34,9 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | `iris.css` | accessibility, print and progress styles on top of the inline sheet |
 | `iris-eye.svg` | the eye mark, shown low on the page above the footer |
 | `qr.svg` | QR for the official URL — dark on white, never tint or invert it |
-| `lockup.py` | bakes `lockup.jpg` (the hero) at build time |
-| `icons.py` | draws the PWA / iOS icons at build time |
+| `lockup.py` | bakes `lockup.jpg` (the hero) — optional, via `build.py` |
+| `icons.py` | draws the PWA / iOS icons (`--root` writes them next to the page) |
+| `build.py` | optional local build + `--check` that the branch is complete |
 | `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only. The deskSigner / Squads addresses `addr.js` held now live in the footer markup |
 
 Footer order (deskSigner, Squads, Cairo, San Francisco) is set in the markup.
@@ -45,7 +46,47 @@ addresses were the only `.addr` nodes.
 The 35 photo is the logo. It stays the hero at the top of the page and the
 social-card image; `iris-eye.svg` sits further down, above the footer.
 
-## Build
+## Deploying — no Actions needed
+
+The repo root **is** the site. GitHub Pages serves it straight from the branch,
+which uses no Actions minutes at all:
+
+> Settings → Pages → Build and deployment → Source: **Deploy from a branch**
+> → Branch: **main** / **/ (root)** → Save
+
+Every file the page needs is committed: the scripts, the icons, `qr.svg`,
+the manifest and `.nojekyll` (which stops Jekyll touching the files). Pushing to
+`main` is the deploy.
+
+Before you push, this tells you if anything is missing:
+
+```sh
+python3 build.py --check
+```
+
+### A note on plans
+
+Pages does not serve a **private** repo on a free plan, and Actions minutes are
+only metered on private repos — they are free and unlimited on public ones.
+If this repo is private and the plan lapsed, making it **public** restores both
+at no cost, and is the shortest way back to a green deploy.
+
+### The optional extras
+
+`python3 build.py` does locally what CI used to do, and is only worth running
+when you want either of these:
+
+- `lockup.py` bakes `lockup.jpg` — IRIS / ELGHALY set under the 35 — and points
+  the hero and the social card at it. Without it the hero loads the same 35
+  photo straight from `35.elghaly.dev`, which is what the committed page does.
+- the service-worker version is bumped, so phones that already have the page
+  installed pick up the change.
+
+`.github/workflows/pages.yml` still holds the old CI build for the day minutes
+are available again. It no longer runs on push — on a private repo every push
+was just burning a failed run.
+
+## Build (CI, currently off)
 
 `.github/workflows/pages.yml` runs on every push to `main`:
 

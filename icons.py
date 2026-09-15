@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """Draw the IRIS mark as PNG icons for the manifest and the iOS home screen.
 
+Writes to _site/ by default, or to the repo root with --root so the icons can be
+committed and served straight off a branch, with no build step.
+
 Same shapes as favicon.svg: a dark rounded square, a cyan iris, a dark pupil.
 Drawn with Pillow so the Pages build needs no SVG rasteriser.
 """
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
 
 BG = (5, 1, 12)
 CYAN = (25, 251, 255)
-OUT = Path("_site")
+OUT = Path("." if "--root" in sys.argv else "_site")
 SS = 4  # supersample, then downscale for clean edges
 
 
