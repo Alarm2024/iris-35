@@ -60,3 +60,15 @@ body.gated{overflow:auto!important}
 footer .made-by{font-weight:500}
 footer .we-are a{color:var(--c);font-weight:600}
 .hero .tagline{margin-top:4px}
+/* ---- the QR: shown in the room, never sent as a link ---- */
+.qr-card{text-align:center}
+/* White ground, dark modules, its own quiet zone baked into the SVG.
+   Never tint or invert it — a good share of readers refuse an inverted QR. */
+.qr{display:block;margin:12px auto;width:min(264px,70vw);height:auto;
+  border-radius:12px;background:#fff;border:1px solid rgba(25,251,255,.28)}
+.qr-card .rule{font-size:12px;color:#b9b6d3;word-break:break-all}
+@media print{.qr-card{display:block!important;break-inside:avoid}.qr{border:1px solid #000!important}}
+
+/* A base58 account is one unbreakable word — let it wrap on a phone. */
+.addr-key{overflow-wrap:anywhere;word-break:break-word;font-size:12px;line-height:1.5}
+.addr-key a{overflow-wrap:anywhere}
