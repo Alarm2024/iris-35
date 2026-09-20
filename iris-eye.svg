@@ -1,39 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="IRIS 35 ElGhaly landscape">
   <defs>
-    <radialGradient id="pg" cx="12%" cy="8%" r="55%"><stop offset="0" stop-color="#6b21a8" stop-opacity=".55"/><stop offset="1" stop-color="#05010c" stop-opacity="0"/></radialGradient>
-    <radialGradient id="tg" cx="88%" cy="92%" r="50%"><stop offset="0" stop-color="#0f766e" stop-opacity=".42"/><stop offset="1" stop-color="#05010c" stop-opacity="0"/></radialGradient>
-    <radialGradient id="iris" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e8ffff"/><stop offset=".35" stop-color="#19fbff"/><stop offset=".7" stop-color="#6366f1"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07090a"/>
+      <stop offset=".45" stop-color="#0d1718"/>
+      <stop offset="1" stop-color="#13201f"/>
+    </linearGradient>
+    <radialGradient id="mist" cx="50%" cy="42%" r="48%">
+      <stop offset="0" stop-color="#2ee6c7" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#0b1214" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a3d3a"/>
+      <stop offset=".55" stop-color="#12302e"/>
+      <stop offset="1" stop-color="#0b1214"/>
+    </linearGradient>
+    <radialGradient id="irisg" cx="42%" cy="38%" r="62%">
+      <stop offset="0" stop-color="#e8ffff"/>
+      <stop offset=".28" stop-color="#7cf0dc"/>
+      <stop offset=".7" stop-color="#1a6b62"/>
+      <stop offset="1" stop-color="#0b1214"/>
+    </radialGradient>
   </defs>
-  <rect width="1200" height="630" fill="#05010c"/>
-  <rect width="1200" height="630" fill="url(#pg)"/>
-  <rect width="1200" height="630" fill="url(#tg)"/>
-  <g transform="translate(600 86)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linecap="round">
-    <path d="M0 0 V22"/><path d="M-9 11 H9"/>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <ellipse cx="600" cy="280" rx="420" ry="160" fill="url(#mist)"/>
+  <path d="M0 330 C80 300 140 250 220 268 C300 286 340 240 420 262 C500 284 560 230 640 258 C740 290 820 240 900 270 C980 300 1060 250 1200 290 L1200 630 L0 630 Z" fill="#101918"/>
+  <path d="M0 370 C120 340 200 320 300 342 C420 368 520 318 640 348 C760 378 880 330 1200 368 L1200 630 L0 630 Z" fill="#0e1615"/>
+  <path d="M210 430 C360 400 520 418 600 418 C680 418 840 400 990 430 C900 470 740 492 600 492 C460 492 300 470 210 430 Z" fill="url(#water)"/>
+  <path d="M210 430 C360 400 520 418 600 418 C680 418 840 400 990 430" fill="none" stroke="#2ee6c7" stroke-opacity=".28" stroke-width="2"/>
+  <g transform="translate(600 92)" fill="none" stroke="#eceee8" stroke-width="3" stroke-linecap="round">
+    <path d="M0 0 V26"/><path d="M-11 13 H11"/>
   </g>
-  <g transform="translate(600 214)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linecap="round">
-    <g stroke-width="1.6">
-      <path d="M0 -92 V-78"/><path d="M0 78 V92"/>
-      <path d="M-118 0 H-104"/><path d="M104 0 H118"/>
-      <path d="M-84 -48 L-74 -42"/><path d="M84 -48 L74 -42"/>
-      <path d="M-84 48 L-74 42"/><path d="M84 48 L74 42"/>
-      <path d="M-48 -84 L-42 -74"/><path d="M48 -84 L42 -74"/>
-      <path d="M-48 84 L-42 74"/><path d="M48 84 L42 74"/>
+  <g transform="translate(600 188)" fill="none" stroke="#eceee8" stroke-width="2.4" stroke-linecap="round">
+    <g stroke-width="1.3" opacity=".7">
+      <path d="M0 -78 V-64"/><path d="M0 64 V78"/>
+      <path d="M-98 0 H-84"/><path d="M84 0 H98"/>
+      <path d="M-70 -40 L-60 -34"/><path d="M70 -40 L60 -34"/>
+      <path d="M-70 40 L-60 34"/><path d="M70 40 L60 34"/>
     </g>
-    <path d="M-108 0 C-70 -52 -28 -64 0 -64 C28 -64 70 -52 108 0 C70 52 28 64 0 64 C-28 64 -70 52 -108 0 Z"/>
-    <path d="M-86 0 C-54 -34 -22 -42 0 -42 C22 -42 54 -34 86 0 C54 34 22 42 0 42 C-22 42 -54 34 -86 0 Z"/>
-    <circle cx="0" cy="0" r="26" fill="url(#iris)" stroke="#c4b5fd" stroke-width="2"/>
-    <circle cx="0" cy="0" r="11" fill="#05010c" stroke="none"/>
-    <circle cx="6" cy="-5" r="3.2" fill="#e8ffff" stroke="none"/>
+    <path d="M-96 0 C-62 -46 -24 -56 0 -56 C24 -56 62 -46 96 0 C62 46 24 56 0 56 C-24 56 -62 46 -96 0 Z"/>
+    <circle cx="0" cy="0" r="22" fill="url(#irisg)" stroke="#7cf0dc" stroke-width="1.6"/>
+    <circle cx="0" cy="0" r="9" fill="#0b1214" stroke="none"/>
+    <circle cx="5" cy="-4" r="2.6" fill="#e8ffff" stroke="none"/>
   </g>
-  <g transform="translate(600 392)" fill="none" stroke="#e8e6f6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M-42 8 V-28 C-42 -40 -32 -48 -22 -48 C-16 -48 -12 -44 -10 -38"/>
-    <path d="M-14 8 V-40 C-14 -50 -6 -56 2 -56 C10 -56 16 -50 16 -40 V8"/>
-    <path d="M22 8 V-38 C22 -48 30 -54 38 -54 C46 -54 52 -48 52 -38 V10"/>
-    <path d="M-50 10 C-50 44 -28 70 0 78 C28 70 50 44 50 10"/>
-    <path d="M-22 28 C-10 48 10 48 22 28"/>
-    <circle cx="0" cy="36" r="3.4" fill="#19fbff" stroke="none"/>
+  <g transform="translate(600 318)" fill="none" stroke="#eceee8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-38 6 V-26 C-38 -38 -28 -46 -18 -46 C-12 -46 -8 -42 -6 -36"/>
+    <path d="M-12 6 V-38 C-12 -48 -4 -54 4 -54 C12 -54 18 -48 18 -38 V6"/>
+    <path d="M20 6 V-36 C20 -46 28 -52 36 -52 C44 -52 50 -46 50 -36 V8"/>
+    <path d="M-46 8 C-46 40 -26 64 0 72 C26 64 46 40 46 8"/>
+    <path d="M-20 26 C-8 44 8 44 20 26"/>
+    <circle cx="0" cy="34" r="3" fill="#2ee6c7" stroke="none"/>
+    <ellipse cx="0" cy="8" rx="10" ry="7" fill="none"/>
   </g>
-  <text x="600" y="548" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="36" letter-spacing="16" fill="#f5f7ff">IRIS</text>
-  <path d="M548 564 H652" stroke="#9ca3af" stroke-width="1"/>
-  <text x="600" y="592" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="16" letter-spacing="10" fill="#9ca3af">35</text>
+  <text x="600" y="430" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="28" letter-spacing="14" fill="#9ab3ad" opacity=".9">✝️   🧿   🪬</text>
+  <text x="600" y="488" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="42" letter-spacing="18" fill="#eceee8">IRIS</text>
+  <text x="600" y="536" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="34" font-weight="700" letter-spacing="16" fill="#2ee6c7">35</text>
+  <path d="M520 550 H680" stroke="#8d9188" stroke-width="1"/>
+  <text x="600" y="582" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="16" letter-spacing="12" fill="#9ab3ad">ELGHALY</text>
+  <g transform="translate(86 548)" fill="none" stroke="#c8ccd4" stroke-width="1.6" opacity=".8">
+    <ellipse cx="22" cy="14" rx="20" ry="12"/>
+    <circle cx="22" cy="14" r="4"/>
+    <circle cx="48" cy="4" r="3"/>
+    <circle cx="58" cy="-2" r="2"/>
+  </g>
+  <g transform="translate(1048 538)" fill="none" stroke="#c8ccd4" stroke-width="1.6" opacity=".8">
+    <path d="M18 28 C8 18 10 6 22 8 C26 0 40 2 40 14 C52 12 54 28 40 32 C34 42 20 40 18 28 Z"/>
+    <path d="M70 8 C70 22 64 34 70 44" stroke-linecap="round"/>
+    <path d="M64 18 C76 16 80 28 70 30"/>
+  </g>
 </svg>
