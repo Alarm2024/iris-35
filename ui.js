@@ -1,7 +1,14 @@
 /* IRIS 35 — page chrome */
 (function(){
 "use strict";
-var cs=document.createElement("script"); cs.src="chrome.js"; document.head.appendChild(cs);
+function put(sel, src){
+  var el=document.querySelector(sel);
+  if(el) el.src=src;
+}
+put(".lock img","IMG_6698.jpeg");
+put(".eye img","IMG_6697.jpeg");
+document.querySelectorAll(".lock-mask,.lock-words").forEach(function(n){n.remove();});
+var cs=document.createElement("script"); cs.src="chrome.js?v=photos"; document.head.appendChild(cs);
 
 var LANGS={en:"en",ar:"ar",ru:"ru",zh:"zh-Hans",de:"de",es:"es"};
 
