@@ -1,41 +1,30 @@
-.hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(153,69,255,.28);background:#05010c}
+.hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(46,230,199,.22);background:#0b1214}
 .hero img{width:100%;height:auto;display:block}
 .lock{position:relative;max-width:560px;margin:0 auto}
 .lock-mask,.lock-words,.lock .iris-word,.lock .elg-word{display:none!important}
 .cards{display:grid;gap:10px;margin:18px 0}
 .cards .card p.q{margin-bottom:6px}
-.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;color:#b9b6d3;font-size:13px}
+.addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;color:#9ab3ad;font-size:13px}
 .addr-eg{font-size:11px;opacity:.88}
 #gate{display:none!important}
 body.gated{overflow:auto!important}
-
-/* ---- keyboard and screen-reader affordances ---- */
-/* Clipped, not pushed off-canvas: a negative offset would give RTL a
-   10,000px horizontal scroll and open the page on empty space. */
 .skip{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
-  background:#14f195;color:#04110a;font:700 13px ui-sans-serif,system-ui,sans-serif;text-decoration:none}
+  background:#2ee6c7;color:#04110a;font:700 13px ui-sans-serif,system-ui,sans-serif;text-decoration:none}
 .skip:focus{position:fixed;top:0;inset-inline-start:0;z-index:20;
   width:auto;height:auto;padding:10px 16px;overflow:visible;clip:auto;clip-path:none;
   border-end-end-radius:12px}
-:focus-visible{outline:2px solid #19fbff;outline-offset:2px;border-radius:8px}
+:focus-visible{outline:2px solid #7cf0dc;outline-offset:2px;border-radius:8px}
 .langs button:focus-visible,.tabs button:focus-visible,.ans button:focus-visible{outline-offset:3px}
-
-/* ---- offline banner ---- */
 .offline-bar{background:#f5d76e;color:#1a1400;margin:0;padding:10px 16px;
   font:600 13px ui-sans-serif,system-ui,sans-serif;text-align:center}
-
-/* ---- how far through the list you are ---- */
-.progress{color:#b9b6d3;font-size:12px;margin:2px 0 6px}
-.bar{height:4px;border-radius:999px;background:rgba(25,251,255,.18);overflow:hidden;margin-bottom:8px}
-.bar span{display:block;height:100%;background:#14f195;transition:width .25s ease}
-
+.progress{color:#9ab3ad;font-size:12px;margin:2px 0 6px}
+.bar{height:4px;border-radius:999px;background:rgba(46,230,199,.18);overflow:hidden;margin-bottom:8px}
+.bar span{display:block;height:100%;background:#2ee6c7;transition:width .25s ease}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
     transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
-
-/* ---- printing: the family alarm and the verdict are meant to be handed over ---- */
 @media print{
   html,body{background:#fff!important;color:#000!important}
   .wrap{max-width:none;padding:0}
@@ -48,27 +37,18 @@ body.gated{overflow:auto!important}
   a{color:#000!important;text-decoration:underline}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:11px}
 }
-
-/* ---- the eye, low on the page. 35 stays the logo at the top. ---- */
 .eye{margin:24px auto 8px;max-width:560px}
 .eye img{width:100%;height:auto;display:block;border-radius:18px;
-  border:1px solid rgba(153,69,255,.28);background:#05010c}
+  border:1px solid rgba(46,230,199,.22);background:#0b1214}
 @media print{.eye{display:none}}
-
-/* ---- Plumb-aligned brand chrome ---- */
 .tagline{font-weight:500}
 footer .made-by{font-weight:500}
 footer .we-are a{color:var(--c);font-weight:600}
 .hero .tagline{margin-top:4px}
-/* ---- the QR: shown in the room, never sent as a link ---- */
 .qr-card{text-align:center}
-/* White ground, dark modules, its own quiet zone baked into the SVG.
-   Never tint or invert it — a good share of readers refuse an inverted QR. */
 .qr{display:block;margin:12px auto;width:min(264px,70vw);height:auto;
-  border-radius:12px;background:#fff;border:1px solid rgba(25,251,255,.28)}
-.qr-card .rule{font-size:12px;color:#b9b6d3;word-break:break-all}
+  border-radius:12px;background:#fff;border:1px solid rgba(46,230,199,.28)}
+.qr-card .rule{font-size:12px;color:#9ab3ad;word-break:break-all}
 @media print{.qr-card{display:block!important;break-inside:avoid}.qr{border:1px solid #000!important}}
-
-/* A base58 account is one unbreakable word — let it wrap on a phone. */
 .addr-key{overflow-wrap:anywhere;word-break:break-word;font-size:12px;line-height:1.5}
 .addr-key a{overflow-wrap:anywhere}
