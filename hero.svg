@@ -1,38 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="35 IRIS ElGhaly">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="35 IRIS ElGhaly">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#3a1470"/>
-      <stop offset=".45" stop-color="#0b0c14"/>
-      <stop offset="1" stop-color="#06332f"/>
+      <stop offset="0" stop-color="#2a0d4a"/>
+      <stop offset=".45" stop-color="#0b1214"/>
+      <stop offset="1" stop-color="#06332e"/>
     </linearGradient>
-    <linearGradient id="n" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#9ff6e4"/>
-      <stop offset=".45" stop-color="#d7d7ff"/>
-      <stop offset="1" stop-color="#c084fc"/>
+    <linearGradient id="n35" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d7fff6"/>
+      <stop offset=".45" stop-color="#7cf0dc"/>
+      <stop offset="1" stop-color="#b07cff"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="720" rx="28" fill="url(#bg)"/>
-  <text x="70" y="390" fill="url(#n)" font-family="ui-sans-serif,system-ui,sans-serif" font-size="340" font-weight="800">35</text>
-  <text x="90" y="520" fill="#f4f6ff" font-family="ui-sans-serif,system-ui,sans-serif" font-size="92" font-weight="800" letter-spacing="18">IRIS</text>
-  <text x="90" y="590" fill="#e8eef8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" letter-spacing="10">— ELGHALY —</text>
-  <g transform="translate(980 160)" fill="none" stroke="#d7dde8" stroke-width="4">
-    <path d="M0 -70 L12 -12 L70 0 L12 12 L0 70 L-12 12 L-70 0 L-12 -12 Z"/>
+  <rect width="1200" height="630" rx="28" fill="url(#bg)"/>
+  <text x="70" y="340" fill="url(#n35)" font-family="ui-sans-serif,system-ui,sans-serif" font-size="280" font-weight="800">35</text>
+  <text x="90" y="470" fill="#f4f7ff" font-family="ui-sans-serif,system-ui,sans-serif" font-size="92" font-weight="800" letter-spacing="18">IRIS</text>
+  <text x="90" y="540" fill="#dfe6ea" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" letter-spacing="10">— ELGHALY —</text>
+  <g transform="translate(980 90)" fill="none" stroke="#e8eef2" stroke-width="3" stroke-linecap="round">
+    <path d="M0 -70 L8 -10 L70 0 L8 10 L0 70 L-8 10 L-70 0 L-8 -10 Z"/>
   </g>
-  <g transform="translate(980 360)" fill="none" stroke="#d7dde8" stroke-width="4">
-    <path d="M-40 20 V-36 C-40 -56 -24 -70 -8 -70 C4 -70 10 -58 14 -48"/>
-    <path d="M-10 20 V-50 C-10 -66 4 -76 16 -76 C28 -76 38 -66 38 -50 V20"/>
-    <path d="M28 22 V-44 C28 -60 42 -70 54 -70 C66 -70 76 -60 76 -44 V24"/>
-    <path d="M-50 24 C-50 70 -22 102 8 112 C38 102 66 70 66 24"/>
-    <circle cx="8" cy="48" r="6" fill="#d7dde8" stroke="none"/>
+  <g transform="translate(980 300)" fill="none" stroke="#e8eef2" stroke-width="3">
+    <path d="M-28 8 V-36 C-28 -50 -16 -58 -6 -50"/>
+    <path d="M-8 8 V-44 C-8 -56 4 -62 12 -52 V8"/>
+    <path d="M16 8 V-40 C16 -52 28 -58 36 -48 V10"/>
+    <path d="M-36 10 C-36 42 -16 62 0 68 C16 62 36 42 36 10"/>
+    <circle cx="0" cy="22" r="6" fill="#7cf0dc" stroke="none"/>
   </g>
-  <g transform="translate(980 560)" fill="none" stroke="#d7dde8" stroke-width="4">
-    <path d="M-70 0 C-44 -40 -18 -50 0 -50 C18 -50 44 -40 70 0 C44 40 18 50 0 50 C-18 50 -44 40 -70 0 Z"/>
-    <circle cx="0" cy="0" r="16" fill="#2ee6c7" stroke="#d7dde8"/>
-    <g stroke-width="3">
-      <path d="M0 -62 V-78"/><path d="M0 62 V78"/>
-      <path d="M-78 0 H-62"/><path d="M62 0 H78"/>
-      <path d="M-54 -38 L-44 -30"/><path d="M54 -38 L44 -30"/>
-      <path d="M-54 38 L-44 30"/><path d="M54 38 L44 30"/>
+  <g transform="translate(980 500)" fill="none" stroke="#e8eef2" stroke-width="3">
+    <path d="M-70 0 C-44 -28 -18 -36 0 -36 C18 -36 44 -28 70 0 C44 28 18 36 0 36 C-18 36 -44 28 -70 0 Z"/>
+    <circle cx="0" cy="0" r="14" fill="#2ee6c7" stroke="#e8eef2"/>
+    <g stroke-width="2">
+      <path d="M0 -52 V-40"/><path d="M0 40 V52"/>
+      <path d="M-52 0 H-40"/><path d="M40 0 H52"/>
+      <path d="M-36 -36 L-28 -28"/><path d="M36 -36 L28 -28"/>
+      <path d="M-36 36 L-28 28"/><path d="M36 36 L28 28"/>
     </g>
   </g>
 </svg>
