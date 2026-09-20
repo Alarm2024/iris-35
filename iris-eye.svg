@@ -1,56 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="IRIS 35 ElGhaly landscape">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#061018"/>
-      <stop offset=".55" stop-color="#0a2428"/>
-      <stop offset="1" stop-color="#07161a"/>
+      <stop offset="0" stop-color="#02080c"/>
+      <stop offset=".4" stop-color="#083038"/>
+      <stop offset="1" stop-color="#061820"/>
     </linearGradient>
-    <radialGradient id="bloom" cx="50%" cy="28%" r="42%">
-      <stop offset="0" stop-color="#2ee6c7" stop-opacity=".35"/>
-      <stop offset="1" stop-color="#061018" stop-opacity="0"/>
+    <radialGradient id="glow" cx="50%" cy="22%" r="36%">
+      <stop offset="0" stop-color="#3ee8d0" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#02080c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="iris" cx="38%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#f4ffff"/>
+      <stop offset=".18" stop-color="#8ff6e4"/>
+      <stop offset=".45" stop-color="#1f8f82"/>
+      <stop offset="1" stop-color="#041016"/>
     </radialGradient>
     <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#163a3c"/>
-      <stop offset="1" stop-color="#071014"/>
+      <stop offset="0" stop-color="#145056"/>
+      <stop offset="1" stop-color="#03090c"/>
     </linearGradient>
-    <radialGradient id="irisg" cx="40%" cy="35%" r="65%">
-      <stop offset="0" stop-color="#e8ffff"/>
-      <stop offset=".25" stop-color="#7cf0dc"/>
-      <stop offset=".7" stop-color="#1a6b62"/>
-      <stop offset="1" stop-color="#071014"/>
-    </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#sky)"/>
-  <ellipse cx="600" cy="210" rx="380" ry="170" fill="url(#bloom)"/>
-  <path d="M0 250 C160 210 260 280 380 250 C500 220 560 300 700 260 C860 210 980 280 1200 230 L1200 420 L0 420 Z" fill="#0b1c20"/>
-  <path d="M0 300 C200 270 340 340 520 300 C700 260 880 330 1200 290 L1200 430 L0 430 Z" fill="#0d2226"/>
-  <rect x="0" y="390" width="1200" height="240" fill="url(#water)"/>
-  <g opacity=".35" stroke="#2ee6c7" stroke-width="1.2" fill="none">
-    <path d="M40 430 Q200 410 360 435 T680 428 T1160 440"/>
-    <path d="M20 470 Q240 450 460 475 T980 468 T1180 480"/>
-    <path d="M80 510 Q300 492 520 515 T1100 508"/>
+  <ellipse cx="600" cy="160" rx="340" ry="150" fill="url(#glow)"/>
+  <path d="M0 250 C140 210 240 300 360 250 C500 190 620 300 760 240 C920 170 1060 280 1200 220 L1200 420 L0 420 Z" fill="#07161c"/>
+  <path d="M0 310 C180 270 320 360 500 300 C680 240 880 350 1200 280 L1200 430 L0 430 Z" fill="#0a1e24"/>
+  <rect x="0" y="400" width="1200" height="230" fill="url(#water)"/>
+  <path d="M480 400 V630" stroke="#7cf0dc" stroke-opacity=".25" stroke-width="18"/>
+  <g opacity=".4" fill="none" stroke="#2ee6c7" stroke-width="1.2">
+    <path d="M20 430 Q220 410 420 438 T820 428 T1180 445"/>
+    <path d="M0 470 Q260 452 520 478 T1180 470"/>
+    <path d="M40 510 Q300 492 560 518 T1160 508"/>
   </g>
-  <g transform="translate(600 70)" fill="none" stroke="#e8fbf6" stroke-width="3" stroke-linecap="round">
-    <path d="M0 0 V34"/><path d="M-14 16 H14"/>
+  <g transform="translate(600 56)" stroke="#e8fbf6" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M0 0 V40"/><path d="M-16 18 H16"/>
   </g>
-  <g transform="translate(600 168)">
-    <path d="M-110 0 C-70 -52 -28 -64 0 -64 C28 -64 70 -52 110 0 C70 52 28 64 0 64 C-28 64 -70 52 -110 0 Z" fill="none" stroke="#cdeee8" stroke-width="2.4"/>
-    <circle r="26" fill="url(#irisg)" stroke="#7cf0dc" stroke-width="2"/>
-    <circle r="10" fill="#071014"/>
-    <circle cx="6" cy="-5" r="3" fill="#e8ffff"/>
+  <g transform="translate(600 150)">
+    <ellipse rx="150" ry="58" fill="none" stroke="#d7efe9" stroke-width="3"/>
+    <circle r="34" fill="url(#iris)" stroke="#8ff6e4" stroke-width="2"/>
+    <circle r="13" fill="#041016"/>
+    <circle cx="8" cy="-7" r="4" fill="#f4ffff"/>
   </g>
-  <g transform="translate(600 292)" fill="none" stroke="#d7efe9" stroke-width="2.3" stroke-linejoin="round">
-    <path d="M-42 8 V-40 C-42 -54 -30 -64 -18 -64 C-10 -64 -6 -56 -4 -48"/>
-    <path d="M-14 8 V-50 C-14 -62 -4 -70 6 -70 C16 -70 24 -62 24 -50 V8"/>
-    <path d="M22 8 V-46 C22 -58 32 -66 42 -66 C52 -66 60 -58 60 -46 V10"/>
-    <path d="M-52 10 C-52 48 -28 76 0 86 C28 76 52 48 52 10"/>
-    <circle cx="0" cy="38" r="4" fill="#2ee6c7" stroke="none"/>
+  <g transform="translate(600 268)" fill="none" stroke="#d7efe9" stroke-width="3" stroke-linejoin="round">
+    <path d="M-48 10 V-48 C-48 -64 -32 -74 -18 -64"/>
+    <path d="M-16 10 V-58 C-16 -74 0 -80 12 -66 V10"/>
+    <path d="M20 10 V-52 C20 -68 36 -74 46 -60 V12"/>
+    <path d="M-56 12 C-56 54 -28 86 0 96 C28 86 56 54 56 12"/>
+    <circle cx="0" cy="44" r="5" fill="#2ee6c7" stroke="none"/>
   </g>
-  <text x="600" y="430" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="46" letter-spacing="16" fill="#e8fbf6">IRIS</text>
-  <text x="600" y="488" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="54" font-weight="700" letter-spacing="10" fill="#7cf0dc">35</text>
-  <text x="600" y="528" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="18" letter-spacing="12" fill="#9ab3ad">ELGHALY</text>
-  <text x="600" y="568" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" fill="#c8ccd4">✝️   🧿   🪬</text>
-  <text x="90" y="580" font-size="22">💭</text>
-  <text x="1070" y="560" font-size="22">🧠</text>
-  <text x="1110" y="590" font-size="22">💡</text>
+  <text x="600" y="430" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="52" letter-spacing="18" fill="#f3fbf8">IRIS</text>
+  <text x="600" y="488" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="44" font-weight="700" letter-spacing="12" fill="#7cf0dc">— 35 —</text>
+  <text x="600" y="530" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" letter-spacing="12" fill="#c8d4d0">ELGHALY</text>
+  <g transform="translate(600 568)" fill="none" stroke="#d7efe9" stroke-width="1.8">
+    <path d="M-90 0 H-20"/><path d="M20 0 H90"/>
+    <path d="M-6 -8 H6 M0 -14 V2"/>
+  </g>
 </svg>
