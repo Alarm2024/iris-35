@@ -1,9 +1,7 @@
-/* ---------------------------------------------------------------
-   IRIS 35 — page chrome. Language, ask box, status, offline, install.
-   Kept out of index.html so the page can run under a strict CSP.
-   --------------------------------------------------------------- */
+/* IRIS 35 — page chrome */
 (function(){
 "use strict";
+var cs=document.createElement("script"); cs.src="chrome.js"; document.head.appendChild(cs);
 
 var LANGS={en:"en",ar:"ar",ru:"ru",zh:"zh-Hans",de:"de",es:"es"};
 
@@ -23,7 +21,6 @@ function setLang(l){
   if(typeof t==="function")document.title=t("h1");
 }
 
-/* First visit with no stored choice: follow the browser, not a guess. */
 function initialLang(){
   var saved=null;
   try{saved=localStorage.getItem("35-iris-lang");}catch(e){}
@@ -41,7 +38,6 @@ document.querySelectorAll("#langs button").forEach(function(b){
 });
 setLang(initialLang());
 
-/* ---- Ask IRIS: pattern match on the glass, nothing leaves the phone ---- */
 function tt(id,fallback){
   if(typeof t!=="function")return fallback;
   var s=t(id);return s===id?fallback:s;
@@ -49,19 +45,19 @@ function tt(id,fallback){
 function replyAsk(text){
   var s=(text||"").toLowerCase();
   if(!s.trim())return tt("a_empty","Write what they said or what you see.");
-  if(/seed|mnemonic|private key|12 words|24 words|بذرة|مفتاح خاص|сид|мнемоник|助记词|私钥|semilla|clave privada|saatgut/.test(s))
+  if(/seed|mnemonic|private key|12 words|24 words/.test(s))
     return tt("a_seed","Do not paste that here. Wipe the box. Change it on YOUR device.");
-  if(/screen ?share|share (the |my )?screen|mirror|anydesk|teamviewer|quick ?support|مشاركة الشاشة|экран|共享屏幕|compartir pantalla|bildschirm/.test(s))
-    return tt("a_screen","Do not share the screen. Screen share is the intermediary. Hang up.");
-  if(/install|apk|cleaner|sideload|\.mobileconfig|profile|ثبّت|منظف|установи|安装|清理|instalar|installier/.test(s))
+  if(/screen ?share|share (the |my )?screen|mirror|anydesk|teamviewer/.test(s))
+    return tt("a_screen","Do not share the screen. Hang up.");
+  if(/install|apk|cleaner|sideload|\.mobileconfig|profile/.test(s))
     return tt("a_install","Do not install. Open the phone tab.");
-  if(/connect|wallet|approve|sign|اربط|محفظة|подключ|кошел|连接|钱包|conectar|cartera|verbind/.test(s))
+  if(/connect|wallet|approve|sign/.test(s))
     return tt("a_connect","Do not connect. Paste a public hash only.");
-  if(/2fa|otp|code|verification|كود|رمز|код|验证码|código|code/.test(s))
+  if(/2fa|otp|code|verification/.test(s))
     return tt("a_code","Do not send the code. Hang up. Change the password on this phone.");
-  if(/price|pay|cost|fee|سعر|ادفع|цена|оплат|价格|付款|precio|pagar|preis/.test(s))
+  if(/price|pay|cost|fee/.test(s))
     return tt("a_price","First pass is free. Extra only after work you asked for.");
-  return tt("a_default","Pick a phone tab or paste a public hash. App / code / connect from a stranger = stop.");
+  return tt("a_default","Pick a phone tab or paste a public hash.");
 }
 var askgo=document.getElementById("askgo");
 if(askgo)askgo.addEventListener("click",function(){
@@ -69,7 +65,6 @@ if(askgo)askgo.addEventListener("click",function(){
   document.getElementById("askrep").textContent=replyAsk(document.getElementById("askq").value);
 });
 
-/* ---- Status pill: say what is actually true, not a painted dot ---- */
 function setStatus(state){
   var pill=document.getElementById("status-pill");
   var txt=document.getElementById("status-text");
@@ -91,7 +86,6 @@ function checkHealth(){
 }
 checkHealth();
 
-/* ---- Offline banner: the desk still works, only the chain read needs a line ---- */
 function paintOnline(){
   var bar=document.getElementById("offline-bar");
   if(bar)bar.hidden=navigator.onLine;
@@ -103,7 +97,6 @@ window.addEventListener("online",paintOnline);
 window.addEventListener("offline",paintOnline);
 paintOnline();
 
-/* ---- Add to home screen: the official door, kept off chat links ---- */
 var deferred=null;
 var row=document.getElementById("install-row");
 var go=document.getElementById("install-go");
@@ -118,7 +111,6 @@ if(go)go.addEventListener("click",function(){
 });
 window.addEventListener("appinstalled",function(){if(row)row.hidden=true;});
 
-/* ---- Keyboard: left/right move between desk tabs, as a tablist should ---- */
 var tabIds=["iphone","android","sig"];
 document.querySelectorAll('#desk [role="tab"]').forEach(function(btn,i){
   btn.addEventListener("keydown",function(e){
@@ -132,7 +124,6 @@ document.querySelectorAll('#desk [role="tab"]').forEach(function(btn,i){
   });
 });
 
-/* ---- Service worker: the page has to open when the line is bad ---- */
 if("serviceWorker" in navigator&&window.isSecureContext){
   window.addEventListener("load",function(){
     navigator.serviceWorker.register("sw.js").catch(function(){});
