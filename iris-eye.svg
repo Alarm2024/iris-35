@@ -1,3 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="IRIS 35 ElGhaly landscape">
-  <image href="iris-eye.jpg" width="1200" height="630"/>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#061018"/>
+      <stop offset=".55" stop-color="#0a2428"/>
+      <stop offset="1" stop-color="#07161a"/>
+    </linearGradient>
+    <radialGradient id="bloom" cx="50%" cy="28%" r="42%">
+      <stop offset="0" stop-color="#2ee6c7" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#061018" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#163a3c"/>
+      <stop offset="1" stop-color="#071014"/>
+    </linearGradient>
+    <radialGradient id="irisg" cx="40%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#e8ffff"/>
+      <stop offset=".25" stop-color="#7cf0dc"/>
+      <stop offset=".7" stop-color="#1a6b62"/>
+      <stop offset="1" stop-color="#071014"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <ellipse cx="600" cy="210" rx="380" ry="170" fill="url(#bloom)"/>
+  <path d="M0 250 C160 210 260 280 380 250 C500 220 560 300 700 260 C860 210 980 280 1200 230 L1200 420 L0 420 Z" fill="#0b1c20"/>
+  <path d="M0 300 C200 270 340 340 520 300 C700 260 880 330 1200 290 L1200 430 L0 430 Z" fill="#0d2226"/>
+  <rect x="0" y="390" width="1200" height="240" fill="url(#water)"/>
+  <g opacity=".35" stroke="#2ee6c7" stroke-width="1.2" fill="none">
+    <path d="M40 430 Q200 410 360 435 T680 428 T1160 440"/>
+    <path d="M20 470 Q240 450 460 475 T980 468 T1180 480"/>
+    <path d="M80 510 Q300 492 520 515 T1100 508"/>
+  </g>
+  <g transform="translate(600 70)" fill="none" stroke="#e8fbf6" stroke-width="3" stroke-linecap="round">
+    <path d="M0 0 V34"/><path d="M-14 16 H14"/>
+  </g>
+  <g transform="translate(600 168)">
+    <path d="M-110 0 C-70 -52 -28 -64 0 -64 C28 -64 70 -52 110 0 C70 52 28 64 0 64 C-28 64 -70 52 -110 0 Z" fill="none" stroke="#cdeee8" stroke-width="2.4"/>
+    <circle r="26" fill="url(#irisg)" stroke="#7cf0dc" stroke-width="2"/>
+    <circle r="10" fill="#071014"/>
+    <circle cx="6" cy="-5" r="3" fill="#e8ffff"/>
+  </g>
+  <g transform="translate(600 292)" fill="none" stroke="#d7efe9" stroke-width="2.3" stroke-linejoin="round">
+    <path d="M-42 8 V-40 C-42 -54 -30 -64 -18 -64 C-10 -64 -6 -56 -4 -48"/>
+    <path d="M-14 8 V-50 C-14 -62 -4 -70 6 -70 C16 -70 24 -62 24 -50 V8"/>
+    <path d="M22 8 V-46 C22 -58 32 -66 42 -66 C52 -66 60 -58 60 -46 V10"/>
+    <path d="M-52 10 C-52 48 -28 76 0 86 C28 76 52 48 52 10"/>
+    <circle cx="0" cy="38" r="4" fill="#2ee6c7" stroke="none"/>
+  </g>
+  <text x="600" y="430" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="46" letter-spacing="16" fill="#e8fbf6">IRIS</text>
+  <text x="600" y="488" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="54" font-weight="700" letter-spacing="10" fill="#7cf0dc">35</text>
+  <text x="600" y="528" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="18" letter-spacing="12" fill="#9ab3ad">ELGHALY</text>
+  <text x="600" y="568" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" fill="#c8ccd4">✝️   🧿   🪬</text>
+  <text x="90" y="580" font-size="22">💭</text>
+  <text x="1070" y="560" font-size="22">🧠</text>
+  <text x="1110" y="590" font-size="22">💡</text>
 </svg>
