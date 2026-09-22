@@ -33,7 +33,7 @@ function setLang(l){
   });
   if(typeof refreshLang==="function")refreshLang();
   else if(typeof applyI18n==="function")applyI18n(document);
-  if(typeof t==="function")document.title=t("h1");
+  if(typeof t==="function")document.title=t("page_title")||t("h1");
 }
 
 function initialLang(){

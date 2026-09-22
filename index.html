@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Iris 35 — free server to think and ship</title>
+<title>Iris 35 — what happened?</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://ethereum.publicnode.com https://mempool.space; form-action 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'"/>
 <meta name="referrer" content="no-referrer"/>
 <meta name="theme-color" content="#0b1214"/>
 <meta name="color-scheme" content="dark"/>
-<meta name="description" content="Iris 35 — you dream we build. Free open server on your glass. Look, tap, ship. Same house as Plumb. Works offline."/>
+<meta name="description" content="Iris 35 — what happened? Tap your situation. Free help on your phone. No wallet connect."/>
 <link rel="canonical" href="https://iris-35.elghaly.dev/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Iris 35"/>
 <meta property="og:url" content="https://iris-35.elghaly.dev/"/>
-<meta property="og:title" content="Iris 35 — free server to think and ship"/>
-<meta property="og:description" content="💭 you dream we build 🧠💡 — free open server on your glass. Same house as Plumb."/>
+<meta property="og:title" content="Iris 35 — what happened?"/>
+<meta property="og:description" content="Tap what happened. Free help on your glass. No wallet connect, no seed phrase."/>
 <meta property="og:image" content="https://iris-35.elghaly.dev/hero.svg"/>
 <meta property="og:image:alt" content="35 IRIS ELGHALY — cross, hamsa, eye"/>
 <meta property="og:locale" content="en_US"/>
@@ -24,8 +24,8 @@
 <meta property="og:locale:alternate" content="de_DE"/>
 <meta property="og:locale:alternate" content="es_ES"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Iris 35 — free server to think and ship"/>
-<meta name="twitter:description" content="💭 you dream we build 🧠💡 — free open server on your glass. Same house as Plumb."/>
+<meta name="twitter:title" content="Iris 35 — what happened?"/>
+<meta name="twitter:description" content="Tap what happened. Free help on your glass. No wallet connect, no seed phrase."/>
 <meta name="twitter:image" content="https://iris-35.elghaly.dev/hero.svg"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
@@ -38,13 +38,22 @@
 :root{--bg:#0b1214;--ink:#e8fbf6;--dim:#9ab3ad;--p:#2ee6c7;--g:#2ee6c7;--c:#7cf0dc;--l:rgba(46,230,199,.22);--card:#121a19;--warn:#f5d76e;--bad:#ff6b8a}
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
 body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
-.wrap{max-width:760px;margin:0 auto;padding:16px 16px 88px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.wrap{max-width:760px;margin:0 auto;padding:12px 16px 88px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:8px}
 .word{font-size:11px;letter-spacing:.32em;color:var(--dim)}
 .langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
 .langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:8px 12px;font:700 11px inherit;letter-spacing:.08em;cursor:pointer}
 .langs button.on{color:#04110a;background:var(--g);border-color:var(--g)}
+.urgent-first{margin-bottom:8px}
+.urgent-h{font-size:clamp(24px,6vw,30px);line-height:1.2;margin:4px 0 10px;letter-spacing:.02em}
+.limits,.safety-note{border-radius:14px;padding:12px 14px;margin:10px 0;font-size:14px;line-height:1.5}
+.limits{border:1px solid var(--l);background:var(--card);color:var(--dim)}
+.limits h2{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--p);margin:0 0 8px}
+.limits ul{margin:0;padding-inline-start:18px}
+.limits li{margin:5px 0}
+.safety-note{border:1px solid rgba(245,215,110,.45);background:rgba(245,215,110,.08);color:#f0e6c8}
+.safety-note strong{color:var(--warn);font-weight:700;display:block;margin-bottom:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .owner{margin:0 0 8px;letter-spacing:.2em;font-size:20px;color:var(--dim);text-align:center}
 .hero{text-align:center;margin:8px 0 16px}
 .tagline{font-size:clamp(17px,4.5vw,22px);line-height:1.45;margin:12px 0 6px;color:#e8fbf6;letter-spacing:.02em}
@@ -65,8 +74,8 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-tex
 .how span{color:var(--dim);font-size:13px}
 .love{margin-top:28px;font-size:16px;line-height:1.7;color:#e8fbf6}
 h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin:22px 2px 8px}
-.askgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
-.askgrid button{text-align:start;border:1px solid var(--l);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:600 13px inherit;cursor:pointer}
+.askgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 4px}
+.askgrid button{text-align:start;border:1px solid var(--l);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:600 13px inherit;cursor:pointer;min-height:52px}
 .askgrid button small{display:block;color:var(--dim);font-weight:500;margin-top:4px}
 .tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
 .tabs button{flex:1;min-width:22%;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:12px 8px;font:600 13px inherit;cursor:pointer}
@@ -90,6 +99,7 @@ textarea{min-height:72px}
 .go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:12px 16px;font:600 13px inherit;cursor:pointer;min-height:44px}
 .ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:12px 16px;font:600 13px inherit;cursor:pointer;min-height:44px}
 .out{display:none;margin-top:12px}.out.on{display:block}
+.later{margin-top:28px;padding-top:20px;border-top:1px solid var(--l)}
 footer{margin-top:28px;color:var(--dim);font-size:14px;text-align:center;padding-top:8px;border-top:1px solid var(--l)}
 footer .marks{letter-spacing:.2em;margin:10px 0;font-size:18px}
 footer .marks-down{letter-spacing:.14em;margin-top:14px;font-size:17px}
@@ -97,6 +107,7 @@ footer .we-are{margin:10px 0;font-size:15px;color:#e8fbf6}
 footer .made-by{margin-top:16px;font-size:15px;color:#f5d76e;letter-spacing:.04em}
 footer .plumb-door{margin:12px 0;font-size:14px;line-height:1.55;opacity:.92}
 footer .plumb-door a{font-weight:600}
+footer .trust{margin-top:16px;padding-top:12px;border-top:1px solid var(--l);font-size:12px;line-height:1.55}
 .addr{direction:ltr;unicode-bidi:isolate;margin-top:6px}
 a{color:var(--c)}
 .path{color:var(--g);font-size:12px;margin-bottom:6px}
@@ -107,7 +118,6 @@ a{color:var(--c)}
 <a class="skip" href="#desk" data-i18n="skip">Skip to the desk</a>
 <p id="offline-bar" class="offline-bar" role="status" hidden data-i18n="offline">Offline. Everything on this page still works — only the chain lookup needs a line.</p>
 <div class="wrap">
-  <p class="owner" aria-hidden="true">✝️🧿🪬</p>
   <div class="top">
     <div class="brand"><span class="word">IRIS 💡🦅</span></div>
     <div class="langs" id="langs" role="group" aria-label="Language">
@@ -119,36 +129,37 @@ a{color:var(--c)}
       <button type="button" data-lang="es" lang="es">ES</button>
     </div>
   </div>
-  <div class="hero">
-    <div class="lock">
-      <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" fetchpriority="high" decoding="async"/>
+
+  <section class="urgent-first" id="what" aria-labelledby="urgent-heading">
+    <h1 class="urgent-h" id="urgent-heading" data-i18n="askline">What happened?</h1>
+
+    <div class="askgrid" role="group" aria-labelledby="urgent-heading">
+      <button type="button" data-go="sig"><span data-i18n="g3">I signed or sent crypto</span><small data-i18n="g3s">SOL / BTC / ETH</small></button>
+      <button type="button" data-go="sig"><span data-i18n="g4">They said connect wallet</span><small data-i18n="g4s">Do not connect. Paste the hash</small></button>
+      <button type="button" data-go="iphone"><span data-i18n="g2">Unknown device on my account</span><small data-i18n="g2s">Apple / Google</small></button>
+      <button type="button" data-go="iphone"><span data-i18n="g1">Someone wants an app on my phone</span><small data-i18n="g1s">iPhone / Android</small></button>
     </div>
-    <p class="tagline" data-i18n="tagline">💭 you dream we build 🧠💡</p>
-    <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
-    <h1 class="h1" data-i18n="h1">Iris 35 — free server to think and ship</h1>
-    <p class="lede" data-i18n="lede">Open. Free. Live now. You stay on your glass.</p>
-    <a class="cta" href="#desk" data-i18n="cta">Start free</a>
-    <div class="row" id="install-row" hidden style="justify-content:center">
-      <button class="ghost" type="button" id="install-go" data-i18n="install">Add IRIS to your home screen</button>
+
+    <div class="limits" role="note">
+      <h2 data-i18n="limits_h">What IRIS can and cannot do</h2>
+      <ul>
+        <li data-i18n="limits_can">CAN: read a public transaction hash and show what it does on chain; walk checklists on your phone for unknown devices and apps.</li>
+        <li data-i18n="limits_cannot">CANNOT: recover funds; reverse a transaction; say something is safe; verify who called, emailed, or messaged you.</li>
+        <li data-i18n="limits_when">Go to your exchange, bank, or police if money moved without your consent, someone impersonates Apple / bank / support, or you fear for your safety.</li>
+      </ul>
     </div>
-  </div>
-  <ul class="bullets">
-    <li data-i18n="b1">What it is: a free open server. Look, tap, get the next path.</li>
-    <li data-i18n="b2">Who it is for: you, on your iPhone or Android. Nobody holds the phone.</li>
-    <li data-i18n="b3">Free to start. Extra only if you ask after the work.</li>
-  </ul>
-  <div class="how">
-    <div><b data-i18n="how1_h">1 Look</b><span data-i18n="how1_p">Open the path on YOUR glass.</span></div>
-    <div><b data-i18n="how2_h">2 Tap</b><span data-i18n="how2_p">Mark what you see. The page answers.</span></div>
-    <div><b data-i18n="how3_h">3 Ship</b><span data-i18n="how3_p">Remove a YES yourself. Teach one person you love.</span></div>
-  </div>
-  <p class="hint" id="ai-line" data-i18n="askline">What happened?</p>
-  <div class="askgrid">
-    <button type="button" data-go="iphone"><span data-i18n="g1">Someone wants an app on my phone</span><small data-i18n="g1s">iPhone / Android</small></button>
-    <button type="button" data-go="iphone"><span data-i18n="g2">Unknown device on my account</span><small data-i18n="g2s">Apple / Google</small></button>
-    <button type="button" data-go="sig"><span data-i18n="g3">I signed or sent crypto</span><small data-i18n="g3s">SOL / BTC / ETH</small></button>
-    <button type="button" data-go="sig"><span data-i18n="g4">They said connect wallet</span><small data-i18n="g4s">Do not connect. Paste the hash</small></button>
-  </div>
+
+    <div class="safety-note" role="note">
+      <strong data-i18n="safety_clean_h">Before you change passwords</strong>
+      <span data-i18n="safety_clean">Secure the account from a clean device first. Changing a password or removing an unknown device from a compromised phone can hand over the new password or confirm the attacker still has access.</span>
+    </div>
+
+    <div class="safety-note hash-note" role="note">
+      <strong data-i18n="safety_hash_h">About pasting a hash</strong>
+      <span data-i18n="safety_hash">A hash check shows what a transaction does. That is not the same as safe. IRIS cannot tell you to sign, connect a wallet, or approve.</span>
+    </div>
+  </section>
+
   <div id="desk" class="tabs" role="tablist" aria-label="Desk">
     <button type="button" id="tab-iphone" role="tab" aria-selected="true" aria-controls="iphone" data-i18n="tab_iphone">iPhone</button>
     <button type="button" id="tab-android" role="tab" aria-selected="false" aria-controls="android" data-i18n="tab_android">Android</button>
@@ -169,6 +180,7 @@ a{color:var(--c)}
       </div>
     </div>
   </div>
+
   <h2 data-i18n="ask_h">Ask IRIS</h2>
   <div class="card">
     <p class="hint" data-i18n="ask_hint">After you looked. Instant answer. Nothing leaves this phone.</p>
@@ -177,6 +189,7 @@ a{color:var(--c)}
     <div class="out" id="askout" role="status" aria-live="polite"><p class="rule" id="askrep"></p></div>
   </div>
   <p class="love" data-i18n="love">See first. Protect the people you love. Teach them to see, without taking their phone.</p>
+
   <h2 data-i18n="qr_h">Show, do not send</h2>
   <div class="card qr-card">
     <p class="q" data-i18n="qr_q">Hold this up. They scan it with their own camera.</p>
@@ -184,25 +197,54 @@ a{color:var(--c)}
     <p class="rule" dir="ltr">https://iris-35.elghaly.dev/</p>
     <p class="hint" data-i18n="qr_p">Nothing to click, nothing in a chat for anyone to swap for a lookalike.</p>
   </div>
-  <div class="eye">
-    <img src="iris-eye.svg" width="1200" height="630" loading="lazy" decoding="async" data-i18n-alt="eye_alt" alt="The IRIS eye, under a cross, above an open hand"/>
-  </div>
+
+  <section class="later" aria-label="About IRIS">
+    <ul class="bullets">
+      <li data-i18n="b1">What it is: a free open server. Look, tap, get the next path.</li>
+      <li data-i18n="b2">Who it is for: you, on your iPhone or Android. Nobody holds the phone.</li>
+      <li data-i18n="b3">Free to start. Extra only if you ask after the work.</li>
+    </ul>
+    <div class="how">
+      <div><b data-i18n="how1_h">1 Look</b><span data-i18n="how1_p">Open the path on YOUR glass.</span></div>
+      <div><b data-i18n="how2_h">2 Tap</b><span data-i18n="how2_p">Mark what you see. The page answers.</span></div>
+      <div><b data-i18n="how3_h">3 Ship</b><span data-i18n="how3_p">Remove a YES yourself. Teach one person you love.</span></div>
+    </div>
+    <div class="hero">
+      <div class="lock">
+        <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" loading="lazy" decoding="async"/>
+      </div>
+      <p class="tagline" data-i18n="tagline">💭 you dream we build 🧠💡</p>
+      <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
+      <h2 class="h1" data-i18n="h1">Iris 35 — free server to think and ship</h2>
+      <p class="lede" data-i18n="lede">Open on your glass. Free to start.</p>
+      <a class="cta" href="#what" data-i18n="cta">Start free</a>
+      <div class="row" id="install-row" hidden style="justify-content:center">
+        <button class="ghost" type="button" id="install-go" data-i18n="install">Add IRIS to your home screen</button>
+      </div>
+    </div>
+    <div class="eye">
+      <img src="iris-eye.svg" width="1200" height="630" loading="lazy" decoding="async" data-i18n-alt="eye_alt" alt="The IRIS eye, under a cross, above an open hand"/>
+    </div>
+  </section>
+
   <footer>
     <p class="marks" aria-hidden="true">✝️🧿🪬</p>
     <p class="tagline tagline-foot" data-i18n="tagline">💭 you dream we build 🧠💡</p>
     <p data-i18n="by">IRIS 💡🦅 · by ElGhaly</p>
     <p class="we-are"><span data-i18n="we_are">We are 24</span> · <span data-i18n="ask_mail">Ask us on mail</span> <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
+    <div class="trust">
+      <p class="addr addr-key" dir="ltr">deskSigner <a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo" rel="noopener noreferrer">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></p>
+      <p class="addr addr-key" dir="ltr">Squads <a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ" rel="noopener noreferrer">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></p>
+      <p class="addr addr-eg" dir="ltr">35 Zamalek, Cairo, Egypt</p>
+      <p class="addr" dir="ltr">548 Market Street, San Francisco, California 94104</p>
+    </div>
     <p class="plumb-door"><span data-i18n="plumb_note">Ready desk software lives on</span> <a href="https://plumb-35.elghaly.dev/" rel="noopener noreferrer">Plumb</a><span data-i18n="plumb_tail"> — same house, paid seats when you want a machine on the wire.</span></p>
-    <p class="addr addr-key" dir="ltr">deskSigner <a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo" rel="noopener noreferrer">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></p>
-    <p class="addr addr-key" dir="ltr">Squads <a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ" rel="noopener noreferrer">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></p>
-    <p class="addr addr-eg" dir="ltr">35 Zamalek, Cairo, Egypt</p>
-    <p class="addr" dir="ltr">548 Market Street, San Francisco, California 94104</p>
     <p class="made-by" data-i18n="made_by">made by love ❤️</p>
     <p class="marks marks-down" aria-hidden="true">3️⃣🧿5️⃣</p>
   </footer>
 </div>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Iris 35","url":"https://iris-35.elghaly.dev/","inLanguage":["en","ar","ru","zh","de","es"],"description":"Free open server. Look on your glass, tap the path, ship the next step.","publisher":{"@type":"Organization","name":"ElGhaly","email":"support@elghaly.dev","url":"https://iris-35.elghaly.dev/"}}
+{"@context":"https://schema.org","@type":"WebSite","name":"Iris 35","url":"https://iris-35.elghaly.dev/","inLanguage":["en","ar","ru","zh","de","es"],"description":"What happened? Free help on your phone. Tap your situation — no wallet connect.","publisher":{"@type":"Organization","name":"ElGhaly","email":"support@elghaly.dev","url":"https://iris-35.elghaly.dev/"}}
 </script>
 <script src="i18n.js"></script>
 <script src="app.js"></script>
