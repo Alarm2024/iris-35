@@ -1,3 +1,7 @@
+.top{position:sticky;top:0;z-index:40;display:flex!important;align-items:center!important;justify-content:space-between;gap:8px;flex-wrap:nowrap!important;margin:0 -16px 6px;padding:7px 16px;padding-top:max(7px,env(safe-area-inset-top));background:var(--bg);min-height:0}
+.brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;white-space:nowrap}
+.brand-mark{width:42px;height:42px;flex:0 0 auto;display:block;border-radius:12px;border:1px solid var(--l)}
+.brand .word{font-size:16px;letter-spacing:.14em;color:var(--g);line-height:1}
 .urgent-first .askgrid button:active,.urgent-first .askgrid button:focus-visible{border-color:var(--g);outline:none;box-shadow:0 0 0 2px rgba(46,230,199,.25)}
 .urgent-first .limits,.urgent-first .safety-note{margin:8px 0;padding:10px 12px;font-size:13px}
 .urgent-first .limits h2{margin-bottom:6px}
