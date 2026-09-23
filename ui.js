@@ -1,10 +1,8 @@
 (function(){
   var s=document.createElement('script');s.src='themes.js?v=menu11';document.head.appendChild(s);
   var css=document.createElement('style');
-  css.textContent='.owner{display:none!important}.top{display:flex;align-items:center;flex-wrap:nowrap!important;gap:8px;margin-bottom:10px}.brand{flex:0 0 auto;white-space:nowrap}.brand .word{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-size:16px;letter-spacing:.14em;color:#2ee6c7}.brand .word .marks{font-size:18px;letter-spacing:0;line-height:1}.langs{display:flex!important;flex-wrap:nowrap!important;gap:3px!important;max-width:none!important;justify-content:flex-end;flex:1}.langs button{padding:5px 7px!important;font-size:10px!important}';
+  css.textContent='.owner{display:none!important}.langs{display:flex!important;flex-wrap:nowrap!important;gap:3px!important;max-width:none!important;justify-content:flex-end;flex:1}.langs button{padding:5px 7px!important;font-size:10px!important}';
   document.head.appendChild(css);
-  var w=document.querySelector('.brand .word');
-  if(w) w.innerHTML='IRIS <span class="marks">\ud83d\udca1\ud83e\udd85</span>';
 })();
 /* IRIS 35 — page chrome */
 (function(){

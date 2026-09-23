@@ -39,7 +39,7 @@
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
 body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
 .wrap{max-width:760px;margin:0 auto;padding:12px 16px 88px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:nowrap}
 .brand{display:flex;align-items:center;gap:8px}
 .word{font-size:11px;letter-spacing:.32em;color:var(--dim)}
 .langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
@@ -119,7 +119,10 @@ a{color:var(--c)}
 <p id="offline-bar" class="offline-bar" role="status" hidden data-i18n="offline">Offline. Everything on this page still works — only the chain lookup needs a line.</p>
 <div class="wrap">
   <div class="top">
-    <div class="brand"><span class="word">IRIS 💡🦅</span></div>
+    <div class="brand" aria-label="IRIS 35">
+      <img class="brand-mark" src="mark-35.svg" width="42" height="42" alt="" decoding="async"/>
+      <span class="word">IRIS</span>
+    </div>
     <div class="langs" id="langs" role="group" aria-label="Language">
       <button type="button" data-lang="en" class="on" lang="en">EN</button>
       <button type="button" data-lang="ar" lang="ar">AR</button>
