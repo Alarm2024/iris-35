@@ -1,3 +1,8 @@
+.top{position:sticky;top:0;z-index:10;background:var(--bg);align-items:center!important;flex-wrap:nowrap!important;gap:8px!important;margin-bottom:6px!important;padding:6px 0;max-height:56px}
+.brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;min-width:0}
+.brand-mark{width:42px;height:42px;flex:0 0 auto;display:block;border-radius:14px}
+.brand .word{display:inline-flex;align-items:center;font-size:16px!important;letter-spacing:.14em!important;color:var(--g)!important;white-space:nowrap}
+.brand .word .marks{display:none}
 .urgent-first .askgrid button:active,.urgent-first .askgrid button:focus-visible{border-color:var(--g);outline:none;box-shadow:0 0 0 2px rgba(46,230,199,.25)}
 .urgent-first .limits,.urgent-first .safety-note{margin:8px 0;padding:10px 12px;font-size:13px}
 .urgent-first .limits h2{margin-bottom:6px}
