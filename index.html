@@ -45,6 +45,11 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-tex
 .langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
 .langs button{border:1px solid var(--l);background:transparent;color:var(--dim);border-radius:999px;padding:8px 12px;font:700 11px inherit;letter-spacing:.08em;cursor:pointer}
 .langs button.on{color:#04110a;background:var(--g);border-color:var(--g)}
+.lock-top{margin:4px auto 12px}
+#desk{scroll-margin-top:72px}
+/* Seven items share the header row on a phone. The theme label pushed it to
+   405px on a 390px screen; the colour dot alone fits, and the menu still opens. */
+@media(max-width:480px){#themeCur{display:none}}
 .urgent-first{margin-bottom:8px}
 .urgent-h{font-size:clamp(24px,6vw,30px);line-height:1.2;margin:4px 0 10px;letter-spacing:.02em}
 .limits,.safety-note{border-radius:14px;padding:12px 14px;margin:10px 0;font-size:14px;line-height:1.5}
@@ -133,12 +138,16 @@ a{color:var(--c)}
     </div>
   </div>
 
+  <div class="lock lock-top">
+    <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" decoding="async" fetchpriority="high"/>
+  </div>
+
   <section class="urgent-first" id="what" aria-labelledby="urgent-heading">
     <h1 class="urgent-h" id="urgent-heading" data-i18n="askline">What happened?</h1>
 
     <div class="askgrid" role="group" aria-labelledby="urgent-heading">
       <button type="button" data-go="sig"><span data-i18n="g3">I signed or sent crypto</span><small data-i18n="g3s">SOL / BTC / ETH</small></button>
-      <button type="button" data-go="sig"><span data-i18n="g4">They said connect wallet</span><small data-i18n="g4s">Do not connect. Paste the hash</small></button>
+      <button type="button" data-go="sig"><span data-i18n="g4">They said connect wallet</span><small data-i18n="g4s">Do not connect. Already did? Paste the hash</small></button>
       <button type="button" data-go="iphone"><span data-i18n="g2">Unknown device on my account</span><small data-i18n="g2s">Apple / Google</small></button>
       <button type="button" data-go="iphone"><span data-i18n="g1">Someone wants an app on my phone</span><small data-i18n="g1s">iPhone / Android</small></button>
     </div>
@@ -213,11 +222,7 @@ a{color:var(--c)}
       <div><b data-i18n="how3_h">3 Ship</b><span data-i18n="how3_p">Remove a YES yourself. Teach one person you love.</span></div>
     </div>
     <div class="hero">
-      <div class="lock">
-        <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" loading="lazy" decoding="async"/>
-      </div>
       <p class="tagline" data-i18n="tagline">💭 you dream we build 🧠💡</p>
-      <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
       <h2 class="h1" data-i18n="h1">Iris 35 — free server to think and ship</h2>
       <p class="lede" data-i18n="lede">Open on your glass. Free to start.</p>
       <a class="cta" href="#what" data-i18n="cta">Start free</a>

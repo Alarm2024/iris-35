@@ -208,10 +208,16 @@ function showTab(id){
   var b=document.getElementById("tab-"+n);
   if(b)b.onclick=function(){showTab(n);};
 });
+/* The phone buttons say "iPhone / Android" but both opened the iPhone
+   checklist, so an Android user's first question was Apple ID -> Devices. */
+function phoneTab(){
+  return /Android/i.test(navigator.userAgent||"")?"android":"iphone";
+}
+if(phoneTab()==="android")showTab("android");
 document.querySelectorAll(".askgrid button").forEach(function(b){
   b.onclick=function(){
     var go=b.getAttribute("data-go");
-    showTab(go==="sig"?"sig":"iphone");
+    showTab(go==="sig"?"sig":phoneTab());
     var desk=document.getElementById("desk");
     if(desk)desk.scrollIntoView({behavior:prefersReducedMotion()?"auto":"smooth",block:"start"});
   };
