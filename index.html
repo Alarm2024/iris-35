@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>Iris 35 — what happened?</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://ethereum.publicnode.com https://mempool.space; form-action 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://ethereum.publicnode.com https://mempool.space; form-action 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'"/>
 <meta name="referrer" content="no-referrer"/>
 <meta name="theme-color" content="#0b1214"/>
 <meta name="color-scheme" content="dark"/>
@@ -33,11 +33,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="IRIS 35"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="iris.css"/>
 <style>
 :root{--bg:#0b1214;--ink:#e8fbf6;--dim:#9ab3ad;--p:#2ee6c7;--g:#2ee6c7;--c:#7cf0dc;--l:rgba(46,230,199,.22);--card:#121a19;--warn:#f5d76e;--bad:#ff6b8a}
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
-body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
+body{font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
 .wrap{max-width:760px;margin:0 auto;padding:12px 16px 88px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
 .top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:nowrap}
 .brand{display:flex;align-items:center;gap:8px}
@@ -55,17 +58,13 @@ body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-tex
 .safety-note{border:1px solid rgba(245,215,110,.45);background:rgba(245,215,110,.08);color:#f0e6c8}
 .safety-note strong{color:var(--warn);font-weight:700;display:block;margin-bottom:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .owner{margin:0 0 8px;letter-spacing:.2em;font-size:20px;color:var(--dim);text-align:center}
-.hero{text-align:center;margin:8px 0 16px}
 .tagline{font-size:clamp(17px,4.5vw,22px);line-height:1.45;margin:12px 0 6px;color:#e8fbf6;letter-spacing:.02em}
 .tagline-foot{margin-top:18px;font-size:clamp(16px,4vw,20px);color:#e8fbf6;text-align:center}
-.lock{position:relative;max-width:560px;margin:0 auto}
-.lock img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--l);background:#0b1214}
-.h1{font-size:22px;line-height:1.3;margin:14px 0 8px}
-.lede,.hint,.love{color:var(--dim);font-size:15px}
+.hint,.love{color:var(--dim);font-size:15px}
 .status{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--l);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--c);margin:8px 0}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--dim);display:inline-block;flex:0 0 auto}
 .status.up i{background:var(--g)}.status.down i{background:var(--bad)}.status.down{color:var(--bad)}
-.cta{display:inline-block;background:var(--g);color:#04110a;border-radius:999px;padding:12px 22px;font:700 15px inherit;text-decoration:none;margin:12px 0 4px}
+.cta{display:inline-block;background:var(--g);color:#04110a;border-radius:999px;padding:12px 22px;font:600 15px inherit;text-decoration:none;margin:12px 0 4px}
 .bullets{margin:14px 0;padding-inline-start:18px;color:var(--dim)}
 .bullets li{margin:6px 0}
 .how{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
@@ -132,6 +131,17 @@ a{color:var(--c)}
       <button type="button" data-lang="es" lang="es">ES</button>
     </div>
   </div>
+
+  <section class="hero" aria-label="IRIS 35">
+    <h1 class="hero-h" data-i18n="h1">Iris 35 — free server to think and ship</h1>
+    <p class="hero-sub">you dream we build</p>
+    <p class="hero-lede" data-i18n="lede">Open on your glass. Free to start.</p>
+    <a class="cta" href="#what" data-i18n="cta">Start free</a>
+    <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
+    <div class="row" id="install-row" hidden style="justify-content:center">
+      <button class="ghost" type="button" id="install-go" data-i18n="install">Add IRIS to your home screen</button>
+    </div>
+  </section>
 
   <section class="urgent-first" id="what" aria-labelledby="urgent-heading">
     <h1 class="urgent-h" id="urgent-heading" data-i18n="askline">What happened?</h1>
@@ -211,19 +221,6 @@ a{color:var(--c)}
       <div><b data-i18n="how1_h">1 Look</b><span data-i18n="how1_p">Open the path on YOUR glass.</span></div>
       <div><b data-i18n="how2_h">2 Tap</b><span data-i18n="how2_p">Mark what you see. The page answers.</span></div>
       <div><b data-i18n="how3_h">3 Ship</b><span data-i18n="how3_p">Remove a YES yourself. Teach one person you love.</span></div>
-    </div>
-    <div class="hero">
-      <div class="lock">
-        <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" loading="lazy" decoding="async"/>
-      </div>
-      <p class="tagline" data-i18n="tagline">💭 you dream we build 🧠💡</p>
-      <p class="status" id="status-pill" role="status"><i aria-hidden="true"></i><span id="status-text" data-i18n="status_wait">checking server</span></p>
-      <h2 class="h1" data-i18n="h1">Iris 35 — free server to think and ship</h2>
-      <p class="lede" data-i18n="lede">Open on your glass. Free to start.</p>
-      <a class="cta" href="#what" data-i18n="cta">Start free</a>
-      <div class="row" id="install-row" hidden style="justify-content:center">
-        <button class="ghost" type="button" id="install-go" data-i18n="install">Add IRIS to your home screen</button>
-      </div>
     </div>
     <div class="eye">
       <img src="iris-eye.svg" width="1200" height="630" loading="lazy" decoding="async" data-i18n-alt="eye_alt" alt="The IRIS eye, under a cross, above an open hand"/>

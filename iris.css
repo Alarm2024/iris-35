@@ -7,14 +7,25 @@
 .urgent-first .limits h2{margin-bottom:6px}
 .urgent-first .limits li{margin:3px 0}
 @media(max-width:560px){
+  .hero{margin-bottom:6px}
+  .hero-h{margin-bottom:4px}
+  .hero-sub{margin-bottom:2px}
+  .hero-lede{margin-bottom:8px}
+  .hero .cta{margin-bottom:6px;padding:11px 20px}
   .urgent-h{font-size:26px;margin-bottom:8px}
+  .urgent-first{margin-top:0}
   .urgent-first .askgrid{margin-bottom:6px}
   .urgent-first .askgrid button{padding:14px 12px;font-size:14px}
 }
-.later .hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(46,230,199,.22);background:#0b1214}
-.hero{position:relative;margin:0 0 12px;border-radius:22px;overflow:hidden;border:1px solid rgba(46,230,199,.22);background:#0b1214}
-.hero img{width:100%;height:auto;display:block}
-.lock{position:relative;max-width:560px;margin:0 auto}
+html{overflow-x:hidden}
+body{overflow-x:hidden}
+.hero{text-align:center;margin:0 0 8px;padding:0;border:none;background:none}
+.hero-h{font-size:clamp(26px,7vw,38px);font-weight:600;line-height:1.15;letter-spacing:-0.01em;margin:0 0 6px;hyphens:none;word-break:normal;overflow-wrap:normal}
+.hero-sub{font-size:15px;font-weight:400;line-height:1.4;color:var(--dim);margin:0 0 4px}
+.hero-lede{font-size:16px;font-weight:400;line-height:1.5;color:var(--ink);margin:0 0 10px}
+.hero .cta{margin:0 0 8px}
+.hero .status{margin:0 0 4px}
+.hero #install-row{margin:0}
 .lock-mask,.lock-words,.lock .iris-word,.lock .elg-word{display:none!important}
 .cards{display:grid;gap:10px;margin:18px 0}
 .cards .card p.q{margin-bottom:6px}
@@ -42,7 +53,7 @@ body.gated{overflow:auto!important}
 @media print{
   html,body{background:#fff!important;color:#000!important}
   .wrap{max-width:none;padding:0}
-  .langs,.tabs,.askgrid,.cta,.skip,.offline-bar,.status,.row,.bar,#install-row,.hero .lock{display:none!important}
+  .langs,.tabs,.askgrid,.cta,.skip,.offline-bar,.status,.row,.bar,#install-row{display:none!important}
   .panel{display:block!important;break-inside:avoid}
   .card{background:#fff!important;border:1px solid #999!important;color:#000!important;break-inside:avoid}
   .q,.rule,.lede,.hint,.love,.bullets,.how span,footer{color:#000!important}
@@ -58,7 +69,6 @@ body.gated{overflow:auto!important}
 .tagline{font-weight:500}
 footer .made-by{font-weight:500}
 footer .we-are a{color:var(--c);font-weight:600}
-.hero .tagline{margin-top:4px}
 .qr-card{text-align:center}
 .qr{display:block;margin:12px auto;width:min(264px,70vw);height:auto;
   border-radius:12px;background:#fff;border:1px solid rgba(46,230,199,.28)}
