@@ -101,13 +101,20 @@ function drawCards(){
 })();
 function drawStatic(){
   var love=document.querySelector(".love");
-  function put(id,html){
+  /* Urgent first, promo last. FAMILY ALARM is urgent and sits by the desk;
+     PRIVATE SESSION is an offer and goes to the end of the About section.
+     It used to be inserted first, so it rendered above the alarm. */
+  function put(id,html,host){
     var el=document.getElementById(id);
-    if(!el){el=document.createElement("div");el.id=id;if(love&&love.parentNode)love.parentNode.insertBefore(el,love);}
+    if(!el){
+      el=document.createElement("div");el.id=id;
+      if(host)host.appendChild(el);
+      else if(love&&love.parentNode)love.parentNode.insertBefore(el,love);
+    }
     el.innerHTML=html;
   }
-  put("priv",'<h2>'+t("priv_h")+'</h2><div class="card"><p class="path">'+t("priv_p")+'</p><p class="q">'+t("priv_q")+'</p><p class="rule">'+t("priv_r")+'</p></div>');
   put("alarm",'<h2>'+t("alarm_h")+'</h2><div class="card"><p class="path">'+t("alarm_p")+'</p><p class="q">'+t("alarm_q")+'</p><p class="rule">'+t("alarm_r")+'</p></div>');
+  put("priv",'<h2>'+t("priv_h")+'</h2><div class="card"><p class="path">'+t("priv_p")+'</p><p class="q">'+t("priv_q")+'</p><p class="rule">'+t("priv_r")+'</p></div>',document.querySelector("section.later"));
   drawCards();
 }
 (function(){

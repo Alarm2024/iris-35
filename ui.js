@@ -78,33 +78,21 @@ if(askgo)askgo.addEventListener("click",function(){
   document.getElementById("askrep").textContent=replyAsk(document.getElementById("askq").value);
 });
 
-function setStatus(state){
-  var pill=document.getElementById("status-pill");
-  var txt=document.getElementById("status-text");
-  if(!pill||!txt)return;
-  pill.classList.remove("up","down");
-  if(state!=="wait")pill.classList.add(state);
-  txt.setAttribute("data-i18n","status_"+state);
-  txt.textContent=tt("status_"+state,state);
-}
-function checkHealth(){
-  if(!navigator.onLine){setStatus("down");return;}
-  var ctl=("AbortController" in window)?new AbortController():null;
-  var timer=setTimeout(function(){if(ctl)ctl.abort();},6000);
-  fetch("health.json",{cache:"no-store",signal:ctl?ctl.signal:undefined})
-    .then(function(r){return r.ok?r.json():Promise.reject(new Error("HTTP "+r.status));})
-    .then(function(j){setStatus(j&&j.ok?"up":"down");})
-    .catch(function(){setStatus("down");})
-    .then(function(){clearTimeout(timer);});
-}
-checkHealth();
+// No health probe and no status pill.
+//
+// This fetched health.json and lit a green "server up" pill when it said ok.
+// health.json was a static file committed here and deployed with the page, so
+// it answered ok whenever the page loaded at all -- there is no IRIS server
+// behind this site to be up or down, and the pill could only show "down" when
+// the visitor was offline and could not see it. Green by construction invites
+// trust nothing earned. paintOnline() below reports the one server state that
+// is real here: whether the visitor has a line.
 
 function paintOnline(){
   var bar=document.getElementById("offline-bar");
   if(bar)bar.hidden=navigator.onLine;
   var run=document.getElementById("run");
   if(run)run.disabled=!navigator.onLine;
-  if(navigator.onLine)checkHealth();else setStatus("down");
 }
 window.addEventListener("online",paintOnline);
 window.addEventListener("offline",paintOnline);
