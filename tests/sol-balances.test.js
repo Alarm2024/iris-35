@@ -222,6 +222,40 @@ test("JSON-number SOL balances at 2^53+1 are UNKNOWN, never a rounded print", ()
   assert.equal(got[0].delta, "UNKNOWN");
 });
 
+test("an unchanged whale above ~9M SOL prints no line; a changed whale is UNKNOWN", () => {
+  /* 2^53+1 cannot survive JSON. Two copies round to the same unsafe integer. */
+  const huge = JSON.parse("9007199254740993");
+  assert.equal(Number.isSafeInteger(huge), false);
+  const still = {
+    transaction: { message: { accountKeys: [{ pubkey: "PAYER" }, { pubkey: "WHALE" }, { pubkey: "DUST" }] } },
+    meta: { fee: 5000, preBalances: [1000000, huge, 42], postBalances: [995000, huge, 42] }
+  };
+  const quiet = IrisSol.balanceChanges(still);
+  assert.deepEqual(quiet.map((c) => c.account), ["PAYER"]);
+  assert.equal(quiet[0].delta, "-0.000005");
+  assert.equal(quiet[0].note, "fee payer; delta includes the 0.000005 SOL fee");
+  assert.equal(quiet.some((c) => /UNKNOWN/.test(c.delta + c.before + c.after)), false);
+  const printed = quiet.map(IrisSol.formatChange).join("\n");
+  assert.equal(printed.includes("WHALE"), false);
+  assert.equal(printed.includes("UNKNOWN"), false);
+  assert.equal(printed.includes("DUST"), false);
+
+  const moved = {
+    transaction: { message: { accountKeys: [{ pubkey: "WHALE" }, { pubkey: "DUST" }] } },
+    meta: { fee: 5000, preBalances: [huge, 42], postBalances: [1, 42] }
+  };
+  const got = IrisSol.balanceChanges(moved);
+  assert.deepEqual(got, [{
+    account: "WHALE",
+    owner: null,
+    mint: null,
+    before: "UNKNOWN",
+    after: "UNKNOWN",
+    delta: "UNKNOWN",
+    note: "balance too large to read exactly"
+  }]);
+});
+
 test("unsafe postBalances alone also yield UNKNOWN", () => {
   const huge = JSON.parse("9007199254740993");
   const tx = {
@@ -255,6 +289,16 @@ test("formatChange prints one plain line: sign, amount, SOL or mint, short addre
   assert.equal(swap[12], "−13890.797618 5NhN6zzDkzwXFGPFqtpTopV4ttBeZ6CWy1oRL9Rkpump  3yXX…WJWM");
 });
 
+test("approve.json keeps the SOL line and labels the matching token line wSOL", () => {
+  /* Same account moved native lamports and wrapped SOL. Both lines are true. */
+  const lines = IrisSol.balanceChanges(load("approve.json")).map(IrisSol.formatChange);
+  const sol = lines.filter((l) => l.includes("5aBz…JcrT") && l.includes(" SOL "));
+  const wrapped = lines.filter((l) => l.includes("wSOL (wrapped SOL)"));
+  assert.deepEqual(sol, ["+0.253367483 SOL  5aBz…JcrT"]);
+  assert.deepEqual(wrapped, ["+0.253367483 wSOL (wrapped SOL)  FhVo…HLuM"]);
+  assert.equal(lines.some((l) => l.includes(WSOL)), false);
+});
+
 test("app.js prints the changes as plain lines after the dashed notes", () => {
   const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
   const notes = app.indexOf('.concat(r.notes.map(function(n){return "- "+n;}))');
@@ -266,5 +310,5 @@ test("app.js prints the changes as plain lines after the dashed notes", () => {
 
 test("service worker cache bumped for the balances step", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-safe-v1";/);
+  assert.match(sw, /var VERSION="2026-09-26-sol-lines-v1";/);
 });

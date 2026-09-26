@@ -18,6 +18,9 @@ var ALLOW={
 "AddressLookupTab1e1111111111111111111111111":"AddressLookupTable"
 };
 var MAX="18446744073709551615";
+/* Native SOL wrapped as an SPL token. The same account also has a SOL
+   delta (the lamports inside the token account). Both lines stay. */
+var WSOL="So11111111111111111111111111111111111111112";
 
 function ixList(tx){
   var outer=(tx.transaction&&tx.transaction.message&&tx.transaction.message.instructions)||[];
@@ -47,9 +50,12 @@ function units(raw,decimals){
 /* Balance changes for every account the transaction touched.
    SOL from meta.preBalances/postBalances against accountKeys,
    tokens from meta.pre/postTokenBalances matched by accountIndex+mint.
-   Zero deltas are skipped. before/after/delta are exact decimal
-   strings — or "UNKNOWN" when a SOL balance arrived as a JSON number
-   outside the safe-integer range (already rounded; never print it).
+   Zero deltas are skipped first — including two equal JSON numbers
+   above ~9,007,199 SOL, which the RPC has already rounded to the same
+   integer. An untouched whale is not a change. Only a real difference
+   is then checked: before/after/delta are exact decimal strings — or
+   "UNKNOWN" when a SOL balance arrived as a JSON number outside the
+   safe-integer range (already rounded; never print it).
    The fee payer (accountKeys[0]) pays the fee out of the same SOL
    balance, so its delta includes it; the note says so. */
 function balanceChanges(tx){
@@ -60,6 +66,9 @@ function balanceChanges(tx){
   var pre=meta.preBalances||[],post=meta.postBalances||[];
   var n=Math.max(pre.length,post.length);
   for(var i=0;i<n;i++){
+    /* No movement, whatever the size. Equal rounded values above ~9M SOL
+       are the same integer; checking unsafe first would print +UNKNOWN. */
+    if(pre[i]===post[i])continue;
     /* JSON numbers only: strings (tests / token path) stay exact via BigInt. */
     if((typeof pre[i]==="number"&&!Number.isSafeInteger(pre[i]))||
        (typeof post[i]==="number"&&!Number.isSafeInteger(post[i]))){
@@ -94,12 +103,15 @@ function shortAddr(s){s=String(s||"");return s.length>12?s.slice(0,4)+"…"+s.sl
 /* One plain line per change for the desk report:
    "−0.1 SOL  7K6x…pgeQ" or "+25 <mint> 6QsX…Kx22".
    Tokens name the owner (the wallet), not the token account.
-   Mint -> symbol is a later step; the mint address stands for now. */
+   Wrapped SOL is labeled "wSOL (wrapped SOL)" so the token line
+   does not read as a second native SOL delta. Other mints stay
+   as the mint address until a symbol table exists. */
 function formatChange(c){
   var sign=c.delta.charAt(0)==="-"?"−":"+";
   var amt=c.delta.replace(/^-/,"");
   var who=shortAddr(c.mint?(c.owner||c.account):c.account);
-  var line=sign+amt+" "+(c.mint||"SOL")+"  "+who;
+  var asset=c.mint===WSOL?"wSOL (wrapped SOL)":(c.mint||"SOL");
+  var line=sign+amt+" "+asset+"  "+who;
   if(c.note)line+="  ("+c.note+")";
   return line;
 }
