@@ -299,7 +299,7 @@ async function solTx(sig){
   var last=null;
   for(var i=0;i<SOL_RPC.length;i++){
     try{
-      var j=await rpc(SOL_RPC[i],"getTransaction",[sig,{encoding:"jsonParsed",maxSupportedTransactionVersion:0}]);
+      var j=await rpc(SOL_RPC[i],"getTransaction",[sig,{encoding:"jsonParsed",maxSupportedTransactionVersion:1}]);
       if(j&&j.result)return j.result;
       if(j&&j.result===null)return null;
       last=(j&&j.error&&j.error.message)||"empty";

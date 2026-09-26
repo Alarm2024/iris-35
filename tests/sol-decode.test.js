@@ -156,8 +156,29 @@ test("index.html loads sol-decode.js before app.js and leaves CSP alone", () => 
 
 test("service worker cache names the decoder and includes the file", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-balances";/);
+  assert.match(sw, /var VERSION="2026-09-26-sol-safe-v1";/);
   assert.match(sw, /"sol-decode\.js"/);
+});
+
+test("live getTransaction asks for maxSupportedTransactionVersion 1", () => {
+  const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
+  assert.match(app, /maxSupportedTransactionVersion:\s*1/);
+  assert.equal(app.includes("maxSupportedTransactionVersion:0"), false);
+});
+
+test("version-1 fixtures decode (approve + failed)", () => {
+  const approve = load("approve.json");
+  const failed = load("failed.json");
+  assert.equal(approve.version, 1);
+  assert.equal(failed.version, 1);
+  const a = IrisSol.decodeSolanaTx(approve);
+  const f = IrisSol.decodeSolanaTx(failed);
+  assert.equal(a.cls, "C");
+  assert.equal(a.findings.some((n) => n.indexOf("UNLIMITED approve -> ") === 0), true);
+  assert.ok(a.changes.length > 0);
+  assert.equal(f.cls, "C");
+  assert.equal(f.findings.indexOf("transaction FAILED on chain") > 0, true);
+  assert.ok(f.changes.length > 0);
 });
 
 test("package.json test script has no dependencies", () => {
