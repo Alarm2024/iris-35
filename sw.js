@@ -1,4 +1,4 @@
-var VERSION="2026-09-26-sol-decode";
+var VERSION="2026-09-26-sol-balances";
 var SHELL="iris-shell-"+VERSION;
 var FILES=["./","index.html","iris.css","i18n.js","sol-decode.js","app.js","boot.js","ui.js","chrome.js",
   "favicon.svg","iris-eye.svg","hero.svg","qr.svg","icon-192.png","icon-512.png","manifest.webmanifest",

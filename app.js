@@ -293,7 +293,7 @@ function rpc(url,method,params){
 
 function classifySol(tx){
   var d=IrisSol.decodeSolanaTx(tx);
-  return {cls:d.cls, notes:d.findings};
+  return {cls:d.cls, notes:d.findings, changes:d.changes||[]};
 }
 async function solTx(sig){
   var last=null;
@@ -397,7 +397,9 @@ if(run)run.onclick=async function(){
       var tx=await solTx(hash);
       if(!tx){show("C",tr("c_notfound","Not found on this chain. Check the hash."));return;}
       var r=classifySol(tx);
-      show(r.cls,["chain SOL",hash].concat(r.notes.map(function(n){return "- "+n;})).join("\n"));
+      show(r.cls,["chain SOL",hash]
+        .concat(r.notes.map(function(n){return "- "+n;}))
+        .concat(r.changes.map(IrisSol.formatChange)).join("\n"));
     }else if(k==="btc"){
       var bt=await btcTx(hash);
       var rb=classifyBtc(bt);
