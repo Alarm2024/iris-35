@@ -222,8 +222,8 @@ test("JSON-number SOL balances at 2^53+1 are UNKNOWN, never a rounded print", ()
   assert.equal(got[0].delta, "UNKNOWN");
 });
 
-test("an unchanged whale above ~9M SOL prints no line; a changed whale is UNKNOWN", () => {
-  /* 2^53+1 cannot survive JSON. Two copies round to the same unsafe integer. */
+test("an unchanged legacy whale prints no line; draining it to 1 lamport prints UNKNOWN", () => {
+  /* Legacy callers can still pass a JSON number that was already rounded. */
   const huge = JSON.parse("9007199254740993");
   assert.equal(Number.isSafeInteger(huge), false);
   const still = {
@@ -254,6 +254,7 @@ test("an unchanged whale above ~9M SOL prints no line; a changed whale is UNKNOW
     delta: "UNKNOWN",
     note: "balance too large to read exactly"
   }]);
+  assert.equal(IrisSol.formatChange(got[0]), "? SOL WHALE (balance too large to read exactly)");
 });
 
 test("unsafe postBalances alone also yield UNKNOWN", () => {
@@ -268,6 +269,38 @@ test("unsafe postBalances alone also yield UNKNOWN", () => {
   assert.equal(got[0].after, "UNKNOWN");
   assert.equal(got[0].delta, "UNKNOWN");
   assert.equal(got[0].note, "balance too large to read exactly");
+});
+
+test("RPC text preserves preBalances and postBalances as exact integer strings", () => {
+  const raw = '{"jsonrpc":"2.0","result":{"meta":{"preBalances":[9007199254740993, 42],"postBalances":[1,42],"fee":5000},"transaction":{"message":{"accountKeys":["WHALE","DUST"]}}}}';
+  const response = IrisSol.parseRpcResponseText(raw);
+  assert.deepEqual(response.result.meta.preBalances, ["9007199254740993", "42"]);
+  assert.deepEqual(response.result.meta.postBalances, ["1", "42"]);
+  assert.deepEqual(IrisSol.balanceChanges(response.result), [{
+    account: "WHALE",
+    owner: null,
+    mint: null,
+    before: "9007199.254740993",
+    after: "0.000000001",
+    delta: "-9007199.254740992",
+    note: "fee payer; delta includes the 0.000005 SOL fee"
+  }]);
+});
+
+test("malformed SOL balance strings yield UNKNOWN instead of throwing", () => {
+  const tx = {
+    transaction: { message: { accountKeys: ["BROKEN"] } },
+    meta: { preBalances: ["not-an-integer"], postBalances: ["1"] }
+  };
+  assert.deepEqual(IrisSol.balanceChanges(tx), [{
+    account: "BROKEN",
+    owner: null,
+    mint: null,
+    before: "UNKNOWN",
+    after: "UNKNOWN",
+    delta: "UNKNOWN",
+    note: "balance too large to read exactly"
+  }]);
 });
 
 test("no meta, no changes", () => {
@@ -304,7 +337,7 @@ test("app.js prints the changes as plain lines after the dashed notes", () => {
   const notes = app.indexOf('.concat(r.notes.map(function(n){return "- "+n;}))');
   const changes = app.indexOf(".concat(r.changes.map(IrisSol.formatChange))");
   assert.ok(notes > -1 && changes > notes);
-  assert.equal(app.includes("preBalances"), false);
+  assert.match(app, /res\.text\(\)\.then\(IrisSol\.parseRpcResponseText\)/);
   assert.equal(app.includes("BigInt"), false);
 });
 

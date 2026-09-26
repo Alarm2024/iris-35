@@ -272,7 +272,7 @@ function show(cls,text,word){
   if(cp)cp.hidden=(cls==="X");
 }
 
-function fetchJSON(url,opts){
+function fetchResult(url,opts,read){
   var ctl=("AbortController" in window)?new AbortController():null;
   var o=Object.assign({},opts||{});
   if(ctl)o.signal=ctl.signal;
@@ -280,15 +280,20 @@ function fetchJSON(url,opts){
   return fetch(url,o).then(function(res){
     clearTimeout(timer);
     if(!res.ok)throw new Error("HTTP "+res.status);
-    return res.json();
+    return read(res);
   },function(e){
     clearTimeout(timer);
     throw new Error(e&&e.name==="AbortError"?"timeout":(e.message||"network"));
   });
 }
+function fetchJSON(url,opts){
+  return fetchResult(url,opts,function(res){return res.json();});
+}
 function rpc(url,method,params){
-  return fetchJSON(url,{method:"POST",headers:{"content-type":"application/json"},
-    body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})});
+  return fetchResult(url,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})},function(res){
+      return res.text().then(IrisSol.parseRpcResponseText);
+    });
 }
 
 function classifySol(tx){

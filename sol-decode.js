@@ -47,15 +47,23 @@ function units(raw,decimals){
   return (neg?"-":"")+s;
 }
 
+/* Preserve SOL balance integers before JSON.parse can round them.
+   The RPC arrays contain only integer lamport values. */
+function parseRpcResponseText(text){
+  var quoted=String(text).replace(/("(?:preBalances|postBalances)"\s*:\s*\[)([^\]]*)(\])/g,function(_,open,body,close){
+    return open+body.replace(/(^|,)(\s*)(\d+)(\s*)(?=,|$)/g,'$1$2"$3"$4')+close;
+  });
+  return JSON.parse(quoted);
+}
+
 /* Balance changes for every account the transaction touched.
    SOL from meta.preBalances/postBalances against accountKeys,
    tokens from meta.pre/postTokenBalances matched by accountIndex+mint.
-   Zero deltas are skipped first — including two equal JSON numbers
-   above ~9,007,199 SOL, which the RPC has already rounded to the same
-   integer. An untouched whale is not a change. Only a real difference
-   is then checked: before/after/delta are exact decimal strings — or
-   "UNKNOWN" when a SOL balance arrived as a JSON number outside the
-   safe-integer range (already rounded; never print it).
+   Exact string balances make equal values a reliable zero delta. Legacy
+   callers may still pass JSON numbers; above 2^53, equal rounded numbers
+   can hide a change smaller than the number's rounding step. A real
+   difference is checked next: before/after/delta are exact decimal
+   strings — or "UNKNOWN" when a SOL balance is unsafe or malformed.
    The fee payer (accountKeys[0]) pays the fee out of the same SOL
    balance, so its delta includes it; the note says so. */
 function balanceChanges(tx){
@@ -66,16 +74,22 @@ function balanceChanges(tx){
   var pre=meta.preBalances||[],post=meta.postBalances||[];
   var n=Math.max(pre.length,post.length);
   for(var i=0;i<n;i++){
-    /* No movement, whatever the size. Equal rounded values above ~9M SOL
-       are the same integer; checking unsafe first would print +UNKNOWN. */
+    /* Exact strings prove no movement. For legacy unsafe numbers this may
+       miss a change smaller than the number's rounding step. */
     if(pre[i]===post[i])continue;
-    /* JSON numbers only: strings (tests / token path) stay exact via BigInt. */
+    /* Unsafe JSON numbers cannot be recovered; valid strings stay exact. */
     if((typeof pre[i]==="number"&&!Number.isSafeInteger(pre[i]))||
        (typeof post[i]==="number"&&!Number.isSafeInteger(post[i]))){
       out.push({account:keys[i]||("#"+i),owner:null,mint:null,before:"UNKNOWN",after:"UNKNOWN",delta:"UNKNOWN",note:"balance too large to read exactly"});
       continue;
     }
-    var b=BigInt(String(pre[i]||0)),a=BigInt(String(post[i]||0)),d=a-b;
+    var b,a,d;
+    try{
+      b=BigInt(String(pre[i]||0));a=BigInt(String(post[i]||0));d=a-b;
+    }catch(e){
+      out.push({account:keys[i]||("#"+i),owner:null,mint:null,before:"UNKNOWN",after:"UNKNOWN",delta:"UNKNOWN",note:"balance too large to read exactly"});
+      continue;
+    }
     if(d===0n)continue;
     var c={account:keys[i]||("#"+i),owner:null,mint:null,before:units(b,9),after:units(a,9),delta:units(d,9)};
     if(i===0&&meta.fee)c.note="fee payer; delta includes the "+units(meta.fee,9)+" SOL fee";
@@ -107,10 +121,13 @@ function shortAddr(s){s=String(s||"");return s.length>12?s.slice(0,4)+"…"+s.sl
    does not read as a second native SOL delta. Other mints stay
    as the mint address until a symbol table exists. */
 function formatChange(c){
-  var sign=c.delta.charAt(0)==="-"?"−":"+";
-  var amt=c.delta.replace(/^-/,"");
   var who=shortAddr(c.mint?(c.owner||c.account):c.account);
   var asset=c.mint===WSOL?"wSOL (wrapped SOL)":(c.mint||"SOL");
+  if(c.delta==="UNKNOWN"){
+    return "? "+asset+" "+who+(c.note?" ("+c.note+")":"");
+  }
+  var sign=c.delta.charAt(0)==="-"?"−":"+";
+  var amt=c.delta.replace(/^-/,"");
   var line=sign+amt+" "+asset+"  "+who;
   if(c.note)line+="  ("+c.note+")";
   return line;
@@ -144,7 +161,7 @@ function decodeSolanaTx(tx){
   return {cls:cls, programs:programs, findings:findings, changes:balanceChanges(tx)};
 }
 
-return {decodeSolanaTx:decodeSolanaTx, balanceChanges:balanceChanges, formatChange:formatChange};
+return {decodeSolanaTx:decodeSolanaTx, balanceChanges:balanceChanges, formatChange:formatChange, parseRpcResponseText:parseRpcResponseText};
 })();
 
 if(typeof module!=="undefined"&&module.exports)module.exports=IrisSol;
