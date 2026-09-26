@@ -32,9 +32,9 @@ function ixList(tx){
 /* Exact decimal string from an integer amount in base units.
    BigInt on the string form — never float math. Token amounts
    (uiTokenAmount.amount) arrive as strings and stay exact past 2^53.
-   Floats can still enter via meta.preBalances/postBalances: the RPC
-   sends those as JSON numbers, so above Number.MAX_SAFE_INTEGER
-   (~9,007,199 SOL) they are already rounded before BigInt runs. */
+   Live preBalances/postBalances are quoted before JSON.parse, so they
+   arrive as exact strings. A number already parsed from JSON above
+   2^53 (~9,007,199 SOL) is rounded and cannot be recovered. */
 function units(raw,decimals){
   var v=BigInt(String(raw||"0")),neg=v<0n;
   if(neg)v=-v;
@@ -48,7 +48,8 @@ function units(raw,decimals){
 }
 
 /* Preserve SOL balance integers before JSON.parse can round them.
-   The RPC arrays contain only integer lamport values. */
+   The RPC arrays contain only integer lamport values. 1e17-style
+   numbers are not expected from the RPC; only plain digits are quoted. */
 function parseRpcResponseText(text){
   var quoted=String(text).replace(/("(?:preBalances|postBalances)"\s*:\s*\[)([^\]]*)(\])/g,function(_,open,body,close){
     return open+body.replace(/(^|,)(\s*)(\d+)(\s*)(?=,|$)/g,'$1$2"$3"$4')+close;
@@ -63,7 +64,9 @@ function parseRpcResponseText(text){
    callers may still pass JSON numbers; above 2^53, equal rounded numbers
    can hide a change smaller than the number's rounding step. A real
    difference is checked next: before/after/delta are exact decimal
-   strings — or "UNKNOWN" when a SOL balance is unsafe or malformed.
+   strings — or "UNKNOWN" when a SOL balance is unsafe
+   ("balance too large to read exactly") or malformed
+   ("balance unreadable").
    The fee payer (accountKeys[0]) pays the fee out of the same SOL
    balance, so its delta includes it; the note says so. */
 function balanceChanges(tx){
@@ -87,7 +90,7 @@ function balanceChanges(tx){
     try{
       b=BigInt(String(pre[i]||0));a=BigInt(String(post[i]||0));d=a-b;
     }catch(e){
-      out.push({account:keys[i]||("#"+i),owner:null,mint:null,before:"UNKNOWN",after:"UNKNOWN",delta:"UNKNOWN",note:"balance too large to read exactly"});
+      out.push({account:keys[i]||("#"+i),owner:null,mint:null,before:"UNKNOWN",after:"UNKNOWN",delta:"UNKNOWN",note:"balance unreadable"});
       continue;
     }
     if(d===0n)continue;
@@ -123,12 +126,8 @@ function shortAddr(s){s=String(s||"");return s.length>12?s.slice(0,4)+"…"+s.sl
 function formatChange(c){
   var who=shortAddr(c.mint?(c.owner||c.account):c.account);
   var asset=c.mint===WSOL?"wSOL (wrapped SOL)":(c.mint||"SOL");
-  if(c.delta==="UNKNOWN"){
-    return "? "+asset+" "+who+(c.note?" ("+c.note+")":"");
-  }
-  var sign=c.delta.charAt(0)==="-"?"−":"+";
-  var amt=c.delta.replace(/^-/,"");
-  var line=sign+amt+" "+asset+"  "+who;
+  var head=c.delta==="UNKNOWN"?"?":((c.delta.charAt(0)==="-"?"−":"+")+c.delta.replace(/^-/,""));
+  var line=head+" "+asset+"  "+who;
   if(c.note)line+="  ("+c.note+")";
   return line;
 }

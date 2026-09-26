@@ -254,7 +254,7 @@ test("an unchanged legacy whale prints no line; draining it to 1 lamport prints 
     delta: "UNKNOWN",
     note: "balance too large to read exactly"
   }]);
-  assert.equal(IrisSol.formatChange(got[0]), "? SOL WHALE (balance too large to read exactly)");
+  assert.equal(IrisSol.formatChange(got[0]), "? SOL  WHALE  (balance too large to read exactly)");
 });
 
 test("unsafe postBalances alone also yield UNKNOWN", () => {
@@ -299,8 +299,9 @@ test("malformed SOL balance strings yield UNKNOWN instead of throwing", () => {
     before: "UNKNOWN",
     after: "UNKNOWN",
     delta: "UNKNOWN",
-    note: "balance too large to read exactly"
+    note: "balance unreadable"
   }]);
+  assert.equal(IrisSol.formatChange(IrisSol.balanceChanges(tx)[0]), "? SOL  BROKEN  (balance unreadable)");
 });
 
 test("no meta, no changes", () => {
