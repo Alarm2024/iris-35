@@ -28,7 +28,7 @@ ROOT = pathlib.Path(__file__).parent
 
 # Every file the page needs in order to work when served from the branch.
 REQUIRED = [
-    "index.html", "iris.css", "i18n.js", "app.js", "boot.js", "ui.js", "sw.js",
+    "index.html", "iris.css", "i18n.js", "sol-decode.js", "app.js", "boot.js", "ui.js", "sw.js",
     "favicon.svg", "iris-eye.svg", "qr.svg", "manifest.webmanifest",
     "icon-192.png", "icon-512.png", "icon-maskable-512.png",
     "health.json", "robots.txt", "sitemap.xml", "CNAME", ".nojekyll",

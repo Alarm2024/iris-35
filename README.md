@@ -27,6 +27,7 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | --- | --- |
 | `index.html` | markup only — no inline script, so the page runs under a strict CSP |
 | `i18n.js` | every string in 6 languages (en, ar, ru, zh, de, es) + `applyI18n()` |
+| `sol-decode.js` | pure Solana decoder (`decodeSolanaTx`) — no DOM, no network |
 | `app.js` | the desk tracks, the classifier, the chain read, report export |
 | `boot.js` | the static cards (official door, tap vs write, two doors, …) |
 | `ui.js` | language switch, ask box, live status, offline banner, install prompt |
@@ -101,7 +102,7 @@ was just burning a failed run.
 To try it locally:
 
 ```sh
-mkdir -p _site && cp index.html app.js i18n.js boot.js ui.js sw.js iris.css \
+mkdir -p _site && cp index.html sol-decode.js app.js i18n.js boot.js ui.js sw.js iris.css \
   favicon.svg health.json manifest.webmanifest robots.txt sitemap.xml _site/
 python3 icons.py && python3 lockup.py
 cd _site && python3 -m http.server 8137

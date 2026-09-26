@@ -229,18 +229,6 @@ function prefersReducedMotion(){
 /* ---------------------------------------------------------------
    Chain read. Public hashes only — never a key, never a seed.
    --------------------------------------------------------------- */
-var ALLOW={
-"11111111111111111111111111111111":"System",
-"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA":"SPL Token",
-"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb":"Token-2022",
-"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL":"ATA",
-"ComputeBudget111111111111111111111111111111":"ComputeBudget",
-"MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr":"Memo",
-"Stake11111111111111111111111111111111111111":"Stake",
-"Vote111111111111111111111111111111111111111":"Vote",
-"AddressLookupTab1e1111111111111111111111111":"AddressLookupTable"
-};
-var MAX="18446744073709551615";
 var ETH_MAX="ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
 var SOL_RPC=["https://api.mainnet-beta.solana.com","https://solana-rpc.publicnode.com"];
 var ETH_RPC="https://ethereum.publicnode.com";
@@ -303,38 +291,9 @@ function rpc(url,method,params){
     body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})});
 }
 
-function ixList(tx){
-  var outer=(tx.transaction&&tx.transaction.message&&tx.transaction.message.instructions)||[];
-  var inner=[];
-  ((tx.meta&&tx.meta.innerInstructions)||[]).forEach(function(g){(g.instructions||[]).forEach(function(ix){inner.push(ix);});});
-  return outer.concat(inner);
-}
 function classifySol(tx){
-  var ixs=ixList(tx),programs=[],notes=[],cls="A";
-  if(tx.meta&&tx.meta.err)notes.push("transaction FAILED on chain");
-  if(tx.blockTime)notes.push("time "+new Date(tx.blockTime*1000).toISOString());
-  ixs.forEach(function(ix){
-    var pid=String(ix.programId||"");
-    var name=ALLOW[pid]||"UNKNOWN";
-    var label=name==="UNKNOWN"?pid.slice(0,8)+"...":name;
-    if(programs.indexOf(label)<0)programs.push(label);
-    if(!ALLOW[pid]&&pid.length>20){cls="C";notes.push("unknown program "+pid);}
-    var parsed=ix.parsed||null;
-    var typ=parsed&&parsed.type?parsed.type:"";
-    var info=(parsed&&parsed.info)||{};
-    var amt=info.amount||(info.tokenAmount&&info.tokenAmount.amount);
-    if(typ==="approve"||typ==="approveChecked"){
-      if(String(amt)===MAX){if(cls!=="C")cls="B";notes.push("UNLIMITED approve -> "+(info.delegate||"?"));}
-      else notes.push("finite approve "+amt+" -> "+(info.delegate||"?"));
-    }
-    if(typ==="revoke")notes.push("revoke (good)");
-    if(typ==="setAuthority"){cls="C";notes.push("SetAuthority -> "+(info.newAuthority||"?"));}
-    if(typ==="closeAccount"){if(cls==="A")cls="B";notes.push("closeAccount -> "+(info.destination||"?"));}
-    if(typ==="transfer"||typ==="transferChecked")notes.push("transfer "+(amt||info.lamports||"?")+" -> "+(info.destination||"?"));
-  });
-  if(!ixs.length){cls="C";notes.push("no instructions");}
-  notes.unshift("programs "+programs.join(", "));
-  return{cls:cls,notes:notes};
+  var d=IrisSol.decodeSolanaTx(tx);
+  return {cls:d.cls, notes:d.findings};
 }
 async function solTx(sig){
   var last=null;
