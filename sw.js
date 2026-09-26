@@ -1,6 +1,6 @@
-var VERSION="2026-09-20-photos";
+var VERSION="2026-09-26-sol-decode";
 var SHELL="iris-shell-"+VERSION;
-var FILES=["./","index.html","iris.css","i18n.js","app.js","boot.js","ui.js","chrome.js",
+var FILES=["./","index.html","iris.css","i18n.js","sol-decode.js","app.js","boot.js","ui.js","chrome.js",
   "favicon.svg","iris-eye.svg","hero.svg","qr.svg","icon-192.png","icon-512.png","manifest.webmanifest",
   "IMG_6697.jpeg","IMG_6698.jpeg"];
 
