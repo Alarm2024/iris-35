@@ -27,7 +27,11 @@ function ixList(tx){
 }
 
 /* Exact decimal string from an integer amount in base units.
-   BigInt, never float: token amounts overflow 2^53 in the wild. */
+   BigInt on the string form — never float math. Token amounts
+   (uiTokenAmount.amount) arrive as strings and stay exact past 2^53.
+   Floats can still enter via meta.preBalances/postBalances: the RPC
+   sends those as JSON numbers, so above Number.MAX_SAFE_INTEGER
+   (~9,007,199 SOL) they are already rounded before BigInt runs. */
 function units(raw,decimals){
   var v=BigInt(String(raw||"0")),neg=v<0n;
   if(neg)v=-v;
@@ -44,8 +48,10 @@ function units(raw,decimals){
    SOL from meta.preBalances/postBalances against accountKeys,
    tokens from meta.pre/postTokenBalances matched by accountIndex+mint.
    Zero deltas are skipped. before/after/delta are exact decimal
-   strings. The fee payer (accountKeys[0]) pays the fee out of the
-   same SOL balance, so its delta includes it; the note says so. */
+   strings — or "UNKNOWN" when a SOL balance arrived as a JSON number
+   outside the safe-integer range (already rounded; never print it).
+   The fee payer (accountKeys[0]) pays the fee out of the same SOL
+   balance, so its delta includes it; the note says so. */
 function balanceChanges(tx){
   var meta=tx&&tx.meta;if(!meta)return [];
   var keys=((tx.transaction&&tx.transaction.message&&tx.transaction.message.accountKeys)||[])
@@ -54,6 +60,12 @@ function balanceChanges(tx){
   var pre=meta.preBalances||[],post=meta.postBalances||[];
   var n=Math.max(pre.length,post.length);
   for(var i=0;i<n;i++){
+    /* JSON numbers only: strings (tests / token path) stay exact via BigInt. */
+    if((typeof pre[i]==="number"&&!Number.isSafeInteger(pre[i]))||
+       (typeof post[i]==="number"&&!Number.isSafeInteger(post[i]))){
+      out.push({account:keys[i]||("#"+i),owner:null,mint:null,before:"UNKNOWN",after:"UNKNOWN",delta:"UNKNOWN",note:"balance too large to read exactly"});
+      continue;
+    }
     var b=BigInt(String(pre[i]||0)),a=BigInt(String(post[i]||0)),d=a-b;
     if(d===0n)continue;
     var c={account:keys[i]||("#"+i),owner:null,mint:null,before:units(b,9),after:units(a,9),delta:units(d,9)};

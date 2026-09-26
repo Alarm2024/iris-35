@@ -194,6 +194,48 @@ test("amounts stay exact past 2^53 and with many decimals", () => {
   ]);
 });
 
+test("JSON-number SOL balances at 2^53+1 are UNKNOWN, never a rounded print", () => {
+  /* 2^53+1 cannot survive JSON as an exact integer — the RPC already rounded it. */
+  const raw = JSON.parse('{"preBalances":[9007199254740993],"postBalances":[1]}');
+  assert.equal(raw.preBalances[0], 9007199254740992);
+  assert.equal(Number.isSafeInteger(raw.preBalances[0]), false);
+  assert.equal(Number.isSafeInteger(raw.postBalances[0]), true);
+  const tx = {
+    transaction: { message: { accountKeys: [{ pubkey: "WHALE" }, { pubkey: "DUST" }] } },
+    meta: { fee: 5000, preBalances: raw.preBalances.concat([0]), postBalances: [raw.postBalances[0], 0] }
+  };
+  const got = IrisSol.balanceChanges(tx);
+  assert.deepEqual(got, [{
+    account: "WHALE",
+    owner: null,
+    mint: null,
+    before: "UNKNOWN",
+    after: "UNKNOWN",
+    delta: "UNKNOWN",
+    note: "balance too large to read exactly"
+  }]);
+  const printed = JSON.stringify(got) + IrisSol.formatChange(got[0]);
+  assert.equal(/9007199/.test(printed), false);
+  assert.equal(/9\.007/.test(printed), false);
+  assert.equal(got[0].before, "UNKNOWN");
+  assert.equal(got[0].after, "UNKNOWN");
+  assert.equal(got[0].delta, "UNKNOWN");
+});
+
+test("unsafe postBalances alone also yield UNKNOWN", () => {
+  const huge = JSON.parse("9007199254740993");
+  const tx = {
+    transaction: { message: { accountKeys: ["A"] } },
+    meta: { fee: 1, preBalances: [0], postBalances: [huge] }
+  };
+  const got = IrisSol.balanceChanges(tx);
+  assert.equal(got.length, 1);
+  assert.equal(got[0].before, "UNKNOWN");
+  assert.equal(got[0].after, "UNKNOWN");
+  assert.equal(got[0].delta, "UNKNOWN");
+  assert.equal(got[0].note, "balance too large to read exactly");
+});
+
 test("no meta, no changes", () => {
   assert.deepEqual(IrisSol.balanceChanges({}), []);
   assert.deepEqual(IrisSol.balanceChanges({ transaction: { message: { accountKeys: [] } } }), []);
@@ -224,5 +266,5 @@ test("app.js prints the changes as plain lines after the dashed notes", () => {
 
 test("service worker cache bumped for the balances step", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-balances";/);
+  assert.match(sw, /var VERSION="2026-09-26-sol-safe-v1";/);
 });
