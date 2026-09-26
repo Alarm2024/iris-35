@@ -66,11 +66,12 @@ function load(name) {
   return JSON.parse(fs.readFileSync(path.join(fixDir, name), "utf8"));
 }
 
-test("five real mainnet fixtures, each listed with a Solscan link", () => {
+test("six real mainnet fixtures, each listed with a Solscan link", () => {
   assert.deepEqual(files, [
     "approve.json",
     "close-account.json",
     "failed.json",
+    "jupiter-swap.json",
     "set-authority.json",
     "transfer.json"
   ]);
@@ -137,7 +138,7 @@ test("the other fixtures hit the remaining note paths", () => {
 
 test("app.js shows decoder findings as the chain-read notes", () => {
   const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
-  assert.match(app, /function classifySol\(tx\)\{\s*var d=IrisSol\.decodeSolanaTx\(tx\);\s*return \{cls:d\.cls, notes:d\.findings\};\s*\}/);
+  assert.match(app, /function classifySol\(tx\)\{\s*var d=IrisSol\.decodeSolanaTx\(tx\);\s*return \{cls:d\.cls, notes:d\.findings, changes:d\.changes\|\|\[\]\};\s*\}/);
   assert.equal(app.includes("function ixList"), false);
   assert.equal(app.includes("18446744073709551615"), false);
 });
@@ -155,7 +156,7 @@ test("index.html loads sol-decode.js before app.js and leaves CSP alone", () => 
 
 test("service worker cache names the decoder and includes the file", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-decode";/);
+  assert.match(sw, /var VERSION="2026-09-26-sol-balances";/);
   assert.match(sw, /"sol-decode\.js"/);
 });
 
