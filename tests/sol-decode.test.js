@@ -16,7 +16,10 @@ const ALLOW = {
   "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr": "Memo",
   "Stake11111111111111111111111111111111111111": "Stake",
   "Vote111111111111111111111111111111111111111": "Vote",
-  "AddressLookupTab1e1111111111111111111111111": "AddressLookupTable"
+  "AddressLookupTab1e1111111111111111111111111": "AddressLookupTable",
+  "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4": "Jupiter v6",
+  "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": "Pump AMM",
+  "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": "Pump fee"
 };
 const MAX = "18446744073709551615";
 const COMPUTE = "ComputeBudget111111111111111111111111111111";
@@ -345,4 +348,57 @@ test("package.json test script has no dependencies", () => {
   assert.equal(pkg.scripts.test, "node --test tests/*.test.js");
   assert.equal(pkg.dependencies, undefined);
   assert.equal(pkg.devDependencies, undefined);
+});
+
+/* Allowlisted programs (Jupiter v6, Pump AMM, Pump fee) only name the
+   program. They must never lower the risk of other instructions. */
+const JUP = "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4";
+const TOKEN = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
+const jupIx = { programId: JUP, accounts: [], data: "" };
+
+function txOf(instructions) {
+  return { meta: { innerInstructions: [] }, transaction: { message: { instructions } } };
+}
+
+test("Jupiter v6 does not hide a SetAuthority accountOwner change", () => {
+  const newAuth = "NewAuth1111111111111111111111111111111111";
+  const got = IrisSol.decodeSolanaTx(txOf([
+    jupIx,
+    {
+      programId: TOKEN,
+      parsed: { type: "setAuthority", info: { authorityType: "accountOwner", newAuthority: newAuth } }
+    }
+  ]));
+  assert.equal(got.cls, "C");
+  assert.deepEqual(got.programs, ["Jupiter v6", "SPL Token"]);
+  assert.equal(got.findings.includes("SetAuthority accountOwner -> " + newAuth), true);
+});
+
+test("Jupiter v6 does not downgrade an UNLIMITED approve", () => {
+  const approveIx = {
+    programId: TOKEN,
+    parsed: { type: "approve", info: { amount: MAX, source: "SRC", delegate: "DEL" } }
+  };
+  const alone = IrisSol.decodeSolanaTx(txOf([approveIx]));
+  const got = IrisSol.decodeSolanaTx(txOf([jupIx, approveIx]));
+  assert.equal(alone.cls, "B");
+  assert.equal(got.cls, alone.cls);
+  assert.ok(got.cls === "B" || got.cls === "C");
+  assert.equal(got.findings.includes("UNLIMITED approve -> DEL"), true);
+  assert.equal(got.findings.some((n) => n.indexOf("finite approve") === 0), false);
+});
+
+test("Jupiter v6 does not hide an unknown program", () => {
+  const unknown = "Evi1Prog1111111111111111111111111111111111";
+  const unknownIx = { programId: unknown, accounts: [], data: "" };
+  const alone = IrisSol.decodeSolanaTx(txOf([unknownIx]));
+  const got = IrisSol.decodeSolanaTx(txOf([jupIx, unknownIx]));
+  assert.equal(alone.cls, "C");
+  assert.equal(got.cls, "C");
+  assert.equal(got.findings.includes("unknown program " + unknown), true);
+  assert.deepEqual(
+    got.findings.filter((n) => n.indexOf("unknown program ") === 0),
+    alone.findings.filter((n) => n.indexOf("unknown program ") === 0)
+  );
+  assert.deepEqual(got.programs, ["Jupiter v6", unknown.slice(0, 8) + "..."]);
 });
