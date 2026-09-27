@@ -4,8 +4,9 @@ const fs = require("fs");
 const path = require("path");
 const IrisSol = require("../sol-decode.js");
 
-/* The desk's old classifySol, kept here as the parity oracle.
-   Notes shown on the page must match this on every fixture. */
+/* The desk's old classifySol, kept here as the classification oracle.
+   Finding text can improve independently, but risk classes and program
+   detection must continue to match on every fixture. */
 const ALLOW = {
   "11111111111111111111111111111111": "System",
   "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": "SPL Token",
@@ -87,13 +88,12 @@ test("six real mainnet fixtures, each listed with a Solscan link", () => {
 });
 
 for (const file of files) {
-  test("parity " + file, () => {
+  test("classification parity " + file, () => {
     const tx = load(file);
     const old = legacyClassifySol(tx);
     const got = IrisSol.decodeSolanaTx(tx);
     assert.equal(got.cls, old.cls);
     assert.deepEqual(got.programs, old.programs);
-    assert.deepEqual(got.findings, old.notes);
     assert.equal(got.findings[0], "programs " + got.programs.join(", "));
     assert.ok(got.findings.indexOf("time " + new Date(tx.blockTime * 1000).toISOString()) > 0);
   });
@@ -113,7 +113,61 @@ test("transfer fixture is a simple SOL transfer, not a compound trade", () => {
   assert.deepEqual(got.programs, ["System"]);
   assert.equal(got.findings.some((n) => n.indexOf("unknown program ") === 0), false);
   assert.equal(got.findings.some((n) => n.indexOf("UNLIMITED approve") === 0), false);
-  assert.equal(got.findings.some((n) => n.indexOf("transfer 100000000 -> ") === 0), true);
+  assert.equal(got.findings.includes("transfer 0.1 SOL -> FNgt9yZAWrorzhgdVWYyJBeSGknR4Xbja5k5B9RtXdq5"), true);
+  assert.equal(got.findings.some((n) => n.indexOf("transfer 100000000 -> ") === 0), false);
+});
+
+test("transfer findings use display units and a short token mint", () => {
+  const mint = "5NhN6zzDkzwXFGPFqtpTopV4ttBeZ6CWy1oRL9Rkpump";
+  const tx = {
+    meta: { innerInstructions: [] },
+    transaction: {
+      message: {
+        instructions: [{
+          programId: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          parsed: {
+            type: "transferChecked",
+            info: {
+              destination: "recipient",
+              mint,
+              tokenAmount: {
+                amount: "15948956503",
+                decimals: 6,
+                uiAmountString: "15948.956503"
+              }
+            }
+          }
+        }]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.equal(got.findings.includes("transfer 15948.956503 5NhN…pump -> recipient"), true);
+  assert.equal(got.findings.some((n) => n.includes("15948956503")), false);
+});
+
+test("SetAuthority findings name the authority type and revoked state", () => {
+  const tx = {
+    meta: { innerInstructions: [] },
+    transaction: {
+      message: {
+        instructions: [{
+          programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          parsed: {
+            type: "setAuthority",
+            info: {
+              authorityType: "accountOwner",
+              newAuthority: null
+            }
+          }
+        }]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.equal(got.cls, "C");
+  assert.equal(got.findings.includes("SetAuthority accountOwner -> revoked"), true);
+  assert.equal(got.findings.some((n) => n.includes("SetAuthority accountOwner -> ?")), false);
 });
 
 test("the other fixtures hit the remaining note paths", () => {
@@ -123,7 +177,10 @@ test("the other fixtures hit the remaining note paths", () => {
 
   const auth = IrisSol.decodeSolanaTx(load("set-authority.json"));
   assert.equal(auth.cls, "C");
-  assert.equal(auth.findings.filter((n) => n.indexOf("SetAuthority -> ") === 0).length, 3);
+  assert.equal(auth.findings.filter((n) => n.indexOf("SetAuthority ") === 0).length, 3);
+  assert.equal(auth.findings.includes("SetAuthority metadataPointer -> revoked"), true);
+  assert.equal(auth.findings.includes("SetAuthority mintTokens -> revoked"), true);
+  assert.equal(auth.findings.includes("SetAuthority freezeAccount -> revoked"), true);
   assert.equal(auth.findings.some((n) => n.indexOf("unknown program ") === 0), false);
 
   const approve = IrisSol.decodeSolanaTx(load("approve.json"));

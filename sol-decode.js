@@ -151,9 +151,22 @@ function decodeSolanaTx(tx){
       else findings.push("finite approve "+amt+" -> "+(info.delegate||"?"));
     }
     if(typ==="revoke")findings.push("revoke (good)");
-    if(typ==="setAuthority"){cls="C";findings.push("SetAuthority -> "+(info.newAuthority||"?"));}
+    if(typ==="setAuthority"){
+      cls="C";
+      findings.push("SetAuthority "+(info.authorityType||"?")+" -> "+(info.newAuthority===null?"revoked":(info.newAuthority||"?")));
+    }
     if(typ==="closeAccount"){if(cls==="A")cls="B";findings.push("closeAccount -> "+(info.destination||"?"));}
-    if(typ==="transfer"||typ==="transferChecked")findings.push("transfer "+(amt||info.lamports||"?")+" -> "+(info.destination||"?"));
+    if(typ==="transfer"||typ==="transferChecked"){
+      var moved="?";
+      if(info.tokenAmount){
+        var ui=info.tokenAmount.uiAmountString;
+        if(ui===undefined||ui===null)ui=units(info.tokenAmount.amount,info.tokenAmount.decimals|0);
+        moved=ui+" "+shortAddr(info.mint||"?");
+      }else if(info.lamports!==undefined&&info.lamports!==null){
+        moved=units(info.lamports,9)+" SOL";
+      }
+      findings.push("transfer "+moved+" -> "+(info.destination||"?"));
+    }
   });
   if(!ixs.length){cls="C";findings.push("no instructions");}
   findings.unshift("programs "+programs.join(", "));
