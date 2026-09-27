@@ -66,11 +66,12 @@ function load(name) {
   return JSON.parse(fs.readFileSync(path.join(fixDir, name), "utf8"));
 }
 
-test("five real mainnet fixtures, each listed with a Solscan link", () => {
+test("real mainnet fixtures, each listed with a Solscan link", () => {
   assert.deepEqual(files, [
     "approve.json",
     "close-account.json",
     "failed.json",
+    "jupiter-swap.json",
     "set-authority.json",
     "transfer.json"
   ]);
@@ -85,18 +86,95 @@ test("five real mainnet fixtures, each listed with a Solscan link", () => {
   }
 });
 
-for (const file of files) {
+/* Names changed in step 3. Class and the desk notes under the programs
+   line stay the old wording on the five fixtures from step 1. */
+const PARITY = [
+  "approve.json",
+  "close-account.json",
+  "failed.json",
+  "set-authority.json",
+  "transfer.json"
+];
+
+for (const file of PARITY) {
   test("parity " + file, () => {
     const tx = load(file);
     const old = legacyClassifySol(tx);
     const got = IrisSol.decodeSolanaTx(tx);
     assert.equal(got.cls, old.cls);
-    assert.deepEqual(got.programs, old.programs);
-    assert.deepEqual(got.findings, old.notes);
+    assert.deepEqual(got.findings.slice(1), old.notes.slice(1));
     assert.equal(got.findings[0], "programs " + got.programs.join(", "));
     assert.ok(got.findings.indexOf("time " + new Date(tx.blockTime * 1000).toISOString()) > 0);
   });
 }
+
+const EXPECTED = {
+  "approve.json": ["Associated Token", "System", "SPL Token", "UNKNOWN (ZV9ssj9G\u2026)", "UNKNOWN (dbcij3LW\u2026)", "Memo"],
+  "close-account.json": ["Compute Budget", "SPL Token"],
+  "failed.json": ["System", "UNKNOWN (DhpyNWkd\u2026)"],
+  "jupiter-swap.json": ["Compute Budget", "Associated Token", "System", "SPL Token", "Jupiter v6", "UNKNOWN (pAMMBay6\u2026)", "UNKNOWN (pfeeUxB6\u2026)", "Token-2022"],
+  "set-authority.json": ["Compute Budget", "System", "Token-2022", "Associated Token"],
+  "transfer.json": ["System"]
+};
+
+test("every fixture shows the checked program names", () => {
+  for (const file of files) {
+    const got = IrisSol.decodeSolanaTx(load(file));
+    assert.deepEqual(got.programs, EXPECTED[file], file);
+    assert.equal(got.findings[0], "programs " + got.programs.join(", "));
+  }
+});
+
+test("the Jupiter swap fixture names Jupiter", () => {
+  const got = IrisSol.decodeSolanaTx(load("jupiter-swap.json"));
+  assert.equal(got.programs.includes("Jupiter v6"), true);
+  assert.equal(got.findings[0].includes("Jupiter v6"), true);
+});
+
+test("an unknown program is UNKNOWN plus its first 8 characters", () => {
+  const failed = IrisSol.decodeSolanaTx(load("failed.json"));
+  assert.equal(failed.programs.includes("UNKNOWN (DhpyNWkd\u2026)"), true);
+  const tx = {
+    transaction: {
+      message: {
+        instructions: [{ programId: "NotARealProgram1111111111111111111111111" }]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.deepEqual(got.programs, ["UNKNOWN (NotAReal\u2026)"]);
+  assert.equal(got.cls, "C");
+  assert.equal(got.findings.includes("unknown program NotARealProgram1111111111111111111111111"), true);
+});
+
+test("the checked table names each sourced program id", () => {
+  const src = fs.readFileSync(path.join(root, "sol-decode.js"), "utf8");
+  const rows = [
+    ["11111111111111111111111111111111", "System", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "SPL Token", "https://www.solana-program.com/docs/token"],
+    ["TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb", "Token-2022", "https://www.solana-program.com/docs/token-2022"],
+    ["ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL", "Associated Token", "https://github.com/solana-labs/solana-program-library/blob/master/docs/src/associated-token-account.md"],
+    ["ComputeBudget111111111111111111111111111111", "Compute Budget", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr", "Memo", "https://github.com/solana-program/memo/blob/main/clients/js-legacy/src/index.ts"],
+    ["Stake11111111111111111111111111111111111111", "Stake", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["Vote111111111111111111111111111111111111111", "Vote", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["AddressLookupTab1e1111111111111111111111111", "Address Lookup Table", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4", "Jupiter v6", "https://github.com/jup-ag/instruction-parser/blob/main/README.md"],
+    ["675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8", "Raydium AMM v4", "https://docs.raydium.io/reference/program-addresses"],
+    ["CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK", "Raydium CLMM", "https://docs.raydium.io/reference/program-addresses"],
+    ["CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C", "Raydium CPMM", "https://docs.raydium.io/reference/program-addresses"],
+    ["whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc", "Orca Whirlpool", "https://github.com/orca-so/whirlpools/blob/main/README.md"],
+    ["6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P", "Pump.fun", "https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_PROGRAM_README.md"]
+  ];
+  for (const [id, name, url] of rows) {
+    const line = src.split("\n").find((l) => l.includes('"' + id + '"'));
+    assert.ok(line, id);
+    assert.ok(line.includes('"' + name + '"'), name);
+    assert.ok(line.includes("// " + url), url);
+    const tx = { transaction: { message: { instructions: [{ programId: id }] } } };
+    assert.deepEqual(IrisSol.decodeSolanaTx(tx).programs, [name]);
+  }
+});
 
 test("transfer fixture is a simple SOL transfer, not a compound trade", () => {
   const tx = load("transfer.json");
@@ -155,7 +233,7 @@ test("index.html loads sol-decode.js before app.js and leaves CSP alone", () => 
 
 test("service worker cache names the decoder and includes the file", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-decode";/);
+  assert.match(sw, /var VERSION="2026-09-27-program-names";/);
   assert.match(sw, /"sol-decode\.js"/);
 });
 
