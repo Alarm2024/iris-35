@@ -15,7 +15,10 @@ var ALLOW={
 "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr":"Memo",
 "Stake11111111111111111111111111111111111111":"Stake",
 "Vote111111111111111111111111111111111111111":"Vote",
-"AddressLookupTab1e1111111111111111111111111":"AddressLookupTable"
+"AddressLookupTab1e1111111111111111111111111":"AddressLookupTable",
+"JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4":"Jupiter v6",
+"pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA":"Pump AMM",
+"pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ":"Pump fee"
 };
 var MAX="18446744073709551615";
 /* Native SOL wrapped as an SPL token. The same account also has a SOL
