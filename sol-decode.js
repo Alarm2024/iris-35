@@ -117,6 +117,38 @@ function balanceChanges(tx){
 
 function shortAddr(s){s=String(s||"");return s.length>12?s.slice(0,4)+"…"+s.slice(-4):s;}
 
+/* Mint and decimals for each token account, from meta pre/postTokenBalances.
+   Same accountIndex+mint slotting as balanceChanges. A closed account is
+   only in pre; a fresh one only in post. First slot for an address wins. */
+function tokenByAccount(tx){
+  var meta=tx&&tx.meta;if(!meta)return {};
+  var keys=((tx.transaction&&tx.transaction.message&&tx.transaction.message.accountKeys)||[])
+    .map(function(k){return typeof k==="string"?k:String((k&&k.pubkey)||"");});
+  var slots={},order=[];
+  function slot(t){
+    var k=t.accountIndex+":"+t.mint;
+    if(!slots[k]){slots[k]={idx:t.accountIndex,mint:t.mint,decimals:(t.uiTokenAmount&&t.uiTokenAmount.decimals)|0};order.push(k);}
+    return slots[k];
+  }
+  (meta.preTokenBalances||[]).forEach(slot);
+  (meta.postTokenBalances||[]).forEach(slot);
+  var by={};
+  order.forEach(function(k){
+    var s=slots[k],acct=keys[s.idx];
+    if(acct&&by[acct]===undefined)by[acct]=s;
+  });
+  return by;
+}
+
+/* Legacy SPL amounts are base units with no decimals on the instruction.
+   Look the token account up in the balance meta. If that mint is missing,
+   keep the raw amount and say so — never a bare "?". */
+function splText(raw,info,byAccount){
+  var hit=byAccount[info.source]||byAccount[info.destination]||byAccount[info.account];
+  if(hit&&hit.mint)return units(raw,hit.decimals)+" "+shortAddr(hit.mint);
+  return String(raw)+" base units";
+}
+
 /* One plain line per change for the desk report:
    "−0.1 SOL  7K6x…pgeQ" or "+25 <mint> 6QsX…Kx22".
    Tokens name the owner (the wallet), not the token account.
@@ -134,6 +166,7 @@ function formatChange(c){
 
 function decodeSolanaTx(tx){
   var ixs=ixList(tx),programs=[],findings=[],cls="A";
+  var tokens=tokenByAccount(tx);
   if(tx.meta&&tx.meta.err)findings.push("transaction FAILED on chain");
   if(tx.blockTime)findings.push("time "+new Date(tx.blockTime*1000).toISOString());
   ixs.forEach(function(ix){
@@ -148,7 +181,7 @@ function decodeSolanaTx(tx){
     var amt=info.amount||(info.tokenAmount&&info.tokenAmount.amount);
     if(typ==="approve"||typ==="approveChecked"){
       if(String(amt)===MAX){if(cls!=="C")cls="B";findings.push("UNLIMITED approve -> "+(info.delegate||"?"));}
-      else findings.push("finite approve "+amt+" -> "+(info.delegate||"?"));
+      else findings.push("finite approve "+(amt!=null&&amt!==""?splText(amt,info,tokens):"?")+" -> "+(info.delegate||"?"));
     }
     if(typ==="revoke")findings.push("revoke (good)");
     if(typ==="setAuthority"){
@@ -157,13 +190,17 @@ function decodeSolanaTx(tx){
     }
     if(typ==="closeAccount"){if(cls==="A")cls="B";findings.push("closeAccount -> "+(info.destination||"?"));}
     if(typ==="transfer"||typ==="transferChecked"){
-      var moved="?";
+      var moved;
       if(info.tokenAmount){
         var ui=info.tokenAmount.uiAmountString;
         if(ui===undefined||ui===null)ui=units(info.tokenAmount.amount,info.tokenAmount.decimals|0);
         moved=ui+" "+shortAddr(info.mint||"?");
       }else if(info.lamports!==undefined&&info.lamports!==null){
         moved=units(info.lamports,9)+" SOL";
+      }else if(info.amount!=null&&info.amount!==""){
+        moved=splText(info.amount,info,tokens);
+      }else{
+        moved="?";
       }
       findings.push("transfer "+moved+" -> "+(info.destination||"?"));
     }

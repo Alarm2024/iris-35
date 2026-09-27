@@ -94,6 +94,9 @@ for (const file of files) {
     const got = IrisSol.decodeSolanaTx(tx);
     assert.equal(got.cls, old.cls);
     assert.deepEqual(got.programs, old.programs);
+    assert.equal(got.findings.length, old.notes.length);
+    const stable = (lines) => lines.filter((n) => n.indexOf("transfer ") !== 0 && n.indexOf("SetAuthority ") !== 0);
+    assert.deepEqual(stable(got.findings), stable(old.notes));
     assert.equal(got.findings[0], "programs " + got.programs.join(", "));
     assert.ok(got.findings.indexOf("time " + new Date(tx.blockTime * 1000).toISOString()) > 0);
   });
@@ -146,6 +149,77 @@ test("transfer findings use display units and a short token mint", () => {
   assert.equal(got.findings.some((n) => n.includes("15948956503")), false);
 });
 
+test("legacy SPL transfers use balance meta, never a bare question mark", () => {
+  const jup = IrisSol.decodeSolanaTx(load("jupiter-swap.json"));
+  const jupMoves = jup.findings.filter((n) => n.indexOf("transfer ") === 0);
+  assert.equal(jupMoves[jupMoves.length - 1], "transfer 0.00008 So11…1112 -> ADKKyzoY8MUtPAMgjuBkuc9Y3BmZaTueeGkbMo7CVrdg");
+  assert.equal(jupMoves.some((n) => n.indexOf("transfer ?") === 0), false);
+
+  const auth = IrisSol.decodeSolanaTx(load("set-authority.json"));
+  const authMove = auth.findings.find((n) => n.indexOf("transfer ") === 0);
+  assert.equal(authMove, "transfer 1 4cXV…zG5s -> 4ZrhgXceDyMcVexZsMRzjSM55J3uyftBekiraCZ3swTZ");
+  assert.equal(authMove.includes("?"), false);
+});
+
+test("legacy SPL amounts without a balance mint stay as base units", () => {
+  const tx = {
+    meta: { innerInstructions: [], preTokenBalances: [], postTokenBalances: [] },
+    transaction: {
+      message: {
+        accountKeys: [{ pubkey: "SRC" }, { pubkey: "DST" }],
+        instructions: [
+          {
+            programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            parsed: {
+              type: "transfer",
+              info: { amount: "80000", source: "SRC", destination: "DST" }
+            }
+          },
+          {
+            programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            parsed: {
+              type: "approve",
+              info: { amount: "100", source: "SRC", delegate: "DEL" }
+            }
+          }
+        ]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.equal(got.findings.includes("transfer 80000 base units -> DST"), true);
+  assert.equal(got.findings.includes("finite approve 100 base units -> DEL"), true);
+  assert.equal(got.findings.some((n) => n.includes("?")), false);
+});
+
+test("finite approve uses units and a short mint from token balances", () => {
+  const mint = "4cXVqX7sP67iHFeafGHVbxzkVmEojizqDiBBeV2GzG5s";
+  const tx = {
+    meta: {
+      innerInstructions: [],
+      postTokenBalances: [{
+        accountIndex: 0,
+        mint,
+        uiTokenAmount: { amount: "1000000", decimals: 6 }
+      }]
+    },
+    transaction: {
+      message: {
+        accountKeys: [{ pubkey: "SRC" }],
+        instructions: [{
+          programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          parsed: {
+            type: "approve",
+            info: { amount: "1000000", source: "SRC", delegate: "DEL" }
+          }
+        }]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.equal(got.findings.includes("finite approve 1 4cXV…zG5s -> DEL"), true);
+});
+
 test("SetAuthority findings name the authority type and revoked state", () => {
   const tx = {
     meta: { innerInstructions: [] },
@@ -168,6 +242,34 @@ test("SetAuthority findings name the authority type and revoked state", () => {
   assert.equal(got.cls, "C");
   assert.equal(got.findings.includes("SetAuthority accountOwner -> revoked"), true);
   assert.equal(got.findings.some((n) => n.includes("SetAuthority accountOwner -> ?")), false);
+});
+
+test("absent SetAuthority fields stay as question marks", () => {
+  const tx = {
+    meta: { innerInstructions: [] },
+    transaction: {
+      message: {
+        instructions: [
+          {
+            programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            parsed: { type: "setAuthority", info: {} }
+          },
+          {
+            programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            parsed: { type: "setAuthority", info: { newAuthority: "NewAuth1111111111111111111111111111111111" } }
+          },
+          {
+            programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            parsed: { type: "setAuthority", info: { authorityType: "accountOwner" } }
+          }
+        ]
+      }
+    }
+  };
+  const got = IrisSol.decodeSolanaTx(tx);
+  assert.equal(got.findings.includes("SetAuthority ? -> ?"), true);
+  assert.equal(got.findings.includes("SetAuthority ? -> NewAuth1111111111111111111111111111111111"), true);
+  assert.equal(got.findings.includes("SetAuthority accountOwner -> ?"), true);
 });
 
 test("the other fixtures hit the remaining note paths", () => {
