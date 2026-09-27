@@ -66,11 +66,12 @@ function load(name) {
   return JSON.parse(fs.readFileSync(path.join(fixDir, name), "utf8"));
 }
 
-test("five real mainnet fixtures, each listed with a Solscan link", () => {
+test("six real mainnet fixtures, each listed with a Solscan link", () => {
   assert.deepEqual(files, [
     "approve.json",
     "close-account.json",
     "failed.json",
+    "jupiter-swap.json",
     "set-authority.json",
     "transfer.json"
   ]);
@@ -137,7 +138,7 @@ test("the other fixtures hit the remaining note paths", () => {
 
 test("app.js shows decoder findings as the chain-read notes", () => {
   const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
-  assert.match(app, /function classifySol\(tx\)\{\s*var d=IrisSol\.decodeSolanaTx\(tx\);\s*return \{cls:d\.cls, notes:d\.findings\};\s*\}/);
+  assert.match(app, /function classifySol\(tx\)\{\s*var d=IrisSol\.decodeSolanaTx\(tx\);\s*return \{cls:d\.cls, notes:d\.findings, changes:d\.changes\|\|\[\]\};\s*\}/);
   assert.equal(app.includes("function ixList"), false);
   assert.equal(app.includes("18446744073709551615"), false);
 });
@@ -155,8 +156,29 @@ test("index.html loads sol-decode.js before app.js and leaves CSP alone", () => 
 
 test("service worker cache names the decoder and includes the file", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-decode";/);
+  assert.match(sw, /var VERSION="2026-09-26-sol-lines-v1";/);
   assert.match(sw, /"sol-decode\.js"/);
+});
+
+test("live getTransaction asks for maxSupportedTransactionVersion 1", () => {
+  const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
+  assert.match(app, /maxSupportedTransactionVersion:\s*1/);
+  assert.equal(app.includes("maxSupportedTransactionVersion:0"), false);
+});
+
+test("version-1 fixtures decode (approve + failed)", () => {
+  const approve = load("approve.json");
+  const failed = load("failed.json");
+  assert.equal(approve.version, 1);
+  assert.equal(failed.version, 1);
+  const a = IrisSol.decodeSolanaTx(approve);
+  const f = IrisSol.decodeSolanaTx(failed);
+  assert.equal(a.cls, "C");
+  assert.equal(a.findings.some((n) => n.indexOf("UNLIMITED approve -> ") === 0), true);
+  assert.ok(a.changes.length > 0);
+  assert.equal(f.cls, "C");
+  assert.equal(f.findings.indexOf("transaction FAILED on chain") > 0, true);
+  assert.ok(f.changes.length > 0);
 });
 
 test("package.json test script has no dependencies", () => {

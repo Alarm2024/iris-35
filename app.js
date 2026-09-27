@@ -272,7 +272,7 @@ function show(cls,text,word){
   if(cp)cp.hidden=(cls==="X");
 }
 
-function fetchJSON(url,opts){
+function fetchResult(url,opts,read){
   var ctl=("AbortController" in window)?new AbortController():null;
   var o=Object.assign({},opts||{});
   if(ctl)o.signal=ctl.signal;
@@ -280,26 +280,31 @@ function fetchJSON(url,opts){
   return fetch(url,o).then(function(res){
     clearTimeout(timer);
     if(!res.ok)throw new Error("HTTP "+res.status);
-    return res.json();
+    return read(res);
   },function(e){
     clearTimeout(timer);
     throw new Error(e&&e.name==="AbortError"?"timeout":(e.message||"network"));
   });
 }
+function fetchJSON(url,opts){
+  return fetchResult(url,opts,function(res){return res.json();});
+}
 function rpc(url,method,params){
-  return fetchJSON(url,{method:"POST",headers:{"content-type":"application/json"},
-    body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})});
+  return fetchResult(url,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})},function(res){
+      return res.text().then(IrisSol.parseRpcResponseText);
+    });
 }
 
 function classifySol(tx){
   var d=IrisSol.decodeSolanaTx(tx);
-  return {cls:d.cls, notes:d.findings};
+  return {cls:d.cls, notes:d.findings, changes:d.changes||[]};
 }
 async function solTx(sig){
   var last=null;
   for(var i=0;i<SOL_RPC.length;i++){
     try{
-      var j=await rpc(SOL_RPC[i],"getTransaction",[sig,{encoding:"jsonParsed",maxSupportedTransactionVersion:0}]);
+      var j=await rpc(SOL_RPC[i],"getTransaction",[sig,{encoding:"jsonParsed",maxSupportedTransactionVersion:1}]);
       if(j&&j.result)return j.result;
       if(j&&j.result===null)return null;
       last=(j&&j.error&&j.error.message)||"empty";
@@ -397,7 +402,9 @@ if(run)run.onclick=async function(){
       var tx=await solTx(hash);
       if(!tx){show("C",tr("c_notfound","Not found on this chain. Check the hash."));return;}
       var r=classifySol(tx);
-      show(r.cls,["chain SOL",hash].concat(r.notes.map(function(n){return "- "+n;})).join("\n"));
+      show(r.cls,["chain SOL",hash]
+        .concat(r.notes.map(function(n){return "- "+n;}))
+        .concat(r.changes.map(IrisSol.formatChange)).join("\n"));
     }else if(k==="btc"){
       var bt=await btcTx(hash);
       var rb=classifyBtc(bt);
