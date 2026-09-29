@@ -149,7 +149,8 @@ test("jupiter swap: 0.04 SOL out plus fee, 13890.797618 of the mint in, for the 
   assert.ok(tx.transaction.message.accountKeys.some((k) => k.source === "lookupTable"));
   assert.equal(tx.transaction.message.instructions.some((ix) => ix.programId === "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4"), true);
   const decoded = IrisSol.decodeSolanaTx(tx);
-  assert.notEqual(decoded.cls, "C");
+  assert.equal(decoded.cls, "B");
+  assert.equal(decoded.findings.some((n) => n.indexOf("unknown program") === 0), false);
 });
 
 test("token matching is by accountIndex + mint, with new and closed accounts", () => {

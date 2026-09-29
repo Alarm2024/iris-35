@@ -26,7 +26,7 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | File | Role |
 | --- | --- |
 | `index.html` | markup only — no inline script, so the page runs under a strict CSP |
-| `i18n.js` | every string in 6 languages (en, ar, ru, zh, de, es) + `applyI18n()` |
+| `i18n.js` | interface strings in 6 languages (en, ar, ru, zh, de, es) + `applyI18n()`; chain-read findings and balance lines from `sol-decode.js` are currently English |
 | `sol-decode.js` | pure Solana decoder (`decodeSolanaTx`) — no DOM, no network |
 | `app.js` | the desk tracks, the classifier, the chain read, report export |
 | `boot.js` | the static cards (official door, tap vs write, two doors, …) |

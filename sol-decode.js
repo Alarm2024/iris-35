@@ -177,7 +177,12 @@ function decodeSolanaTx(tx){
     var name=ALLOW[pid]||"UNKNOWN";
     var label=name==="UNKNOWN"?pid.slice(0,8)+"...":name;
     if(programs.indexOf(label)<0)programs.push(label);
-    if(!ALLOW[pid]&&pid.length>20){cls="C";findings.push("unknown program "+pid);}
+    if(!ALLOW[pid]&&pid.length>20){
+      cls="C";
+      /* one line per unknown program, not per instruction that calls it */
+      var unk="unknown program "+pid;
+      if(findings.indexOf(unk)<0)findings.push(unk);
+    }
     var parsed=ix.parsed||null;
     var typ=parsed&&parsed.type?parsed.type:"";
     var info=(parsed&&parsed.info)||{};
