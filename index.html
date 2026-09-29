@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>Iris 35 — what happened?</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://ethereum.publicnode.com https://mempool.space; form-action 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://iris-desk-voice.onrender.com; media-src https://iris-desk-voice.onrender.com; font-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://ethereum.publicnode.com https://mempool.space; form-action 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'"/>
 <meta name="referrer" content="no-referrer"/>
 <meta name="theme-color" content="#0b1214"/>
 <meta name="color-scheme" content="dark"/>
@@ -117,6 +117,21 @@ footer .trust{margin-top:16px;padding-top:12px;border-top:1px solid var(--l);fon
 a{color:var(--c)}
 .path{color:var(--g);font-size:12px;margin-bottom:6px}
 @media(max-width:560px){.how{grid-template-columns:1fr}.askgrid{grid-template-columns:1fr}}
+.voice{margin:4px 0 18px}
+.talk-btn{display:flex;align-items:center;justify-content:center;gap:16px;width:100%;min-height:88px;margin:0 0 10px;padding:16px 24px;border-radius:999px;border:2px solid rgba(157,142,199,.6);background:linear-gradient(135deg,#7a68a3,#5a4a7c);color:#fff;font-family:inherit;text-decoration:none;letter-spacing:.02em;touch-action:manipulation;-webkit-tap-highlight-color:transparent;box-shadow:0 8px 28px rgba(90,70,130,.35);transition:transform .1s ease,background .2s ease}
+.talk-btn:hover{background:linear-gradient(135deg,#8574b0,#65548a);color:#fff}
+.talk-btn:active{transform:scale(.98)}
+.talk-btn:focus-visible{outline:3px solid #d8ccf5;outline-offset:3px;border-radius:999px}
+.talk-icon{font-size:34px;line-height:1}
+.talk-text{display:flex;flex-direction:column;align-items:flex-start;text-align:start;line-height:1.2}
+.talk-label{font-size:24px;font-weight:600;white-space:nowrap}
+.talk-sub{font-size:14px;font-weight:400;opacity:.85}
+.voice-hint{color:var(--dim);font-size:13px;text-align:center;margin:0 0 14px}
+.demo{margin:0}
+.demo video{display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--l);background:#0b1214}
+.demo figcaption{color:var(--dim);font-size:12px;letter-spacing:.08em;text-align:center;margin-top:6px}
+@media(max-width:380px){.talk-label{font-size:21px}.talk-icon{font-size:30px}}
+@media print{.voice{display:none}}
 </style>
 </head>
 <body>
@@ -141,6 +156,18 @@ a{color:var(--c)}
   <div class="lock lock-top">
     <img src="hero.svg" width="1200" height="420" alt="35 IRIS ELGHALY — cross, hamsa, eye" decoding="async" fetchpriority="high"/>
   </div>
+
+  <section class="voice" aria-label="Talk to Iris">
+    <a class="talk-btn" href="https://iris-desk-voice.onrender.com" target="_blank" rel="noopener noreferrer">
+      <span class="talk-icon" aria-hidden="true">🎙️</span>
+      <span class="talk-text"><span class="talk-label">Connect &amp; talk</span><span class="talk-sub">Tap, then speak</span></span>
+    </a>
+    <p class="voice-hint">🔊 Turn your volume up and tap to talk. Iris answers out loud. On iPhone, switch off silent mode first.</p>
+    <figure class="demo">
+      <video controls playsinline preload="metadata" poster="https://iris-desk-voice.onrender.com/demo-poster.jpg" src="https://iris-desk-voice.onrender.com/demo.mp4"></video>
+      <figcaption>Demo video · 60 seconds</figcaption>
+    </figure>
+  </section>
 
   <section class="urgent-first" id="what" aria-labelledby="urgent-heading">
     <h1 class="urgent-h" id="urgent-heading" data-i18n="askline">What happened?</h1>
