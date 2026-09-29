@@ -347,5 +347,5 @@ test("app.js prints the changes as plain lines after the dashed notes", () => {
 
 test("service worker cache bumped for the balances step", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-26-sol-lines-v1";/);
+  assert.match(sw, /var VERSION="2026-09-29-voice-v2";/);
 });
