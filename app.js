@@ -400,7 +400,7 @@ if(run)run.onclick=async function(){
   try{
     if(k==="sol"){
       var tx=await solTx(hash);
-      if(!tx){show("C",tr("c_notfound","Not found on this chain. Check the hash."));return;}
+      if(!tx){show("X",tr("c_notfound","Not found on this chain. Check the hash."));return;}
       var r=classifySol(tx);
       show(r.cls,["chain SOL",hash]
         .concat(r.notes.map(function(n){return "- "+n;}))
@@ -411,7 +411,7 @@ if(run)run.onclick=async function(){
       show(rb.cls,["chain BTC",hash].concat(rb.notes.map(function(n){return "- "+n;})).join("\n"));
     }else{
       var et=await ethTx(hash);
-      if(!et){show("C",tr("c_notfound","Not found on this chain. Check the hash."));return;}
+      if(!et){show("X",tr("c_notfound","Not found on this chain. Check the hash."));return;}
       var re=classifyEth(et);
       show(re.cls,["chain ETH",hash].concat(re.notes.map(function(n){return "- "+n;})).join("\n"));
     }

@@ -43,7 +43,7 @@ function legacyClassifySol(tx) {
     const name = ALLOW[pid] || "UNKNOWN";
     const label = name === "UNKNOWN" ? pid.slice(0, 8) + "..." : name;
     if (programs.indexOf(label) < 0) programs.push(label);
-    if (!ALLOW[pid] && pid.length > 20) { cls = "C"; notes.push("unknown program " + pid); }
+    if (!ALLOW[pid] && pid.length > 20) { cls = "C"; if (notes.indexOf("unknown program " + pid) < 0) notes.push("unknown program " + pid); }
     const parsed = ix.parsed || null;
     const typ = parsed && parsed.type ? parsed.type : "";
     const info = (parsed && parsed.info) || {};
@@ -401,4 +401,16 @@ test("Jupiter v6 does not hide an unknown program", () => {
     alone.findings.filter((n) => n.indexOf("unknown program ") === 0)
   );
   assert.deepEqual(got.programs, ["Jupiter v6", unknown.slice(0, 8) + "..."]);
+});
+
+test("each unknown program is listed once, however many instructions call it", () => {
+  const got = IrisSol.decodeSolanaTx(load("approve.json"));
+  const unknown = got.findings.filter((n) => n.indexOf("unknown program ") === 0);
+  assert.ok(unknown.length > 0);
+  assert.equal(new Set(unknown).size, unknown.length);
+  const calledUnknown = new Set(ixList(load("approve.json"))
+    .map((ix) => String(ix.programId || ""))
+    .filter((pid) => !ALLOW[pid] && pid.length > 20));
+  assert.equal(unknown.length, calledUnknown.size);
+  assert.equal(got.cls, "C");
 });
