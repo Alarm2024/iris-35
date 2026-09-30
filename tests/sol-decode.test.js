@@ -11,15 +11,20 @@ const ALLOW = {
   "11111111111111111111111111111111": "System",
   "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": "SPL Token",
   "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": "Token-2022",
-  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": "ATA",
-  "ComputeBudget111111111111111111111111111111": "ComputeBudget",
+  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": "Associated Token",
+  "ComputeBudget111111111111111111111111111111": "Compute Budget",
   "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr": "Memo",
   "Stake11111111111111111111111111111111111111": "Stake",
   "Vote111111111111111111111111111111111111111": "Vote",
-  "AddressLookupTab1e1111111111111111111111111": "AddressLookupTable",
+  "AddressLookupTab1e1111111111111111111111111": "Address Lookup Table",
   "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4": "Jupiter v6",
   "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": "Pump AMM",
-  "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": "Pump fee"
+  "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": "Pump fee",
+  "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8": "Raydium AMM v4",
+  "CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK": "Raydium CLMM",
+  "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C": "Raydium CPMM",
+  "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc": "Orca Whirlpool",
+  "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": "Pump.fun"
 };
 const MAX = "18446744073709551615";
 const COMPUTE = "ComputeBudget111111111111111111111111111111";
@@ -41,7 +46,7 @@ function legacyClassifySol(tx) {
   ixs.forEach(function (ix) {
     const pid = String(ix.programId || "");
     const name = ALLOW[pid] || "UNKNOWN";
-    const label = name === "UNKNOWN" ? pid.slice(0, 8) + "..." : name;
+    const label = name === "UNKNOWN" ? "UNKNOWN (" + pid.slice(0, 8) + "\u2026)" : name;
     if (programs.indexOf(label) < 0) programs.push(label);
     if (!ALLOW[pid] && pid.length > 20) { cls = "C"; if (notes.indexOf("unknown program " + pid) < 0) notes.push("unknown program " + pid); }
     const parsed = ix.parsed || null;
@@ -318,7 +323,7 @@ test("index.html loads sol-decode.js before app.js and leaves CSP alone", () => 
 
 test("service worker cache names the decoder and includes the file", () => {
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /var VERSION="2026-09-29-voice-v2";/);
+  assert.match(sw, /var VERSION="2026-09-30-program-names";/);
   assert.match(sw, /"sol-decode\.js"/);
 });
 
@@ -400,7 +405,7 @@ test("Jupiter v6 does not hide an unknown program", () => {
     got.findings.filter((n) => n.indexOf("unknown program ") === 0),
     alone.findings.filter((n) => n.indexOf("unknown program ") === 0)
   );
-  assert.deepEqual(got.programs, ["Jupiter v6", unknown.slice(0, 8) + "..."]);
+  assert.deepEqual(got.programs, ["Jupiter v6", "UNKNOWN (" + unknown.slice(0, 8) + "\u2026)"]);
 });
 
 test("each unknown program is listed once, however many instructions call it", () => {
@@ -413,4 +418,52 @@ test("each unknown program is listed once, however many instructions call it", (
     .filter((pid) => !ALLOW[pid] && pid.length > 20));
   assert.equal(unknown.length, calledUnknown.size);
   assert.equal(got.cls, "C");
+  assert.equal(got.programs.some((p) => p.indexOf("UNKNOWN (") === 0), true);
+  assert.equal(got.programs.some((p) => p.endsWith("...") && p.indexOf("UNKNOWN") !== 0), false);
+});
+
+/* Review of the checked table: every named id has a same-line source.
+   An id that source does not publish stays UNKNOWN. The memo js-legacy
+   client now publishes Memo4c2…, not MemoSq4…, so that file is not a source. */
+test("every named program id has a same-line source, and unknowns stay UNKNOWN", () => {
+  const src = fs.readFileSync(path.join(root, "sol-decode.js"), "utf8");
+  const start = src.indexOf("var ALLOW={");
+  const block = src.slice(start, src.indexOf("};", start));
+  const entries = block.split("\n").filter((l) => l.includes('":"'));
+  const rows = [
+    ["11111111111111111111111111111111", "System", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "SPL Token", "https://www.solana-program.com/docs/token"],
+    ["TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb", "Token-2022", "https://www.solana-program.com/docs/token-2022"],
+    ["ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL", "Associated Token", "https://github.com/solana-labs/solana-program-library/blob/master/docs/src/associated-token-account.md"],
+    ["ComputeBudget111111111111111111111111111111", "Compute Budget", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr", "Memo", "https://www.solana-program.com/docs/memo"],
+    ["Stake11111111111111111111111111111111111111", "Stake", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["Vote111111111111111111111111111111111111111", "Vote", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["AddressLookupTab1e1111111111111111111111111", "Address Lookup Table", "https://solana.com/docs/core/programs/builtin-programs"],
+    ["JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4", "Jupiter v6", "https://github.com/jup-ag/instruction-parser/blob/main/README.md"],
+    ["pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA", "Pump AMM", "https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_SWAP_README.md"],
+    ["pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ", "Pump fee", "https://github.com/pump-fun/pump-public-docs/blob/main/idl/pump_fees.json"],
+    ["675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8", "Raydium AMM v4", "https://docs.raydium.io/reference/program-addresses"],
+    ["CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK", "Raydium CLMM", "https://docs.raydium.io/reference/program-addresses"],
+    ["CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C", "Raydium CPMM", "https://docs.raydium.io/reference/program-addresses"],
+    ["whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc", "Orca Whirlpool", "https://github.com/orca-so/whirlpools/blob/main/README.md"],
+    ["6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P", "Pump.fun", "https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_PROGRAM_README.md"]
+  ];
+  assert.equal(entries.length, rows.length);
+  assert.equal(src.includes("clients/js-legacy/src/index.ts"), false);
+  for (const [id, name, url] of rows) {
+    const line = entries.find((l) => l.includes('"' + id + '"'));
+    assert.ok(line, id);
+    assert.ok(line.includes('"' + name + '"'), name);
+    assert.ok(line.includes("// " + url), url);
+    const got = IrisSol.decodeSolanaTx(txOf([{ programId: id }]));
+    assert.deepEqual(got.programs, [name]);
+    assert.equal(got.cls, "A");
+    assert.equal(got.findings.some((n) => n.indexOf("unknown program ") === 0), false);
+  }
+  const otherMemo = "Memo4c2pN8afCj432Lb7RMVKi9PbQnnW7ewFFaV3oAH";
+  const unknown = IrisSol.decodeSolanaTx(txOf([{ programId: otherMemo }]));
+  assert.deepEqual(unknown.programs, ["UNKNOWN (" + otherMemo.slice(0, 8) + "\u2026)"]);
+  assert.equal(unknown.cls, "C");
+  assert.equal(unknown.findings.filter((n) => n === "unknown program " + otherMemo).length, 1);
 });
