@@ -4,21 +4,32 @@
    {cls, programs, findings, changes}. findings are the desk notes,
    same order and wording the chain read used to build. changes is
    balanceChanges(tx): what left and what arrived, per account.
+   Program names come from the checked table. An id is listed only
+   when that program's own docs or GitHub publish it, and the source
+   link sits on the same line. Anything else stays UNKNOWN.
    --------------------------------------------------------------- */
 var IrisSol=(function(){
+/* Checked names. The comment is a page that publishes this exact id.
+   The memo client's js-legacy file now publishes a different id, so
+   it is not the source for MemoSq4. */
 var ALLOW={
-"11111111111111111111111111111111":"System",
-"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA":"SPL Token",
-"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb":"Token-2022",
-"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL":"ATA",
-"ComputeBudget111111111111111111111111111111":"ComputeBudget",
-"MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr":"Memo",
-"Stake11111111111111111111111111111111111111":"Stake",
-"Vote111111111111111111111111111111111111111":"Vote",
-"AddressLookupTab1e1111111111111111111111111":"AddressLookupTable",
-"JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4":"Jupiter v6",
-"pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA":"Pump AMM",
-"pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ":"Pump fee"
+"11111111111111111111111111111111":"System", // https://solana.com/docs/core/programs/builtin-programs
+"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA":"SPL Token", // https://www.solana-program.com/docs/token
+"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb":"Token-2022", // https://www.solana-program.com/docs/token-2022
+"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL":"Associated Token", // https://github.com/solana-labs/solana-program-library/blob/master/docs/src/associated-token-account.md
+"ComputeBudget111111111111111111111111111111":"Compute Budget", // https://solana.com/docs/core/programs/builtin-programs
+"MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr":"Memo", // https://www.solana-program.com/docs/memo
+"Stake11111111111111111111111111111111111111":"Stake", // https://solana.com/docs/core/programs/builtin-programs
+"Vote111111111111111111111111111111111111111":"Vote", // https://solana.com/docs/core/programs/builtin-programs
+"AddressLookupTab1e1111111111111111111111111":"Address Lookup Table", // https://solana.com/docs/core/programs/builtin-programs
+"JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4":"Jupiter v6", // https://github.com/jup-ag/instruction-parser/blob/main/README.md
+"pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA":"Pump AMM", // https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_SWAP_README.md
+"pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ":"Pump fee", // https://github.com/pump-fun/pump-public-docs/blob/main/idl/pump_fees.json
+"675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8":"Raydium AMM v4", // https://docs.raydium.io/reference/program-addresses
+"CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK":"Raydium CLMM", // https://docs.raydium.io/reference/program-addresses
+"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C":"Raydium CPMM", // https://docs.raydium.io/reference/program-addresses
+"whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc":"Orca Whirlpool", // https://github.com/orca-so/whirlpools/blob/main/README.md
+"6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P":"Pump.fun" // https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_PROGRAM_README.md
 };
 var MAX="18446744073709551615";
 /* Native SOL wrapped as an SPL token. The same account also has a SOL
@@ -174,8 +185,8 @@ function decodeSolanaTx(tx){
   if(tx.blockTime)findings.push("time "+new Date(tx.blockTime*1000).toISOString());
   ixs.forEach(function(ix){
     var pid=String(ix.programId||"");
-    var name=ALLOW[pid]||"UNKNOWN";
-    var label=name==="UNKNOWN"?pid.slice(0,8)+"...":name;
+    var name=ALLOW[pid];
+    var label=name||("UNKNOWN ("+pid.slice(0,8)+"\u2026)");
     if(programs.indexOf(label)<0)programs.push(label);
     if(!ALLOW[pid]&&pid.length>20){
       cls="C";
