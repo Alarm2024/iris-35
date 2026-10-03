@@ -1,7 +1,8 @@
 (function(){
   var s=document.createElement('script');s.src='themes.js?v=menu11';document.head.appendChild(s);
   var css=document.createElement('style');
-  css.textContent='.owner{display:none!important}.langs{display:flex!important;flex-wrap:nowrap!important;gap:3px!important;max-width:none!important;justify-content:flex-end;flex:1}.langs button{padding:5px 7px!important;font-size:10px!important}';
+  // The .langs row style lives in index.html now, so it is there at first paint.
+  css.textContent='.owner{display:none!important}';
   document.head.appendChild(css);
 })();
 /* IRIS 35 — page chrome */
