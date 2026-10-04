@@ -59,7 +59,7 @@
     var wrap=document.createElement('div');
     wrap.className='theme-wrap';
     wrap.id='themeMenu';
-    wrap.innerHTML='<button type="button" class="theme-btn" id="themeOpen"><i class="theme-dot"></i><span id="themeCur">Midnight</span></button>';
+    wrap.innerHTML='<button type="button" class="theme-btn" id="themeOpen" title="Choose theme"><i class="theme-dot"></i><span id="themeCur">Midnight</span></button>';
     var panel=document.createElement('div');
     panel.className='theme-panel';
     panel.innerHTML='<p>Choose theme</p>';
