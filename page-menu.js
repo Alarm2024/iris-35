@@ -211,6 +211,8 @@
       }
       flush();
       var m = /^H([1-6])$/.exec(tag);
+      // A logo <h1> is the site's name, not this page's heading.
+      if (m && m[1] === "1" && isLogo(el)) continue;
       if (m) {
         var h = inlineOf(el).replace(/\n/g, " ");
         if (h) out.push(new Array(+m[1] + 1).join("#") + " " + h);
@@ -278,52 +280,74 @@
     return shown(h) && !isLogo(h);
   }
 
-  // The page title when the content root has no <h1> of its own: the first
-  // visible <h1> that is not a logo (on these sites a hero <h1> sits in a
-  // page-level <header> above <main>), else the document title.
-  function pageTitle() {
+  // The page's own title: the first visible <h1> that is not a logo and not
+  // in site chrome (it is called while chrome is marked), else the document
+  // title. On these sites a hero <h1> often sits in a page-level <header>
+  // above <main>. On a page of cards (two or more <article>s) a card's <h1>
+  // is that card's title, not the page's, unless the content root is that
+  // card.
+  function pageTitle(root) {
+    var cards = document.querySelectorAll("article").length > 1;
     var hs = document.querySelectorAll("h1");
     for (var i = 0; i < hs.length; i++) {
-      if (!isTitleH1(hs[i])) continue;
-      var t = inlineOf(hs[i]).replace(/\s+/g, " ").trim();
+      var h = hs[i];
+      if (!isTitleH1(h)) continue;
+      if (cards) {
+        var card = h.closest("article");
+        if (card && card !== root && !card.contains(root)) continue;
+      }
+      var t = inlineOf(h).replace(/\s+/g, " ").trim();
       if (t) return t;
     }
     return (document.title || "").trim();
   }
 
-  function toMarkdown() {
-    var root = contentRoot(), out = [];
-    if (root === document.body) {
-      // No <main>: leave the site chrome out. A <header> or <footer> is site
-      // chrome only at page level, as in HTML's own landmark rule: inside an
-      // <article> or <section> it carries that block's title or date. A
-      // page-level <header> that holds the page's own title (a visible <h1>
-      // that is not a logo) is the page's hero and stays, intro text and
-      // all. Decide every element first, then mark, so one mark cannot
-      // change the next decision.
-      var found = root.querySelectorAll("footer, nav, header, [role=banner], [role=navigation], [role=contentinfo]");
-      var chrome = [];
-      for (var i = 0; i < found.length; i++) {
-        var el = found[i], tag = el.tagName;
-        if (tag === "HEADER" || tag === "FOOTER") {
-          var up = el.parentElement;
-          if (up && up.closest("article, aside, main, nav, section")) continue;
-          if (tag === "HEADER" && [].some.call(el.querySelectorAll("h1"), isTitleH1)) continue;
-        }
-        chrome.push(el);
+  // Site chrome: a page-level <header>/<footer> (HTML's own landmark rule:
+  // inside an <article> or <section> it carries that block's title or
+  // date), every <nav>, and the banner/navigation/contentinfo roles. A
+  // page-level <header> that holds the page's own title (a visible <h1>
+  // that is not a logo) is the page's hero and is not chrome. Everything is
+  // decided before anything is marked, so one mark cannot change the next
+  // decision.
+  function siteChrome() {
+    var found = document.body.querySelectorAll(
+      "footer, nav, header, [role=banner], [role=navigation], [role=contentinfo]");
+    var chrome = [];
+    for (var i = 0; i < found.length; i++) {
+      var el = found[i], tag = el.tagName;
+      if (tag === "HEADER" || tag === "FOOTER") {
+        var up = el.parentElement;
+        if (up && up.closest("article, aside, main, nav, section")) continue;
+        if (tag === "HEADER" && [].some.call(el.querySelectorAll("h1"), isTitleH1)) continue;
       }
-      for (var k = 0; k < chrome.length; k++) chrome[k].setAttribute("data-md-skip", "");
+      chrome.push(el);
+    }
+    return chrome;
+  }
+
+  function toMarkdown() {
+    var root = contentRoot(), out = [], title = "";
+    // Chrome stays marked while the body is converted and while the title
+    // is chosen, so neither can come from a footer, a nav or a logo banner.
+    // Outside a <body> root the marks only touch elements the root does not
+    // contain.
+    var chrome = siteChrome();
+    for (var k = 0; k < chrome.length; k++) chrome[k].setAttribute("data-md-skip", "");
+    try {
       blocks(root, out);
+      title = pageTitle(root);
+    } finally {
       for (var j = 0; j < chrome.length; j++) chrome[j].removeAttribute("data-md-skip");
-    } else {
-      blocks(root, out);
+    }
+    // The copy always opens with the page's own title. If the first <h1>
+    // that came out is something else (a card's, say), the title goes on
+    // top; if it is the title, nothing is added.
+    var first = "";
+    for (var b = 0; b < out.length; b++) {
+      if (/^# /.test(out[b])) { first = out[b].slice(2).trim(); break; }
     }
     var md = out.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
-    var hasTitle = out.some(function (b) { return /^# /.test(b); });
-    if (!hasTitle) {
-      var title = pageTitle();
-      if (title) md = "# " + title + "\n\n" + md;
-    }
+    if (title && first !== title) md = "# " + title + "\n\n" + md;
     return md + "\n\n---\nSource: " + pageUrl() + "\n";
   }
 
