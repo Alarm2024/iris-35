@@ -1,7 +1,7 @@
-var VERSION="2026-10-04-404";
+var VERSION="2026-10-05-page-menu";
 var SHELL="iris-shell-"+VERSION;
 var FILES=["./","index.html","iris.css","i18n.js","sol-decode.js","app.js","boot.js","ui.js","chrome.js",
-  "favicon.svg","iris-eye.svg","hero.svg","qr.svg","icon-192.png","icon-512.png","manifest.webmanifest",
+  "page-menu.js","favicon.svg","iris-eye.svg","hero.svg","qr.svg","icon-192.png","icon-512.png","manifest.webmanifest",
   "IMG_6697.jpeg","IMG_6698.jpeg"];
 
 self.addEventListener("install",function(e){

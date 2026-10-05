@@ -142,6 +142,7 @@ a{color:var(--c)}
 @media(max-width:380px){.talk-label{font-size:17px}.talk-icon{font-size:23px}}
 @media print{.voice{display:none}}
 </style>
+<style id="lic-badges-css">.lic-badges{margin:.75rem 0 0;font-size:.75rem;line-height:1.2}.lic-badges>a,.lic-badges>span{display:inline-flex;align-items:center;min-height:24px;margin:.2rem .15rem;padding:0 .6rem;border:1px solid currentColor;border-radius:999px;color:inherit;vertical-align:middle}.lic-badges>a{text-decoration:underline;text-underline-offset:2px}.lic-badges>span{text-decoration:none}</style>
 </head>
 <body>
 <a class="skip" href="#desk" data-i18n="skip">Skip to the desk</a>
@@ -176,6 +177,7 @@ a{color:var(--c)}
   </section>
 
   <section class="urgent-first" id="what" aria-labelledby="urgent-heading">
+    <div class="page-menu" data-page-menu style="display:flex;justify-content:flex-end;min-height:34px;margin:0 0 .5rem"></div>
     <h1 class="urgent-h" id="urgent-heading" data-i18n="askline">What happened?</h1>
 
     <div class="askgrid" role="group" aria-labelledby="urgent-heading">
@@ -283,6 +285,7 @@ a{color:var(--c)}
     <p class="plumb-door"><span data-i18n="plumb_note">Ready desk software lives on</span> <a href="https://plumb-35.elghaly.dev/" rel="noopener noreferrer">Plumb</a><span data-i18n="plumb_tail"> — same house, paid seats when you want a machine on the wire.</span></p>
     <p class="made-by" data-i18n="made_by">made by love ❤️</p>
     <p class="marks marks-down" aria-hidden="true">3️⃣🧿5️⃣</p>
+  <p class="lic-badges"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">© elghaly · CC BY 4.0</a> <a href="https://github.com/Alarm2024/iris-35/blob/main/LICENSE">Code: MIT</a> <a href="https://github.com/Alarm2024">Open source</a></p>
   </footer>
 </div>
 <script type="application/ld+json">
@@ -293,5 +296,6 @@ a{color:var(--c)}
 <script src="app.js"></script>
 <script src="boot.js"></script>
 <script src="ui.js"></script>
+<script src="page-menu.js" defer></script>
 </body>
 </html>
