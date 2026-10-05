@@ -111,3 +111,8 @@ cd _site && python3 -m http.server 8137
 Adding a string: put it in `UI.en` in `i18n.js`, then in the other five
 blocks, and reference it from the markup with `data-i18n="key"` (or
 `data-i18n-ph` for a placeholder). `applyI18n()` does the rest.
+
+## License
+
+Code: MIT, see [LICENSE](LICENSE).
+Docs and images: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), © elghaly. Third-party fonts, logos and screenshots of other services keep their own licenses.
