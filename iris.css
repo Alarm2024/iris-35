@@ -19,7 +19,6 @@
 .cards{display:grid;gap:10px;margin:18px 0}
 .cards .card p.q{margin-bottom:6px}
 .addr{direction:ltr;unicode-bidi:isolate;margin-top:6px;color:#9ab3ad;font-size:13px}
-.addr-eg{font-size:11px;opacity:.88}
 #gate{display:none!important}
 body.gated{overflow:auto!important}
 .skip{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
