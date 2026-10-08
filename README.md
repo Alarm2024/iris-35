@@ -40,7 +40,7 @@ outbound calls are to the public chain RPCs listed in the page's CSP.
 | `build.py` | optional local build + `--check` that the branch is complete |
 | `gate.js`, `addr.js`, `lock.js`, `make_logo.py` | **not deployed** — kept for reference only. The deskSigner / Squads addresses `addr.js` held now live in the footer markup |
 
-Footer order (deskSigner, Squads, Cairo, San Francisco) is set in the markup.
+Footer order (deskSigner, Squads) is set in the markup.
 `boot.js` used to reorder it by index, which only held while the two street
 addresses were the only `.addr` nodes.
 
